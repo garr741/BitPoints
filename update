@@ -1,0 +1,11 @@
+#!/bin/bash
+set -e
+cd /home/tg/projects/BitPoints
+echo "==> Pulling changes..."
+git pull
+echo "==> Building Docker image..."
+docker build -t bitpoints:latest .
+echo "==> Restarting container..."
+docker rm -f bitpoints 2>/dev/null || true
+docker run -d --name bitpoints -p 3006:3090 --restart unless-stopped bitpoints:latest
+echo "==> Done. https://points.tgprojects.xyz"
