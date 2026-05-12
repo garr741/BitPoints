@@ -1,32 +1,82 @@
 extends external
 
 block mainContent
-	section#actions
-		div.join
-			h2
-				span Join a Room In Progress
-			form(id="join", action="/join")
-				input#room-id.halfwidth(name='room-id',type='text',placeholder='Room ID*',data-required='true')
-				input#name.halfwidth(name='name',type='text',placeholder='Name*',data-required='true')
-				input#email(name='email',type='text',placeholder='Gravatar Email')
-				input(type='submit', value='Join a Room')#join-room
-		div#stats.
-			#{voterString} estimating stories in #{roomString}
-		div.create
-			h2
-				span Create a new BitPoints Room
-			form(id="create", action="/create")
-				input#title.halfwidth(name='title',type='text',placeholder='Room Title*',data-required='true')
-				input#join-room.halfwidth(type='submit',value='Create a Room')
-				.roomOptions
-					label(for='notifications')
-						input#notifications(name='notifications',type='checkbox',value='yes')
-						span Get Room Notifications
+  section#actions
+    div.join
+      h2: span Join a Room
+      form#join(action="/join")
+        input#room-id.halfwidth(name='room-id',type='text',placeholder='Room ID*',data-required='true')
+        input#name.halfwidth(name='name',type='text',placeholder='Your Name*',data-required='true')
+        input#email(name='email',type='text',placeholder='Gravatar Email (optional)')
+        input(type='submit', value='Join Room')#join-room
+    div#stats
+      | #{voterString} estimating in #{roomString}
+    div.create
+      h2: span Create a Room
+      form#create(action="/create")
+        input#title.halfwidth(name='title',type='text',placeholder='Room Title*',data-required='true')
+        input#join-room.halfwidth(type='submit',value='Create Room')
+        .roomOptions
+          label(for='notifications')
+            input#notifications(name='notifications',type='checkbox',value='yes')
+            span Desktop Notifications
 
 block supplementalContent
-	ul
-		li Estimate Anywhere
-		li Ditch the Decks
-		li Go Faster
-	p.description.
-		BitPoints helps scrum teams estimate stories by getting rid of physical <em>scrum poker</em> decks and creating a more visible platform for team members to post and discuss points. Average estimates are automatically calculated and high/low estimates are highlighted for discussion. Perfect for distributed scrum teams, as team members can join from any internet-connected device.
+  section#splash
+    .hero
+      h2 Scrum Poker, Simplified
+      p.lead Ditch the physical decks. Estimate stories from anywhere, in real-time, with your whole team &mdash; no accounts, no installs, just a link.
+
+    .feature-grid
+      .feature-card
+        .feature-icon: i.fa.fa-globe
+        h3 Distributed Teams
+        p Remote scrum teams join from any device with a room code. No sign-up required.
+
+      .feature-card
+        .feature-icon: i.fa.fa-bar-chart
+        h3 Live Results
+        p Averages calculated instantly. High/low estimates highlighted. Large spreads flagged for discussion.
+
+      .feature-card
+        .feature-icon: i.fa.fa-th
+        h3 Multiple Decks
+        p Standard, Fibonacci, T-Shirt sizes, or Letters. Switch mid-session. Updates everyone instantly.
+
+      .feature-card
+        .feature-icon: i.fa.fa-paint-brush
+        h3 25+ Card Styles
+        p Custom patterns, custom colors. Your preferences persist across sessions.
+
+      .feature-card
+        .feature-icon: i.fa.fa-eye-slash
+        h3 Observer Mode
+        p Mark voters as observers. Their estimates show but don't affect the average.
+
+      .feature-card
+        .feature-icon: i.fa.fa-bell-o
+        h3 Desktop Alerts
+        p Get notified when every vote is in. Never miss a round closing.
+
+    .how-it-works
+      h2 How It Works
+      .steps
+        .step
+          .step-badge 1
+          .step-body
+            h4 Create a Room
+            p Name your session, share the short invite link. That's it.
+        .step
+          .step-badge 2
+          .step-body
+            h4 Pick Your Style
+            p Choose a card pattern and color. Stored locally for next time.
+        .step
+          .step-badge 3
+          .step-body
+            h4 Estimate &amp; Reveal
+            p Host opens a round &rarr; everyone votes &rarr; host closes &rarr; average revealed.
+
+    .cta-banner
+      p Ready to estimate faster?
+      a.button-cta(href="#actions") Create a Room
