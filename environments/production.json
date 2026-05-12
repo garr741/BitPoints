@@ -1,6 +1,6 @@
 {
-	"port": 80,
+	"port": 3090,
 	"debug": false,
 	"ioLogLevel": 0,
-	"appHost": "listpoints.herokuapp.com"
+	"appHost": "points.tgprojects.xyz"
 }
