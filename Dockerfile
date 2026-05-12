@@ -1,10 +1,24 @@
-FROM node:4.2.0
+FROM node:22-alpine
 
-EXPOSE 80
-ENV NODE_ENV production
+WORKDIR /app
 
-COPY package.json ./
-RUN npm install
+# Install dependencies
+COPY package.json package-lock.json ./
+RUN npm install --production
+
+# Patch socket.io 0.9.16 for Node 22 compat
+RUN find node_modules/socket.io -name '*.js' \
+    -exec sed -i 's/\([a-zA-Z.]*\.prototype\)\.__proto__\s*=\s*\([a-zA-Z.]*\.prototype\)\s*;/Object.setPrototypeOf(\1, \2);/g' {} \; \
+    && find node_modules/socket.io -name '*.js' \
+    -exec sed -i 's/\([a-zA-Z.]*\.prototype\)\.__proto__\s*=\s*\([a-zA-Z.]*\)\s*;/Object.setPrototypeOf(\1, \2);/g' {} \; \
+    && find node_modules/socket.io -name '*.js' \
+    -exec sed -i 's/process\.EventEmitter/require('\''events'\'')/g' {} \; \
+    && find node_modules/policyfile -name '*.js' \
+    -exec sed -i 's/process\.EventEmitter/require('\''events'\'')/g' {} \;
+
 COPY . .
 
-CMD ["npm", "start"]
+ENV NODE_ENV=production
+EXPOSE 3090
+
+CMD ["node", "app.js"]
