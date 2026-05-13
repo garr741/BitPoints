@@ -3,33 +3,28 @@
 	display: inline-flex;
 	align-items: center;
 	justify-content: center;
-	gap: 8px;
-	padding: 0 18px;
-	height: 44px;
-	border: 1px solid transparent;
+	gap: 10px;
+	padding: 0 22px;
+	height: 46px;
+	border: 1px solid darken(@color, 6%);
 	font: 600 0.95rem/1 @sans;
 	letter-spacing: 0.01em;
 	background: @color;
 	color: #fff;
 	cursor: pointer;
 	border-radius: @radius-sm;
-	box-shadow: 0 1px 0 rgba(255,255,255,0.12) inset, 0 6px 18px fade(@color, 30%);
-	transition: transform @dur-1 @ease, background-color @dur-2 @ease, box-shadow @dur-2 @ease;
+	box-shadow: none;
+	transition: background-color @dur-2 @ease, border-color @dur-2 @ease, transform @dur-1 @ease;
 	text-decoration: none;
 	-webkit-appearance: none;
 
 	&:hover, &:focus {
-		background: lighten(@color, 5%);
-		box-shadow: 0 1px 0 rgba(255,255,255,0.18) inset, 0 10px 28px fade(@color, 45%);
+		background: lighten(@color, 4%);
+		border-color: lighten(@color, 8%);
 		outline: none;
 	}
-	&:active {
-		transform: translateY(1px);
-	}
-	&:disabled {
-		opacity: 0.5;
-		cursor: not-allowed;
-	}
+	&:active { transform: translateY(1px); }
+	&:disabled { opacity: 0.4; cursor: not-allowed; }
 }
 
 .button-ghost() {
@@ -56,43 +51,38 @@
 
 // ── Surfaces ────────────────────────────────────────────────────
 .surface() {
-	background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));
+	background: rgba(255,255,255,0.025);
 	border: 1px solid @border;
 	border-radius: @radius;
-	box-shadow: @shadow-1;
-	backdrop-filter: blur(12px);
-	-webkit-backdrop-filter: blur(12px);
+	box-shadow: none;
 }
 
 .surface-elevated() {
 	.surface();
-	box-shadow: @shadow-2;
 }
 
 // ── Inputs ──────────────────────────────────────────────────────
 .input() {
 	box-sizing: border-box;
 	width: 100%;
-	height: 44px;
-	padding: 0 14px;
-	font: 400 0.95rem/1 @sans;
+	height: 46px;
+	padding: 0 2px;
+	font: 400 1.05rem/1 @sans;
 	color: @text;
-	background: rgba(0,0,0,0.25);
-	border: 1px solid @border;
-	border-radius: @radius-sm;
-	transition: border-color @dur-2 @ease, box-shadow @dur-2 @ease, background-color @dur-2 @ease;
+	background: transparent;
+	border: 0;
+	border-bottom: 1px solid @border-hi;
+	border-radius: 0;
+	transition: border-color @dur-2 @ease, color @dur-2 @ease;
 	-webkit-appearance: none;
 
 	&::placeholder { color: @text-dim; }
 	&:focus {
 		outline: none;
-		border-color: fade(@brand, 80%);
-		background: rgba(0,0,0,0.35);
-		box-shadow: 0 0 0 4px fade(@brand, 18%);
+		border-bottom-color: @brand-2;
 	}
 	&.error {
-		border-color: @error;
-		box-shadow: 0 0 0 4px fade(@error, 18%);
+		border-bottom-color: @error;
 	}
 }
 
@@ -100,21 +90,21 @@
 .iconLight() { color: @text; transition: color @dur-2 @ease; &:hover { color: @hover; } }
 .iconDark()  { color: @darktext; transition: color @dur-2 @ease; &:hover { color: darken(@darktext, 15%); } }
 
-// ── Card (poker card) ──────────────────────────────────────────
+// ── Card — flat ink-on-paper reveal tile ───────────────────────
 .cardStyle(@size: 1) {
 	position: absolute;
-	width: 180px * @size;
-	height: 250px * @size;
-	left: 0;
-	top: 5000px;
-	&.visible { top: 0; }
-	transition: top 0.6s @ease, transform 1.4s @ease, box-shadow @dur-3 @ease;
-	transform-style: preserve-3d;
+	width: 92px * @size;
+	height: 116px * @size;
+	left: 50%;
+	margin-left: -46px * @size;
+	top: 200px;
+	opacity: 0;
+	transform: translateY(6px) scale(0.96);
+	transition: opacity @dur-3 @ease, transform @dur-3 @ease;
 
-	&.showValue { transform: rotateY(180deg); }
-	&.spin {
-		transition: transform 5s @ease;
-		transform: rotateY(5940deg);
+	&.visible {
+		opacity: 1;
+		transform: translateY(0) scale(1);
 	}
 
 	.cardInner,
@@ -125,59 +115,51 @@
 		position: absolute;
 		top: 0; left: 0;
 		border-radius: @radius;
-		backface-visibility: hidden;
-		-webkit-backface-visibility: hidden;
+		border: 1px solid @border-hi;
+		background: rgba(255, 255, 255, 0.55) !important;
+		background-image: none !important;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		transition: opacity @dur-2 @ease;
 	}
 
 	.cardBack {
-		border: 8px * @size solid #fff;
-		background-repeat: repeat;
-		background-position: 50% 50%;
-		background-size: 100%;
-		box-shadow: 0 12px 28px rgba(0,0,0,0.35), 0 0 0 1px rgba(255,255,255,0.06);
+		font: 500 0.66rem/1 @mono;
+		text-transform: uppercase;
+		letter-spacing: 0.22em;
+		color: @text-dim;
 
-		&.denim     { background-size: auto; }
-		&.biggie    { background-size: 100%; }
-		&.graphpaper{ background-size: auto; }
-		&.paisley   { background-size: 100% * @size; }
-		&.wood      { background-size: 230px * @size; }
-		&.goat {
-			background-repeat: no-repeat;
-			background-position: 95% 100%;
-			background-size: 150px * @size;
-		}
+		&::before { content: 'Voted'; }
 	}
 
 	.cardInner {
-		background: linear-gradient(180deg, #ffffff 0%, #f4f6ff 100%);
-		border: 1px solid rgba(0,0,0,0.06);
-		transform: rotateY(180deg);
-		box-shadow: 0 12px 28px rgba(0,0,0,0.35);
+		opacity: 0;
 
-		.cardValue, .cornerValue {
-			color: @darktext;
-			.fa { .iconDark(); }
-		}
 		.cardValue {
-			position: absolute;
-			inset: 0;
-			display: flex;
-			align-items: center;
-			justify-content: center;
-			font: 700 (5em * @size)/1 @sans;
-			letter-spacing: -0.02em;
-			&.min { color: #2057ff; }
-			&.max { color: #ff3358; }
-			&.coffee { font-size: 3em * @size; }
+			font: 600 (1.9em * @size)/1 @display;
+			color: @text;
+			letter-spacing: -0.025em;
+			&.min { color: @brand-2; }
+			&.max { color: @accent; }
+			&.coffee { font-size: 1.4em * @size; }
 		}
-		.cornerValue {
-			position: absolute;
-			font: 700 (1.1em * @size)/1 @sans;
-			padding: 12px * @size;
-			width: 50px;
-			text-align: left;
-			&.topleft     { top: 0; left: 0; }
-			&.bottomright { bottom: 0; right: 0; transform: rotate(180deg); }
-		}
+		.cornerValue { display: none; }
 	}
+
+	&.showValue {
+		.cardBack { opacity: 0; }
+		.cardInner { opacity: 1; }
+	}
+
+	&.spin {
+		animation: bp-card-bounce 0.65s @ease;
+	}
+}
+
+@keyframes bp-card-bounce {
+	0%   { transform: scale(1)    rotate(0deg); }
+	35%  { transform: scale(1.12) rotate(-3deg); }
+	65%  { transform: scale(0.96) rotate(2deg); }
+	100% { transform: scale(1)    rotate(0deg); }
 }

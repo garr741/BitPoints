@@ -6,10 +6,18 @@ block mainContent
 			.bp-eyebrow
 				span.bp-dot
 				| Live · #{voterString} estimating in #{roomString}
-			h1.bp-hero-title Estimate stories together — <em>instantly</em>.
+			h1.bp-hero-title Estimate stories together — <em>instantly.</em>
 			p.bp-hero-lead Planning poker for distributed scrum teams. No accounts. No installs. Share a link, pick a card, ship faster.
+			.bp-hero-specs
+				span No accounts
+				span No installs
+				span Open source
+				span Sub-second sync
 
 		.bp-action-card
+			.bp-action-card-head
+				span Start / Join
+				span 02 modes
 			.bp-tabs(role="tablist")
 				button.bp-tab.is-active(type="button", data-target="create", role="tab", aria-selected="true") Start a Room
 				button.bp-tab(type="button", data-target="join", role="tab", aria-selected="false") Join a Room
@@ -41,6 +49,9 @@ block mainContent
 					input#join-room.bp-btn.bp-btn-primary(type='submit', value='Join Room →')
 
 block supplementalContent
+	.bp-section-head
+		.bp-section-kicker §01 — Features
+		h2 Built for <em>fast</em> consensus.
 	section.bp-features
 		.bp-feature
 			.bp-feature-icon: i.fa.fa-bolt
@@ -60,20 +71,19 @@ block supplementalContent
 			p Stakeholders watch without skewing the average. PMs, designers — welcome aboard.
 
 	section.bp-how
-		h2 Three steps. About thirty seconds.
+		.bp-section-head
+			.bp-section-kicker §02 — How it works
+			h2 Three steps. About <em>thirty</em> seconds.
 		ol.bp-steps
 			li
 				span.bp-step-num 01
-				div
-					h4 Spin up a room
-					p Pick a title. We mint a short link you can paste anywhere.
+				h4 Spin up a room
+				p Pick a title. We mint a short link you can paste anywhere.
 			li
 				span.bp-step-num 02
-				div
-					h4 Teammates join
-					p Names, optional Gravatar, and they're in. Mobile-friendly.
+				h4 Teammates join
+				p Names, optional Gravatar, and they're in. Mobile-friendly.
 			li
 				span.bp-step-num 03
-				div
-					h4 Reveal & ship
-					p Open a round, everyone votes, host closes — the average drops with a flourish.
+				h4 Reveal & ship
+				p Open a round, everyone votes, host closes — the average drops with a flourish.

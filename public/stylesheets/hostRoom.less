@@ -1,27 +1,28 @@
 /**
- * Host room
+ * Host room — editorial flat
  */
 
 body { perspective: 1200px; }
 
-// ── Top header bar ───────────────────────────────────────────
+// ── Top header strip ─────────────────────────────────────────
 .bp-room-header {
 	position: relative;
 	z-index: 5;
 	display: grid;
 	grid-template-columns: auto 1fr auto;
 	align-items: center;
-	gap: 24px;
-	padding: 20px 36px;
-	background: rgba(11, 16, 32, 0.55);
-	backdrop-filter: blur(14px);
-	-webkit-backdrop-filter: blur(14px);
-	border-bottom: 1px solid @border;
+	gap: 28px;
+	padding: 18px 36px;
+	background: transparent;
+	backdrop-filter: none;
+	-webkit-backdrop-filter: none;
+	border-bottom: 1px solid @rule;
 }
 
 .bp-room-meta {
 	display: flex;
 	justify-content: center;
+	min-width: 0;
 }
 
 .bp-room-title {
@@ -30,198 +31,68 @@ body { perspective: 1200px; }
 	gap: 14px;
 	max-width: 100%;
 	overflow: hidden;
+	min-width: 0;
 
-	.bp-room-label {
-		font-size: 0.72rem;
-		font-weight: 600;
-		text-transform: uppercase;
-		letter-spacing: 0.12em;
-		color: @text-dim;
-	}
 	h1 {
-		font: 700 1.2rem/1.2 @sans;
-		letter-spacing: -0.01em;
+		font: 600 1.3rem/1.2 @display;
+		letter-spacing: -0.02em;
 		color: @text;
 		max-width: 60ch;
 		white-space: nowrap;
 		overflow: hidden;
 		text-overflow: ellipsis;
+		min-width: 0;
+		margin: 0;
 	}
 	.bp-room-id {
-		font: 600 0.85rem/1 @mono;
-		color: @brand-2;
-		padding: 4px 8px;
-		border-radius: 6px;
-		background: fade(@brand-2, 12%);
-		border: 1px solid fade(@brand-2, 28%);
+		font: 500 0.82rem/1 @mono;
+		color: @text-dim;
+		padding: 0;
+		border: 0;
+		border-radius: 0;
+		background: transparent;
+		letter-spacing: 0.04em;
 	}
 }
 
-.bp-settings {
-	li { position: relative; }
-}
-
-.bp-icon-btn, .bp-icon-btn-sm {
+// ── Share copy button in header ──────────────────────────────
+.bp-share-copy {
 	display: inline-flex;
 	align-items: center;
-	justify-content: center;
-	background: @surface;
-	border: 1px solid @border;
-	color: @text;
-	cursor: pointer;
-	border-radius: @radius-sm;
-	transition: background-color @dur-2 @ease, border-color @dur-2 @ease, color @dur-2 @ease;
-
-	&:hover { background: @surface-hov; border-color: @border-hi; }
-	.fa { color: inherit; }
-}
-.bp-icon-btn    { width: 42px; height: 42px; font-size: 1rem; }
-.bp-icon-btn-sm { width: 32px; height: 32px; font-size: 0.85rem; padding: 0; }
-
-// Settings drop panel
-.bp-settings .drop {
-	display: none;
-	position: absolute;
-	top: 52px;
-	right: 0;
-	z-index: 50;
-	min-width: 320px;
-	padding: 18px;
-	background: linear-gradient(180deg, #1c2447 0%, #161e3c 100%);
+	gap: 12px;
+	background: transparent;
 	border: 1px solid @border-hi;
 	border-radius: @radius;
-	box-shadow: @shadow-2;
-	color: @text;
-
-	&::before {
-		content: '';
-		position: absolute;
-		top: -7px;
-		right: 16px;
-		width: 13px;
-		height: 13px;
-		background: #1c2447;
-		border-top: 1px solid @border-hi;
-		border-left: 1px solid @border-hi;
-		transform: rotate(45deg);
-	}
-	&.active {
-		display: block;
-		animation: bp-fade-in @dur-2 @ease;
-	}
-
-	.dropItem + .dropItem {
-		margin-top: 16px;
-		padding-top: 16px;
-		border-top: 1px solid @border;
-	}
-
-	.title {
-		display: block;
-		font-size: 0.72rem;
-		font-weight: 600;
-		text-transform: uppercase;
-		letter-spacing: 0.1em;
-		color: @text-dim;
-		margin-bottom: 8px;
-	}
-
-	.control {
-		display: flex;
-		flex-wrap: wrap;
-		gap: 6px;
-
-		.option {
-			label {
-				display: inline-flex;
-				align-items: center;
-				cursor: pointer;
-				padding: 7px 12px;
-				background: @surface;
-				border: 1px solid @border;
-				border-radius: 999px;
-				font-size: 0.85rem;
-				font-weight: 500;
-				color: @text-muted;
-				transition: background-color @dur-2 @ease, border-color @dur-2 @ease, color @dur-2 @ease;
-
-				input { position: absolute; opacity: 0; pointer-events: none; }
-				span { line-height: 1; }
-			}
-			label:hover { background: @surface-hov; color: @text; }
-			input:checked + span,
-			label:has(input:checked) {
-				color: #fff;
-			}
-			label:has(input:checked) {
-				background: linear-gradient(135deg, @brand, lighten(@brand, 6%));
-				border-color: transparent;
-				box-shadow: 0 6px 16px fade(@brand, 35%);
-			}
-		}
-	}
-
-	.fa { color: @text-muted; cursor: pointer; padding-left: 6px; }
-}
-
-// Switch
-.bp-switch {
-	display: inline-flex;
-	align-items: center;
-	gap: 10px;
+	padding: 8px 14px;
 	cursor: pointer;
-	user-select: none;
+	color: @text;
+	font: inherit;
+	transition: background-color @dur-2 @ease, color @dur-2 @ease, border-color @dur-2 @ease;
 
-	input { position: absolute; opacity: 0; pointer-events: none; }
+	&:hover { background: @surface-hi; border-color: @text; }
 
-	.bp-switch-track {
-		position: relative;
-		width: 38px;
-		height: 22px;
-		background: rgba(0,0,0,0.35);
-		border: 1px solid @border;
-		border-radius: 999px;
-		transition: background-color @dur-2 @ease, border-color @dur-2 @ease;
+	.bp-share-copy-label {
+		font: 500 0.66rem/1 @mono;
+		letter-spacing: 0.2em;
+		color: @text-dim;
 	}
-	.bp-switch-thumb {
-		position: absolute;
-		top: 2px;
-		left: 2px;
-		width: 16px;
-		height: 16px;
-		background: @text-muted;
-		border-radius: 50%;
-		transition: left @dur-2 @ease, background-color @dur-2 @ease;
-	}
-	input:checked ~ .bp-switch-track {
-		background: linear-gradient(135deg, @brand, @brand-2);
-		border-color: transparent;
-	}
-	input:checked ~ .bp-switch-track .bp-switch-thumb {
-		left: 18px;
-		background: #fff;
-	}
-	.bp-switch-label {
-		font-size: 0.88rem;
+	.bp-share-copy-url {
+		font: 500 0.82rem/1 @mono;
 		color: @text;
+		max-width: 240px;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
 	}
+	.fa { font-size: 0.9rem; color: @text-muted; transition: color @dur-2 @ease; }
+	&:hover .fa { color: @text; }
+
+	&.is-copied { color: @success; .fa { color: @success; } background: fade(@success, 8%); border-color: fade(@success, 50%); }
+	&.is-failed { color: @error;   .fa { color: @error; } border-color: fade(@error, 50%); }
 }
 
-// Invite chip
-.bp-invite {
-	display: inline-flex;
-	align-items: center;
-	gap: 8px;
-	padding: 4px 4px 4px 12px;
-	background: rgba(0,0,0,0.3);
-	border: 1px solid @border;
-	border-radius: 999px;
-
-	#inviteUrl {
-		font: 600 0.85rem/1 @mono;
-		color: @brand-2;
-	}
-}
+// ── Settings cog (legacy — hidden, retired) ──────────────────
+.bp-settings { display: none; }
 
 // ── Room body ────────────────────────────────────────────────
 .bp-room {
@@ -229,134 +100,489 @@ body { perspective: 1200px; }
 	z-index: 1;
 	max-width: 1480px;
 	margin: 0 auto;
-	padding: 28px 36px 80px;
+	padding: 0 36px 80px;
 }
 
+// ── Round bar ────────────────────────────────────────────────
 .bp-round-bar {
-	display: flex;
-	flex-wrap: wrap;
+	display: grid;
+	grid-template-columns: auto 1fr auto;
 	align-items: center;
-	gap: 18px 22px;
-	padding: 18px 22px;
-	.surface-elevated();
-	margin-bottom: 28px;
+	gap: 32px;
+	padding: 28px 4px 22px;
+	background: transparent;
+	border: 0;
+	border-bottom: 1px solid @rule;
+	border-radius: 0;
+	box-shadow: none;
+	margin-bottom: 0;
+}
+
+.bp-round-bar-controls {
+	display: flex;
+	align-items: center;
+	gap: 14px;
+	flex-wrap: wrap;
 }
 
 .bp-btn-round {
 	.button(@brand);
-	height: 48px;
+	height: 46px;
 	padding: 0 22px;
-	font-size: 0.98rem;
+	font-size: 0.84rem;
+	letter-spacing: 0.06em;
+	text-transform: uppercase;
+	border-radius: @radius-sm;
 
 	.voting & {
 		.button(@error);
 	}
 }
 
+// ── Deck switcher ────────────────────────────────────────────
+.bp-deck-switch {
+	position: relative;
+}
+
+.bp-deck-trigger {
+	display: inline-flex;
+	align-items: center;
+	gap: 10px;
+	height: 46px;
+	padding: 0 14px;
+	background: transparent;
+	border: 1px solid @border-hi;
+	border-radius: @radius-sm;
+	color: @text;
+	cursor: pointer;
+	font: inherit;
+	transition: border-color @dur-2 @ease, background-color @dur-2 @ease;
+
+	&:hover { border-color: @text; }
+	&[aria-expanded="true"] { border-color: @text; background: @surface-hi; }
+
+	.bp-deck-mini-label {
+		font: 500 0.66rem/1 @mono;
+		letter-spacing: 0.2em;
+		color: @text-dim;
+		text-transform: uppercase;
+	}
+	.bp-deck-value {
+		font: 600 0.95rem/1 @display;
+		color: @text;
+	}
+	.fa { color: @text-dim; transition: transform @dur-2 @ease; }
+	&[aria-expanded="true"] .fa { transform: rotate(180deg); }
+}
+
+.bp-deck-menu {
+	display: none;
+	position: absolute;
+	top: 54px;
+	left: 0;
+	min-width: 220px;
+	padding: 6px;
+	background: @bg-0;
+	border: 1px solid @border-hi;
+	border-radius: @radius;
+	box-shadow: 0 12px 28px -16px rgba(21,25,42,0.30);
+	z-index: 50;
+
+	&.is-open {
+		display: block;
+		animation: bp-fade-in @dur-2 @ease;
+	}
+
+	.bp-deck-option {
+		display: flex;
+		align-items: center;
+		gap: 10px;
+		padding: 10px 12px;
+		border-radius: @radius-sm;
+		cursor: pointer;
+		font: 500 0.92rem/1 @sans;
+		color: @text;
+		transition: background-color @dur-2 @ease;
+
+		input { position: absolute; opacity: 0; pointer-events: none; }
+		&::before {
+			content: '';
+			width: 12px;
+			height: 12px;
+			border: 1px solid @border-hi;
+			border-radius: 50%;
+			flex-shrink: 0;
+			transition: border-color @dur-2 @ease, background-color @dur-2 @ease;
+		}
+		&:hover { background: @surface-hi; }
+		&:has(input:checked) {
+			&::before {
+				border-color: @text;
+				background: radial-gradient(@text 0 4px, transparent 5px);
+			}
+		}
+	}
+}
+
+// ── Auto-reveal switch ───────────────────────────────────────
+.bp-auto-reveal {
+	display: inline-flex;
+	align-items: center;
+	gap: 10px;
+	cursor: pointer;
+	user-select: none;
+	padding: 0 6px;
+
+	input { position: absolute; opacity: 0; pointer-events: none; }
+
+	.bp-switch-track {
+		position: relative;
+		width: 32px;
+		height: 18px;
+		background: transparent;
+		border: 1px solid @border-hi;
+		border-radius: 999px;
+		transition: background-color @dur-2 @ease, border-color @dur-2 @ease;
+	}
+	.bp-switch-thumb {
+		position: absolute;
+		top: 2px;
+		left: 2px;
+		width: 12px;
+		height: 12px;
+		background: @text-muted;
+		border-radius: 50%;
+		transition: left @dur-2 @ease, background-color @dur-2 @ease;
+	}
+	input:checked ~ .bp-switch-track {
+		background: @text;
+		border-color: @text;
+	}
+	input:checked ~ .bp-switch-track .bp-switch-thumb {
+		left: 16px;
+		background: @bg-0;
+	}
+	.bp-auto-reveal-label {
+		font: 500 0.7rem/1 @mono;
+		text-transform: uppercase;
+		letter-spacing: 0.18em;
+		color: @text-muted;
+	}
+}
+
+// ── Ticket display ───────────────────────────────────────────
 .bp-ticket {
 	color: @text-muted;
-	font-size: 0.95rem;
+	font: 400 0.95rem/1.4 @sans;
 	min-height: 1.4em;
+	text-align: center;
+
+	&:empty::before {
+		content: '— no ticket linked —';
+		font: 500 0.7rem/1 @mono;
+		letter-spacing: 0.18em;
+		color: @text-dim;
+	}
 
 	.key {
 		color: @brand-2;
 		font-family: @mono;
-		font-weight: 700;
+		font-weight: 600;
+		letter-spacing: 0.03em;
 	}
 	.title {
 		color: @text;
-		margin-left: 6px;
+		margin-left: 8px;
 	}
 }
 
+// ── Round results column ─────────────────────────────────────
 .bp-round-results {
 	display: flex;
 	flex-wrap: wrap;
-	gap: 12px 22px;
-	margin-left: auto;
+	gap: 8px 28px;
 	align-items: center;
+	justify-content: flex-end;
 }
 
-#average,
-#nearestCard {
+// Progress counter (live during voting)
+.bp-progress {
 	display: none;
-	color: @text-muted;
-	font-size: 0.95rem;
-	line-height: 1.4;
+	align-items: center;
+	gap: 12px;
 
-	.val {
-		display: inline-block;
-		margin-left: 6px;
-		padding: 6px 12px;
-		font: 700 0.95rem/1 @mono;
-		color: #fff;
-		background: linear-gradient(135deg, @brand 0%, @brand-2 100%);
-		border-radius: 8px;
-		box-shadow: 0 6px 18px fade(@brand, 35%);
+	&.is-active { display: inline-flex; }
+
+	.bp-progress-count {
+		font: 600 1rem/1 @mono;
+		color: @text;
+		display: inline-flex;
+		gap: 2px;
+		min-width: 56px;
+		justify-content: center;
+	}
+	.bp-progress-sep { color: @text-dim; padding: 0 2px; }
+	.bp-progress-total { color: @text-dim; }
+	.bp-progress-label {
+		font: 500 0.68rem/1 @mono;
+		text-transform: uppercase;
+		letter-spacing: 0.18em;
+		color: @text-dim;
+	}
+	.bp-progress-bar {
+		width: 90px;
+		height: 4px;
+		background: rgba(21,25,42,0.10);
+		border-radius: 0;
+		overflow: hidden;
+	}
+	.bp-progress-fill {
+		height: 100%;
+		width: 0%;
+		background: @text;
+		transition: width @dur-3 @ease;
 	}
 }
 
-#largeSpread {
+// Stat lines (after reveal)
+.bp-stat {
 	display: none;
+	align-items: baseline;
+	gap: 10px;
+
+	.bp-stat-label {
+		font: 500 0.68rem/1 @mono;
+		text-transform: uppercase;
+		letter-spacing: 0.2em;
+		color: @text-dim;
+	}
+	.val {
+		font: 400 1.9rem/1 @serif;
+		font-style: italic;
+		color: @text;
+		background: none;
+		border-radius: 0;
+		box-shadow: none;
+		padding: 0;
+	}
+}
+
+// ── Results row (histogram + stats, 50/50) ───────────────────
+.bp-results-row {
+	display: none;
+	grid-template-columns: 1fr 1fr;
+	gap: 48px;
 	align-items: center;
-	gap: 8px;
-	padding: 8px 14px;
-	border-radius: 999px;
-	background: fade(@warn, 14%);
-	border: 1px solid fade(@warn, 35%);
-	color: @warn;
-	font-size: 0.85rem;
-	font-weight: 500;
+	padding: 24px 4px;
+	border-bottom: 1px solid @rule;
+	position: relative;
+
+	&.is-visible { display: grid; }
+}
+
+.bp-results-stats {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	gap: 12px;
+	padding-left: 18px;
+	border-left: 1px solid @rule;
+	min-height: 160px;
+	justify-content: center;
+}
+
+// Single "Should Be → X" recommendation (or "Let's Discuss" on wide spread)
+.bp-recommendation {
+	display: flex;
+	align-items: baseline;
+	flex-wrap: wrap;
+	gap: 14px;
+
+	.bp-rec-label {
+		font: 500 0.78rem/1 @mono;
+		text-transform: uppercase;
+		letter-spacing: 0.22em;
+		color: @text-dim;
+	}
+	.bp-rec-arrow {
+		font: 400 1.8rem/1 @serif;
+		font-style: italic;
+		color: @text-dim;
+		opacity: 0.6;
+	}
+	.bp-rec-value {
+		font: 400 3.2rem/1 @serif;
+		font-style: italic;
+		color: @text;
+		letter-spacing: -0.01em;
+		.fa { font-size: 2.4rem; color: @text; }
+	}
+	.bp-rec-subtext {
+		flex-basis: 100%;
+		font: 500 0.72rem/1.4 @mono;
+		text-transform: uppercase;
+		letter-spacing: 0.16em;
+		color: @text-dim;
+		margin-top: 4px;
+	}
+
+	// Discuss state — different palette to signal "stop, talk"
+	&.is-discuss {
+		.bp-rec-label  { color: @accent; }
+		.bp-rec-arrow  { display: none; }
+		.bp-rec-value  { color: @accent; }
+		.bp-rec-subtext { color: @text-muted; }
+	}
+}
+
+// ── Vote distribution histogram ──────────────────────────────
+.bp-distribution {
+	display: none;
+	padding: 0;
+
+	&.is-visible { display: block; }
+
+	.bp-distribution-inner {
+		display: flex;
+		flex-direction: column;
+		gap: 14px;
+	}
+
+	.bp-distribution-label {
+		display: flex;
+		justify-content: space-between;
+		align-items: baseline;
+		font: 500 0.7rem/1 @mono;
+		text-transform: uppercase;
+		letter-spacing: 0.2em;
+		color: @text-dim;
+
+		.bp-distribution-count { color: @text-muted; }
+	}
+
+	.bp-distribution-bars {
+		display: flex;
+		align-items: stretch;
+		gap: 10px;
+		height: 140px;
+		padding-bottom: 22px;
+		position: relative;
+
+		&::after {
+			content: '';
+			position: absolute;
+			left: 0; right: 0; bottom: 20px;
+			height: 1px;
+			background: @rule;
+		}
+	}
+
+	.bp-dist-bar {
+		flex: 1 1 0;
+		min-width: 28px;
+		max-width: 64px;
+		height: 100%;
+		position: relative;
+		display: flex;
+		flex-direction: column;
+		justify-content: flex-end;
+		align-items: center;
+
+		.bp-dist-count {
+			font: 500 0.7rem/1 @mono;
+			color: @text-muted;
+			margin-bottom: 4px;
+		}
+		.bp-dist-fill {
+			width: 100%;
+			height: var(--h, 0%);
+			background: @text;
+			min-height: 2px;
+			transition: height @dur-3 @ease;
+			animation: bp-bar-grow @dur-3 @ease;
+		}
+		.bp-dist-label {
+			position: absolute;
+			bottom: -22px;
+			font: 500 0.72rem/1 @mono;
+			color: @text-muted;
+			letter-spacing: 0.02em;
+		}
+
+		&.is-min .bp-dist-fill { background: @brand-2; }
+		&.is-min .bp-dist-label { color: @brand-2; }
+		&.is-max .bp-dist-fill { background: @accent; }
+		&.is-max .bp-dist-label { color: @accent; }
+	}
+}
+
+@keyframes bp-bar-grow {
+	from { height: 0%; }
+	to   { height: var(--h, 0%); }
 }
 
 // ── Voter grid ───────────────────────────────────────────────
 .bp-voters {
 	display: grid;
 	grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-	gap: 22px;
+	gap: 0;
 	padding: 0;
+	border-left: 1px solid @rule;
 
 	li {
 		position: relative;
-		.surface();
-		padding: 22px 18px 24px;
-		min-height: 380px;
+		background: transparent;
+		border: 0;
+		border-right: 1px solid @rule;
+		border-bottom: 1px solid @rule;
+		border-radius: 0;
+		box-shadow: none;
+		padding: 28px 20px 30px;
+		min-height: 220px;
 		display: flex;
 		flex-direction: column;
 		align-items: center;
-		gap: 12px;
-		transition: transform @dur-2 @ease, border-color @dur-2 @ease;
+		gap: 14px;
+		transition: background-color @dur-2 @ease;
 
 		&:hover {
-			border-color: @border-hi;
-			transform: translateY(-2px);
-
+			background: rgba(21,25,42,0.025);
 			.kickVoter, .ಠ_ಠ { opacity: 1; transform: translateX(0); }
 		}
 
 		&[data-observer="true"] {
-			opacity: 0.55;
+			opacity: 0.7;
 			.voterName::after {
 				content: 'OBSERVER';
 				display: block;
-				font: 600 0.65rem/1 @sans;
-				letter-spacing: 0.15em;
+				font: 500 0.68rem/1 @mono;
+				letter-spacing: 0.2em;
 				color: @brand-2;
-				margin-top: 4px;
+				margin-top: 6px;
 			}
 		}
 
-		// Avatar
+		&::before {
+			content: counter(voter, decimal-leading-zero);
+			counter-increment: voter;
+			position: absolute;
+			top: 14px;
+			left: 16px;
+			font: 500 0.68rem/1 @mono;
+			letter-spacing: 0.18em;
+			color: @text-dim;
+		}
+
 		.voterImage {
 			display: block;
-			width: 64px;
-			height: 64px;
+			width: 60px;
+			height: 60px;
 			padding: 0;
-			margin: 0;
-			border: 2px solid @border-hi;
+			margin-top: 8px;
+			border: 1px solid @border-hi;
 			border-radius: 50%;
-			background: rgba(0,0,0,0.25);
-			box-shadow: 0 6px 18px rgba(0,0,0,0.3);
+			background: rgba(21,25,42,0.04);
+			box-shadow: none;
 		}
 
 		.voterName {
@@ -368,82 +594,284 @@ body { perspective: 1200px; }
 			border: none;
 			background: none;
 			text-align: center;
-			font: 600 0.95rem/1.3 @sans;
+			font: 600 1rem/1.3 @display;
 			color: @text;
-			letter-spacing: -0.01em;
+			letter-spacing: -0.015em;
 			word-break: break-word;
 		}
 
-		// Card slot — playing card lives below the name
-		.card {
-			.cardStyle(0.85);
-			left: 50%;
-			margin-left: -76px; // (180 * 0.85) / 2 = 76.5
-			&.visible { top: 130px; }
+		.bp-vote-display {
+			position: relative;
+			height: 56px;
+			margin-top: 6px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			overflow: hidden;
 		}
 
-		// Action buttons (kick / observer)
+		.bp-scramble {
+			display: none;
+			font: 600 1.75rem/1 @display;
+			color: @text-dim;
+			letter-spacing: -0.025em;
+			font-variant-numeric: tabular-nums;
+			filter: blur(0.6px);
+			opacity: 0.55;
+			user-select: none;
+		}
+
+		.bp-vote-display.is-active .bp-scramble { display: block; }
+
+		.bp-vote-final {
+			display: none;
+			font-variant-numeric: tabular-nums;
+		}
+
+		// Voted (locked): scramble hidden, small ✓ ring shown
+		.bp-vote-display.is-voted {
+			.bp-scramble { display: none; }
+			.bp-vote-final {
+				display: inline-flex;
+				align-items: center;
+				justify-content: center;
+				width: 30px;
+				height: 30px;
+				border: 1px solid @border-hi;
+				border-radius: 50%;
+				color: @text-muted;
+				font-size: 0.85rem;
+			}
+		}
+
+		// Revealed: scramble hidden, big final number
+		.bp-vote-display.is-revealed {
+			.bp-scramble { display: none; }
+			.bp-vote-final {
+				display: inline-flex;
+				align-items: center;
+				justify-content: center;
+				width: auto;
+				height: auto;
+				border: 0;
+				border-radius: 0;
+				font: 600 2rem/1 @display;
+				color: @text;
+				letter-spacing: -0.03em;
+				.fa { font-size: 1.5rem; color: @text; }
+			}
+		}
+
+		// Consensus celebration — applied when everyone votes the same
+		.bp-vote-display.bp-celebrate .bp-vote-final {
+			animation: bp-card-bounce 0.65s @ease;
+		}
+
 		.kickVoter, .ಠ_ಠ {
 			position: absolute;
-			top: 14px;
-			width: 32px;
-			height: 32px;
-			line-height: 32px;
+			top: 12px;
+			width: 28px;
+			height: 28px;
+			line-height: 28px;
 			text-align: center;
-			color: #fff;
-			border: none;
-			border-radius: 50%;
+			color: @text-muted;
+			background: transparent;
+			border: 1px solid @border;
+			border-radius: @radius-sm;
 			cursor: pointer;
 			opacity: 0;
 			transform: translateX(4px);
-			transition: opacity @dur-2 @ease, transform @dur-2 @ease, background-color @dur-2 @ease;
+			transition: opacity @dur-2 @ease, transform @dur-2 @ease, color @dur-2 @ease, border-color @dur-2 @ease;
 			font-size: 0.85rem;
-			box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+			box-shadow: none;
+			padding: 0;
 		}
 		.ಠ_ಠ {
-			right: 52px;
-			background: linear-gradient(135deg, @warn, darken(@warn, 8%));
-			&:hover { filter: brightness(1.1); }
+			right: 50px;
+			&:hover { color: darken(@warn, 8%); border-color: fade(@warn, 60%); }
 		}
 		.kickVoter {
 			right: 14px;
-			background: linear-gradient(135deg, @error, darken(@error, 8%));
-			font-size: 1.2rem;
-			line-height: 30px;
-			&:hover { filter: brightness(1.1); }
+			font-size: 1.05rem;
+			line-height: 26px;
+			&:hover { color: @error; border-color: fade(@error, 60%); }
 		}
+	}
+
+	&:not(:empty) { border-top: 1px solid @rule; }
+}
+
+.bp-voters { counter-reset: voter; }
+
+// Empty default: remove top border so the share CTA sits flush with round bar
+.bp-voters:empty { display: none; }
+
+// Voting-active visual cue
+html.voting .bp-btn-round {
+	animation: bp-pulse-ring 2.4s ease-in-out infinite;
+}
+@keyframes bp-pulse-ring {
+	0%, 100% { box-shadow: 0 0 0 0 fade(@error, 0%); }
+	50%      { box-shadow: 0 0 0 4px fade(@error, 18%); }
+}
+
+// ── Empty-state share CTA ────────────────────────────────────
+.bp-share-cta {
+	display: grid;
+	grid-template-columns: 1fr;
+	gap: 18px;
+	max-width: 720px;
+	margin: 0 auto;
+	padding: 60px 12px 20px;
+
+	&.is-hidden { display: none; }
+
+	.bp-share-cta-eyebrow {
+		font: 500 0.7rem/1 @mono;
+		text-transform: uppercase;
+		letter-spacing: 0.22em;
+		color: @text-dim;
+	}
+
+	h2 {
+		font: 600 clamp(1.8rem, 4vw, 2.6rem)/1.1 @display;
+		letter-spacing: -0.025em;
+		color: @text;
+		margin: 0;
+
+		em {
+			font: italic 400 1em/1.1 @serif;
+			color: @brand-2;
+		}
+	}
+
+	.bp-share-cta-lead {
+		font: 400 1rem/1.5 @sans;
+		color: @text-muted;
+		max-width: 460px;
+		margin: 0;
+	}
+
+	.bp-share-cta-row {
+		display: flex;
+		gap: 0;
+		border: 1px solid @border-hi;
+		border-radius: @radius;
+		overflow: hidden;
+		margin-top: 8px;
+
+		&:focus-within { border-color: @text; }
+	}
+
+	.bp-share-cta-url {
+		flex: 1 1 0;
+		min-width: 0;
+		height: 56px;
+		padding: 0 18px;
+		border: 0;
+		background: transparent;
+		font: 500 1rem/1 @mono;
+		color: @text;
+		letter-spacing: 0.02em;
+
+		&:focus { outline: none; }
+	}
+
+	.bp-share-cta-copy {
+		.button(@text);
+		height: 56px;
+		border-radius: 0;
+		padding: 0 28px;
+		background: @text;
+		color: @bg-0;
+		border: 0;
+		border-left: 1px solid @text;
+		font: 600 0.86rem/1 @sans;
+		letter-spacing: 0.06em;
+		text-transform: uppercase;
+
+		&:hover, &:focus { background: lighten(@text, 8%); color: @bg-0; }
+		&.is-copied { background: @success; color: @bg-0; }
+	}
+
+}
+
+// (canvas-confetti library handles confetti rendering — no CSS needed)
+
+// ── Consensus celebration: handwritten marginalia note ───────
+.bp-marginalia {
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%) rotate(var(--tilt, -4deg)) scale(0.88);
+	transform-origin: center center;
+	opacity: 0;
+	transition: opacity @dur-3 @ease, transform @dur-3 @ease;
+	pointer-events: none;
+	z-index: 10000;
+	display: inline-flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 6px;
+	padding: 4px 6px 2px;
+
+	.bp-marginalia-text {
+		font: italic 400 6.4rem/1 @serif;
+		color: @text;
+		letter-spacing: -0.005em;
+		white-space: nowrap;
+	}
+
+	.bp-marginalia-underline {
+		display: block;
+		width: 320px;
+		height: 36px;
+		margin-top: 0;
+		overflow: visible;
+
+		path {
+			fill: none;
+			stroke: @text;
+			stroke-width: 3;
+			stroke-linecap: round;
+			stroke-linejoin: round;
+			stroke-dasharray: 200;
+			stroke-dashoffset: 200;
+			transition: stroke-dashoffset 600ms @ease 250ms;
+		}
+	}
+
+	&.is-in {
+		opacity: 1;
+		transform: translate(-50%, -50%) rotate(var(--tilt, -4deg)) scale(1);
+
+		.bp-marginalia-underline path { stroke-dashoffset: 0; }
+	}
+
+	&.is-out {
+		opacity: 0;
+		transform: translate(-50%, -50%) rotate(var(--tilt, -4deg)) scale(1.04);
+		transition: opacity 500ms @ease, transform 500ms @ease;
 	}
 }
 
-// Voting-active visual cue on header
-html.voting .bp-btn-round {
-	animation: bp-glow 2.4s ease-in-out infinite;
-}
-@keyframes bp-glow {
-	0%, 100% { box-shadow: 0 1px 0 rgba(255,255,255,0.18) inset, 0 6px 18px fade(@error, 30%); }
-	50%      { box-shadow: 0 1px 0 rgba(255,255,255,0.28) inset, 0 10px 32px fade(@error, 55%); }
-}
+@media (prefers-reduced-motion: reduce) {
+	.bp-marginalia {
+		transition: opacity @dur-2 @ease;
+		transform: translate(-50%, -50%) rotate(var(--tilt, -4deg));
 
-// Empty state for voter grid
-.bp-voters:empty {
-	min-height: 200px;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	border: 2px dashed @border;
-	border-radius: @radius-lg;
-	color: @text-dim;
-	background: transparent;
-	padding: 60px 20px;
-
-	&::before {
-		content: 'Waiting for teammates to join — share your invite link';
-		font-size: 0.95rem;
-		color: @text-dim;
+		.bp-marginalia-underline path {
+			transition: none;
+			stroke-dashoffset: 0;
+		}
 	}
 }
 
 // ── Responsive ───────────────────────────────────────────────
+@media (max-width: 920px) {
+	.bp-share-copy .bp-share-copy-url { display: none; }
+}
+
 @media (max-width: 720px) {
 	.bp-room-header {
 		grid-template-columns: 1fr auto;
@@ -451,12 +879,13 @@ html.voting .bp-btn-round {
 		gap: 12px;
 		.bp-room-meta { display: none; }
 	}
-	.bp-room { padding: 18px; }
+	.bp-room { padding: 0 18px 60px; }
 	.bp-round-bar {
-		flex-direction: column;
-		align-items: stretch;
+		grid-template-columns: 1fr;
+		gap: 18px;
+		padding: 22px 4px 18px;
 		.bp-btn-round { width: 100%; }
-		.bp-round-results { margin-left: 0; }
+		.bp-round-results { justify-content: flex-start; }
 	}
 	.bp-voters { grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); }
 }

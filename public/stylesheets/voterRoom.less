@@ -1,5 +1,5 @@
 /**
- * Voter (estimate) room
+ * Voter (estimate) room — editorial flat
  */
 
 // ── Header ───────────────────────────────────────────────────
@@ -10,45 +10,46 @@
 	grid-template-columns: auto 1fr auto;
 	align-items: center;
 	gap: 24px;
-	padding: 16px 28px;
-	background: rgba(11, 16, 32, 0.55);
-	backdrop-filter: blur(14px);
-	-webkit-backdrop-filter: blur(14px);
-	border-bottom: 1px solid @border;
+	padding: 18px 28px;
+	background: transparent;
+	backdrop-filter: none;
+	-webkit-backdrop-filter: none;
+	border-bottom: 1px solid @rule;
 
 	.bp-room-info {
 		display: inline-flex;
-		align-items: center;
+		align-items: baseline;
 		gap: 10px;
 		justify-self: center;
 
 		.bp-room-info-label {
-			font-size: 0.72rem;
-			font-weight: 600;
+			font: 500 0.7rem/1 @mono;
 			text-transform: uppercase;
-			letter-spacing: 0.12em;
+			letter-spacing: 0.2em;
 			color: @text-dim;
 		}
 		.bp-room-info-id {
-			font: 700 0.95rem/1 @mono;
-			color: @brand-2;
-			padding: 5px 10px;
-			border-radius: 8px;
-			background: fade(@brand-2, 12%);
-			border: 1px solid fade(@brand-2, 28%);
+			font: 500 0.95rem/1 @mono;
+			color: @text;
+			padding: 0;
+			border-radius: 0;
+			background: transparent;
+			border: 0;
+			letter-spacing: 0.04em;
+
+			&:not(:empty)::before { content: '#'; color: @text-dim; margin-right: 1px; }
 		}
 	}
 
 	.bp-voter-list {
 		display: inline-flex;
 		align-items: center;
-		gap: 10px;
+		gap: 12px;
 
 		.bp-voter-list-label {
-			font-size: 0.72rem;
-			font-weight: 600;
+			font: 500 0.7rem/1 @mono;
 			text-transform: uppercase;
-			letter-spacing: 0.12em;
+			letter-spacing: 0.2em;
 			color: @text-dim;
 		}
 		.avatars {
@@ -59,13 +60,14 @@
 }
 
 .voterImageSmall {
-	width: 28px;
-	height: 28px;
+	width: 26px;
+	height: 26px;
 	border-radius: 50%;
-	border: 2px solid @bg-1;
-	margin-left: -8px;
-	box-shadow: 0 2px 6px rgba(0,0,0,0.4);
-	background: @bg-2;
+	border: 1px solid @bg-0;
+	outline: 1px solid @border-hi;
+	margin-left: -6px;
+	box-shadow: none;
+	background: @bg-1;
 	display: inline-block;
 	&:first-child { margin-left: 0; }
 }
@@ -74,13 +76,16 @@
 .bp-voter-main {
 	position: relative;
 	z-index: 1;
-	max-width: 720px;
+	max-width: 380px;
 	margin: 28px auto 80px;
 	padding: 0 20px;
 }
 
 .bp-voter-card {
-	.surface-elevated();
+	background: transparent;
+	border: 1px solid @border;
+	border-radius: @radius;
+	box-shadow: none;
 	padding: 22px 24px;
 	display: grid;
 	gap: 16px;
@@ -92,18 +97,18 @@
 	gap: 14px;
 
 	.voterImage {
-		width: 56px;
-		height: 56px;
+		width: 52px;
+		height: 52px;
 		border-radius: 50%;
-		border: 2px solid @border-hi;
-		background: @bg-2;
+		border: 1px solid @border-hi;
+		background: rgba(21,25,42,0.04);
 		padding: 0;
 		margin: 0;
 	}
 
 	.voterName {
 		display: block;
-		font: 700 1.05rem/1.2 @sans;
+		font: 600 1.05rem/1.2 @display;
 		color: @text;
 		margin: 0;
 		padding: 0;
@@ -112,30 +117,23 @@
 		width: auto;
 		height: auto;
 		text-align: left;
-		letter-spacing: -0.01em;
+		letter-spacing: -0.015em;
 	}
 }
 
-.bp-card-style-btn {
-	.button-ghost();
-	height: 32px;
-	padding: 0 12px;
-	font-size: 0.82rem;
-	margin-top: 6px;
-	color: @text-muted;
-	.fa { color: @brand-2; }
-}
+// Card-style picker is hidden — pattern/color no longer affects the host display
+.bp-card-style-btn { display: none; }
 
-// ── Status pill ──────────────────────────────────────────────
+// ── Status indicator (flat) ──────────────────────────────────
 .bp-status {
 	display: none;
 	align-items: center;
 	gap: 10px;
-	padding: 12px 16px;
-	border-radius: @radius;
-	font: 500 0.95rem/1.3 @sans;
+	padding: 12px 14px;
+	border-radius: @radius-sm;
+	font: 500 0.92rem/1.3 @sans;
 	border: 1px solid @border;
-	background: @surface;
+	background: transparent;
 
 	&.roundEnd { display: flex; }
 
@@ -152,16 +150,17 @@
 }
 
 .bp-status-open {
-	background: linear-gradient(135deg, fade(@success, 18%), fade(@brand-2, 12%));
-	border-color: fade(@success, 40%);
-	color: #fff;
+	background: transparent;
+	border-color: fade(@success, 50%);
+	border-left: 3px solid @success;
+	color: @text;
 
 	.bp-status-dot {
-		width: 10px;
-		height: 10px;
+		width: 8px;
+		height: 8px;
 		border-radius: 50%;
 		background: @success;
-		box-shadow: 0 0 0 4px fade(@success, 25%);
+		box-shadow: 0 0 0 4px fade(@success, 18%);
 		animation: bp-pulse 1.6s @ease infinite;
 	}
 }
@@ -169,36 +168,62 @@
 .bp-status-closed {
 	color: @text-muted;
 	.fa { color: @text-dim; }
+
+	.bp-status-text {
+		display: inline-flex;
+		align-items: baseline;
+		gap: 6px;
+	}
+	.bp-voter-rec-arrow {
+		color: @text-dim;
+		font: italic 400 1.1rem/1 @serif;
+	}
+	.bp-voter-rec-value {
+		font: italic 400 1.35rem/1 @serif;
+		color: @text;
+		letter-spacing: -0.01em;
+	}
+	.bp-voter-rec-subtext {
+		font: 500 0.72rem/1 @mono;
+		text-transform: uppercase;
+		letter-spacing: 0.18em;
+		color: @text-dim;
+		margin-left: 6px;
+	}
 }
 
-// ── Deck (estimate cards grid) ───────────────────────────────
+// ── Deck (estimate cards grid) — compact ─────────────────────
 .bp-deck-wrap {
 	margin-top: 24px;
 }
 
 table#estimateOptions.bp-deck {
 	width: 100%;
-	border-spacing: 12px;
+	border-spacing: 0;
 	border-collapse: separate;
 
 	tr { display: contents; }
-	tbody { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+	tbody {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: 8px;
+	}
 
 	td {
 		width: auto;
-		aspect-ratio: 3 / 4;
+		aspect-ratio: 5 / 6;
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		font: 700 2.4rem/1 @sans;
+		font: 600 1.2rem/1 @display;
 		letter-spacing: -0.02em;
 		color: @text;
 		border-radius: @radius;
-		border: 1px solid @border;
-		background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));
+		border: 1px solid @border-hi;
+		background: rgba(255, 255, 255, 0.50);
 		cursor: pointer;
 		user-select: none;
-		transition: transform @dur-2 @ease, background-color @dur-2 @ease, border-color @dur-2 @ease, box-shadow @dur-2 @ease;
+		transition: background-color @dur-2 @ease, border-color @dur-2 @ease, color @dur-2 @ease, transform @dur-1 @ease;
 
 		.fa { color: @text; }
 		&.blank { background: none !important; border-color: transparent; cursor: default; }
@@ -207,23 +232,23 @@ table#estimateOptions.bp-deck {
 	// Open round
 	&.newRound td {
 		cursor: pointer;
-		background: linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.03));
+		background: rgba(255, 255, 255, 0.55);
 		color: @text;
 
 		&:hover {
-			transform: translateY(-3px);
-			border-color: fade(@brand, 70%);
-			background: linear-gradient(135deg, fade(@brand, 18%), fade(@brand-2, 12%));
-			box-shadow: 0 12px 28px fade(@brand, 25%);
+			background: #fff;
+			border-color: @text;
+			color: @text;
 		}
+		&:active { transform: translateY(1px); }
 
 		&.lastVote {
-			background: linear-gradient(135deg, @brand 0%, @brand-2 100%);
-			border-color: transparent;
-			color: #fff;
-			box-shadow: 0 12px 30px fade(@brand, 45%), 0 0 0 4px fade(@brand, 28%);
-			transform: translateY(-2px);
-			.fa { color: #fff; }
+			background: @text;
+			border-color: @text;
+			color: @bg-0;
+			box-shadow: none;
+			transform: none;
+			.fa { color: @bg-0; }
 		}
 	}
 
@@ -231,15 +256,15 @@ table#estimateOptions.bp-deck {
 	&.roundEnd td {
 		cursor: not-allowed;
 		opacity: 0.55;
-		background: rgba(255,255,255,0.04);
+		background: transparent;
 		color: @text-dim;
 		.fa { color: @text-dim; }
 
 		&.lastVote {
 			opacity: 1;
-			color: #fff;
-			background: linear-gradient(135deg, @brand 0%, @brand-2 100%);
-			border-color: transparent;
+			color: @bg-0;
+			background: @text;
+			border-color: @text;
 		}
 	}
 }
@@ -249,10 +274,9 @@ table#estimateOptions.bp-deck {
 	label {
 		display: block;
 		width: 100%;
-		font-size: 0.78rem;
-		font-weight: 600;
+		font: 500 0.72rem/1 @mono;
 		text-transform: uppercase;
-		letter-spacing: 0.08em;
+		letter-spacing: 0.18em;
 		color: @text-dim;
 
 		select, input {
@@ -260,12 +284,14 @@ table#estimateOptions.bp-deck {
 			width: 100%;
 			height: 40px;
 			padding: 0 12px;
-			background: rgba(0,0,0,0.25);
-			border: 1px solid @border;
+			background: transparent;
+			border: 1px solid @border-hi;
 			border-radius: @radius-sm;
 			color: @text;
 			font: 400 0.95rem/1 @sans;
 			-webkit-appearance: none;
+
+			&:focus { outline: none; border-color: @text; }
 		}
 		input[type=color] { padding: 4px; cursor: pointer; }
 	}
@@ -291,11 +317,7 @@ table#estimateOptions.bp-deck {
 	}
 	.bp-voter-main { padding: 0 16px; margin: 18px auto 56px; }
 	table#estimateOptions.bp-deck {
-		tbody { grid-template-columns: repeat(3, 1fr); gap: 10px; }
-		td { font-size: 2rem; }
+		tbody { grid-template-columns: repeat(3, 1fr); gap: 8px; }
+		td { font-size: 1.1rem; }
 	}
-}
-
-@media (max-width: 440px) {
-	table#estimateOptions.bp-deck tbody { grid-template-columns: repeat(3, 1fr); }
 }

@@ -7,65 +7,74 @@ block content
 			span BitPoints
 		.bp-room-meta
 			.bp-room-title
-				span.bp-room-label Room
 				h1 #{room.title}
 				span.bp-room-id ##{room.roomId}
-		ul#settings.bp-settings
-			li
-				button.setting.bp-icon-btn(type="button", aria-label="Room settings")
-					i.fa.fa-cog
-				.drop
-					.dropItem
-						span.title Deck type
-						.control
-							.option
-								label(for="standard")
-									input(type="radio", value="standard", name="deckType", id="standard", checked="checked")
-									span Standard
-							.option
-								label(for="fibonacci")
-									input(type="radio", value="fibonacci", name="deckType", id="fibonacci")
-									span Fibonacci
-							.option
-								label(for="letters")
-									input(type="radio", value="letters", name="deckType", id="letters")
-									span Letters
-							.option
-								label(for="tshirt")
-									input(type="radio", value="tshirt", name="deckType", id="tshirt")
-									span T-Shirt
-					.dropItem
-						span.title Round average
-						.control
-							label.bp-switch(for="roundNearest")
-								input(type="checkbox", name="roundNearest", id="roundNearest")
-								span.bp-switch-track
-									span.bp-switch-thumb
-								span.bp-switch-label Snap to nearest card
-					.dropItem
-						span.title Invite link
-						.control
-							.bp-invite
-								span#inviteUrl #{inviteId}
-								button#showLink.bp-icon-btn-sm(type="button", data-link=inviteId, aria-label="Show invite link")
-									i.fa.fa-share-square-o
+		button.bp-share-copy(type="button", data-invite=inviteId, title="Copy invite link")
+			span.bp-share-copy-label INVITE
+			span.bp-share-copy-url(data-host=appHost) #{appHost}/#{inviteId}
+			i.fa.fa-clipboard
 
 	main#room.bp-room
 		section.bp-round-bar
-			button#toggleRound.bp-btn-round Begin Estimating
+			.bp-round-bar-controls
+				button#toggleRound.bp-btn-round Begin Estimating
+				.bp-deck-switch
+					button.bp-deck-trigger(type="button", aria-haspopup="true", aria-expanded="false")
+						span.bp-deck-mini-label Deck
+						span.bp-deck-value Fibonacci
+						i.fa.fa-angle-down
+					.bp-deck-menu(role="menu")
+						label.bp-deck-option
+							input(type="radio", value="standard", name="deckType")
+							span Standard
+						label.bp-deck-option
+							input(type="radio", value="fibonacci", name="deckType", checked="checked")
+							span Fibonacci
+						label.bp-deck-option
+							input(type="radio", value="letters", name="deckType")
+							span Letters
+						label.bp-deck-option
+							input(type="radio", value="tshirt", name="deckType")
+							span T-Shirt
+				label.bp-auto-reveal(for="autoReveal")
+					input(type="checkbox", name="autoReveal", id="autoReveal", checked="checked")
+					span.bp-switch-track
+						span.bp-switch-thumb
+					span.bp-auto-reveal-label Auto-reveal
 			#ticket.bp-ticket
 			.bp-round-results
-				#average The average estimate is&nbsp;
-					span.val
-				#nearestCard The nearest card is&nbsp;
-					span.val
-				#largeSpread.bp-spread-warning
-					i.fa.fa-exclamation-triangle
-					|  Looks like there's some uncertainty about this estimate…
+				.bp-progress
+					span.bp-progress-count
+						span.bp-progress-now 0
+						span.bp-progress-sep /
+						span.bp-progress-total 0
+					.bp-progress-bar
+						.bp-progress-fill
+					span.bp-progress-label voted
+
+		section.bp-results-row
+			#distribution.bp-distribution
+			.bp-results-stats
+				#recommendation.bp-recommendation
+					span.bp-rec-label Should be
+					span.bp-rec-arrow →
+					span.bp-rec-value
+					span.bp-rec-subtext
 
 		ul#users.bp-voters
 
+		section.bp-share-cta
+			.bp-share-cta-eyebrow Invite link
+			h2 Send this link to your team.
+			p.bp-share-cta-lead Voters join in seconds. No accounts, no installs. Sub-second sync.
+			.bp-share-cta-row
+				input.bp-share-cta-url(type="text", readonly, value=appHost+"/"+inviteId, data-invite=inviteId)
+				button.bp-share-cta-copy(type="button") Copy link
+
 	script.
 		BP.room = !{JSON.stringify(room)};
+		BP.inviteId = '!{inviteId}';
+		BP.appHost = '!{appHost}';
 	script(src="/socket.io/socket.io.js")
-	script(src="/javascripts/host.js")
+	script(src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js")
+	script(src='/javascripts/host.js')

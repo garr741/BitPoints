@@ -1,40 +1,60 @@
 /**
- * External (marketing / home) page
+ * External (marketing / home) page — editorial flat
  */
 
 #external {
 	position: relative;
 	z-index: 1;
-	max-width: 1200px;
+	max-width: 1240px;
 	margin: 0 auto;
-	padding: 28px 32px 80px;
+	padding: 24px 40px 80px;
 	min-height: 100vh;
 }
 
+// ── Nav ───────────────────────────────────────────────────────
 .bp-nav {
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
-	padding: 8px 4px 40px;
+	padding: 6px 0 22px;
+	border-bottom: 1px solid @rule;
+	margin-bottom: 56px;
 
 	.bp-nav-meta {
 		display: flex;
-		gap: 14px;
+		gap: 22px;
 		align-items: center;
+		font: 500 0.72rem/1 @mono;
+		text-transform: uppercase;
+		letter-spacing: 0.16em;
+		color: @text-dim;
 	}
 	.bp-nav-link {
 		color: @text-muted;
-		font-weight: 500;
-		font-size: 0.9rem;
-		padding: 8px 14px;
-		border-radius: 999px;
-		border: 1px solid @border;
-		transition: background-color @dur-2 @ease, color @dur-2 @ease, border-color @dur-2 @ease;
+		font: 500 0.78rem/1 @mono;
+		text-transform: uppercase;
+		letter-spacing: 0.14em;
+		padding: 4px 0;
+		border: 0;
+		border-radius: 0;
+		position: relative;
+		transition: color @dur-2 @ease;
 
+		&::after {
+			content: '';
+			position: absolute;
+			left: 0; right: 0; bottom: -2px;
+			height: 1px;
+			background: @text;
+			transform: scaleX(0);
+			transform-origin: left;
+			transition: transform @dur-2 @ease;
+		}
 		&:hover {
-			background: @surface-hov;
 			color: @text;
-			border-color: @border-hi;
+			background: transparent;
+			border: 0;
+			&::after { transform: scaleX(1); }
 		}
 	}
 }
@@ -42,117 +62,187 @@
 // ── Hero ──────────────────────────────────────────────────────
 .bp-hero {
 	display: grid;
-	grid-template-columns: 1.1fr 1fr;
-	gap: 56px;
-	align-items: center;
-	padding: 40px 0 64px;
+	grid-template-columns: 1.25fr 1fr;
+	gap: 80px;
+	align-items: start;
+	padding: 16px 0 80px;
+	border-bottom: 1px solid @rule;
 }
 
 .bp-hero-copy {
-	max-width: 560px;
+	max-width: 640px;
 }
 
 .bp-eyebrow {
 	display: inline-flex;
 	align-items: center;
-	gap: 8px;
-	padding: 6px 12px 6px 10px;
-	border: 1px solid @border;
-	border-radius: 999px;
-	background: @surface;
-	font-size: 0.78rem;
-	font-weight: 500;
+	gap: 10px;
+	padding: 0;
+	border: 0;
+	border-radius: 0;
+	background: transparent;
+	font: 500 0.74rem/1 @mono;
+	text-transform: uppercase;
+	letter-spacing: 0.18em;
 	color: @text-muted;
-	letter-spacing: 0.02em;
 
 	.bp-dot {
-		width: 8px;
-		height: 8px;
+		width: 6px;
+		height: 6px;
 		border-radius: 50%;
 		background: @success;
-		box-shadow: 0 0 0 4px fade(@success, 22%);
-		animation: bp-pulse 2s @ease infinite;
+		box-shadow: 0 0 0 4px fade(@success, 18%);
+		animation: bp-pulse 2.2s @ease infinite;
 	}
 }
 
 @keyframes bp-pulse {
-	0%, 100% { box-shadow: 0 0 0 4px fade(@success, 22%); }
-	50%      { box-shadow: 0 0 0 8px fade(@success, 0%); }
+	0%, 100% { box-shadow: 0 0 0 3px fade(@success, 22%); }
+	50%      { box-shadow: 0 0 0 7px fade(@success, 0%); }
 }
 
 .bp-hero-title {
-	margin-top: 22px;
-	font: 800 clamp(2.4rem, 5vw, 4rem)/1.04 @sans;
-	letter-spacing: -0.025em;
+	margin-top: 28px;
+	font: 700 clamp(2.8rem, 6vw, 5.4rem)/0.98 @display;
+	font-stretch: 92%;
+	letter-spacing: -0.035em;
 	color: @text;
 
 	em {
-		font-style: normal;
-		background: linear-gradient(135deg, @brand 0%, @brand-2 65%, @accent 100%);
-		-webkit-background-clip: text;
-		background-clip: text;
-		-webkit-text-fill-color: transparent;
-		color: transparent;
+		font-style: italic;
+		font-family: @serif;
+		font-weight: 400;
+		font-stretch: 100%;
+		letter-spacing: -0.01em;
+		background: none;
+		-webkit-background-clip: initial;
+		background-clip: initial;
+		-webkit-text-fill-color: initial;
+		color: @brand-2;
+		padding-right: 0.04em;
 	}
 }
 
 .bp-hero-lead {
-	margin-top: 18px;
-	font: 400 1.1rem/1.6 @sans;
+	margin-top: 28px;
+	font: 400 1.18rem/1.55 @sans;
 	color: @text-muted;
-	max-width: 520px;
+	max-width: 540px;
 }
 
-// ── Action card (tabs + forms) ────────────────────────────────
-.bp-action-card {
-	.surface-elevated();
-	padding: 10px;
-	border-radius: @radius-lg;
-	position: relative;
+// Inline kicker list under the lead — single-line specs
+.bp-hero-copy::after {
+	content: '';
+	display: block;
+	height: 1px;
+	background: @rule;
+	margin: 36px 0 18px;
+}
 
-	&::before {
+.bp-hero-specs {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 22px;
+	font: 500 0.74rem/1 @mono;
+	text-transform: uppercase;
+	letter-spacing: 0.18em;
+	color: @text-dim;
+
+	span { display: inline-flex; align-items: center; gap: 8px; }
+	span::before {
 		content: '';
-		position: absolute;
-		inset: -1px;
-		border-radius: @radius-lg;
-		background: linear-gradient(135deg, fade(@brand, 50%), fade(@brand-2, 30%), transparent 70%);
-		z-index: -1;
-		filter: blur(20px);
-		opacity: 0.6;
+		width: 4px; height: 4px;
+		background: @brand-2;
+		display: inline-block;
 	}
 }
 
-.bp-tabs {
-	display: grid;
-	grid-template-columns: 1fr 1fr;
-	gap: 4px;
-	padding: 4px;
-	background: rgba(0,0,0,0.25);
-	border-radius: @radius;
+// ── Action panel (tabs + forms) ───────────────────────────────
+.bp-action-card {
+	background: rgba(255,255,255,0.025);
 	border: 1px solid @border;
+	border-radius: @radius;
+	padding: 0;
+	position: relative;
+	box-shadow: none;
+
+	// kill the previous glow halo
+	&::before { content: none; }
+
+	// hairline corner ticks for "technical" feel
+	&::after {
+		content: '';
+		position: absolute;
+		top: -1px; left: -1px;
+		width: 10px; height: 10px;
+		border-top: 1px solid @brand-2;
+		border-left: 1px solid @brand-2;
+		pointer-events: none;
+	}
+}
+
+.bp-action-card-head {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding: 16px 20px;
+	border-bottom: 1px solid @rule;
+	font: 500 0.72rem/1 @mono;
+	text-transform: uppercase;
+	letter-spacing: 0.2em;
+	color: @text-dim;
+}
+
+.bp-tabs {
+	display: flex;
+	gap: 26px;
+	padding: 6px 20px 0;
+	background: transparent;
+	border: 0;
+	border-bottom: 1px solid @rule;
+	border-radius: 0;
 }
 
 .bp-tab {
-	height: 44px;
-	border: none;
+	height: 46px;
+	padding: 0 2px;
+	border: 0;
 	background: transparent;
-	color: @text-muted;
-	font: 600 0.95rem/1 @sans;
-	border-radius: @radius-sm;
+	color: @text-dim;
+	font: 600 0.86rem/1 @sans;
+	letter-spacing: 0.02em;
+	border-radius: 0;
 	cursor: pointer;
-	transition: background-color @dur-2 @ease, color @dur-2 @ease, box-shadow @dur-2 @ease;
+	position: relative;
+	transition: color @dur-2 @ease;
 
-	&:hover { color: @text; }
+	&::after {
+		content: '';
+		position: absolute;
+		left: 0; right: 0; bottom: -1px;
+		height: 1px;
+		background: @text;
+		transform: scaleX(0);
+		transform-origin: left;
+		transition: transform @dur-2 @ease, background-color @dur-2 @ease;
+	}
+
+	&:hover { color: @text-muted; }
 	&.is-active {
-		background: linear-gradient(135deg, @brand 0%, lighten(@brand, 6%) 100%);
-		color: #fff;
-		box-shadow: 0 1px 0 rgba(255,255,255,0.18) inset, 0 6px 22px fade(@brand, 45%);
+		color: @text;
+		background: transparent;
+		box-shadow: none;
+		&::after {
+			transform: scaleX(1);
+			background: @brand-2;
+			height: 2px;
+		}
 	}
 }
 
 .bp-tab-panel {
 	display: none;
-	padding: 22px 16px 16px;
+	padding: 26px 20px 22px;
 
 	&.is-active {
 		display: block;
@@ -161,22 +251,21 @@
 }
 
 @keyframes bp-fade-in {
-	from { opacity: 0; transform: translateY(4px); }
+	from { opacity: 0; transform: translateY(3px); }
 	to   { opacity: 1; transform: none; }
 }
 
 .bp-field {
 	display: block;
-	margin-bottom: 14px;
+	margin-bottom: 22px;
 
 	.bp-field-label {
 		display: block;
-		font-size: 0.78rem;
-		font-weight: 600;
+		font: 500 0.7rem/1 @mono;
 		text-transform: uppercase;
-		letter-spacing: 0.08em;
+		letter-spacing: 0.18em;
 		color: @text-dim;
-		margin-bottom: 6px;
+		margin-bottom: 10px;
 	}
 
 	input[type=text],
@@ -188,16 +277,19 @@
 .bp-field-row {
 	display: grid;
 	grid-template-columns: 1fr 1fr;
-	gap: 12px;
+	gap: 22px;
 }
 
-// ── Primary submit button (form-level) ─────────────────────────
+// ── Primary submit button ─────────────────────────────────────
 .bp-btn {
 	.button();
 	width: 100%;
-	height: 50px;
-	font-size: 1rem;
-	margin-top: 4px;
+	height: 52px;
+	font-size: 0.95rem;
+	letter-spacing: 0.04em;
+	text-transform: uppercase;
+	margin-top: 12px;
+	border-radius: @radius-sm;
 }
 
 .bp-btn-primary {
@@ -212,15 +304,15 @@ form.error input.error { animation: bp-shake 0.4s @ease; }
 	75%      { transform: translateX(6px); }
 }
 
-// Custom checkbox
+// Custom checkbox — square, flat, sharp
 .roomOptions {
-	margin: 4px 0 14px;
+	margin: 4px 0 18px;
 }
 
 .bp-checkbox {
 	display: inline-flex;
 	align-items: center;
-	gap: 10px;
+	gap: 12px;
 	cursor: pointer;
 	user-select: none;
 
@@ -231,31 +323,31 @@ form.error input.error { animation: bp-shake 0.4s @ease; }
 	}
 
 	.bp-checkbox-box {
-		width: 18px;
-		height: 18px;
-		border-radius: 5px;
+		width: 16px;
+		height: 16px;
+		border-radius: 2px;
 		border: 1px solid @border-hi;
-		background: rgba(0,0,0,0.25);
+		background: transparent;
 		display: inline-flex;
 		align-items: center;
 		justify-content: center;
-		transition: background-color @dur-2 @ease, border-color @dur-2 @ease;
+		transition: border-color @dur-2 @ease, background-color @dur-2 @ease;
 		position: relative;
 
 		&::after {
 			content: '';
-			width: 10px;
-			height: 10px;
-			border-radius: 2px;
-			background: linear-gradient(135deg, @brand, @brand-2);
+			width: 8px;
+			height: 8px;
+			border-radius: 0;
+			background: @brand-2;
 			transform: scale(0);
 			transition: transform @dur-2 @ease;
 		}
 	}
 
 	input:checked + .bp-checkbox-box {
-		border-color: @brand;
-		background: rgba(124, 92, 255, 0.12);
+		border-color: @brand-2;
+		background: transparent;
 		&::after { transform: scale(1); }
 	}
 
@@ -267,106 +359,176 @@ form.error input.error { animation: bp-shake 0.4s @ease; }
 
 // ── Supplemental: features + how-it-works ─────────────────────
 #supplementalContent {
-	margin-top: 32px;
+	margin-top: 0;
 }
 
+// Section kicker
+.bp-section-head {
+	display: flex;
+	align-items: baseline;
+	justify-content: space-between;
+	padding: 64px 0 20px;
+
+	.bp-section-kicker {
+		font: 500 0.72rem/1 @mono;
+		text-transform: uppercase;
+		letter-spacing: 0.22em;
+		color: @text-dim;
+	}
+	h2 {
+		font: 600 1.9rem/1.15 @display;
+		letter-spacing: -0.025em;
+		color: @text;
+		em {
+			font-style: italic;
+			font-family: @serif;
+			font-weight: 400;
+			color: @brand-2;
+		}
+	}
+}
+
+// Features — hairline-divided columns, no cards
 .bp-features {
 	display: grid;
 	grid-template-columns: repeat(4, 1fr);
-	gap: 16px;
-	margin-top: 8px;
+	gap: 0;
+	border-top: 1px solid @rule;
+	border-bottom: 1px solid @rule;
 }
 
 .bp-feature {
-	.surface();
-	padding: 22px 20px;
-	transition: transform @dur-2 @ease, background-color @dur-2 @ease, border-color @dur-2 @ease;
+	padding: 30px 26px 32px;
+	background: transparent;
+	border: 0;
+	border-right: 1px solid @rule;
+	border-radius: 0;
+	box-shadow: none;
+	transition: background-color @dur-2 @ease;
+	position: relative;
+
+	&:last-child { border-right: 0; }
 
 	&:hover {
-		transform: translateY(-3px);
-		border-color: @border-hi;
-		background: linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.03));
+		transform: none;
+		border-color: @rule;
+		background: rgba(255,255,255,0.02);
 	}
 
 	.bp-feature-icon {
-		width: 40px;
-		height: 40px;
-		border-radius: 11px;
-		background: linear-gradient(135deg, fade(@brand, 30%), fade(@brand-2, 20%));
-		border: 1px solid @border;
+		width: 28px;
+		height: 28px;
+		border-radius: 0;
+		background: transparent;
+		border: 0;
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		font-size: 1.1rem;
-		color: @text;
-		margin-bottom: 14px;
+		font-size: 1.15rem;
+		color: @brand-2;
+		margin-bottom: 22px;
+		padding: 0;
+	}
+
+	// mono index above title
+	&::before {
+		content: '0' counter(feat);
+		counter-increment: feat;
+		position: absolute;
+		top: 30px;
+		right: 26px;
+		font: 500 0.7rem/1 @mono;
+		letter-spacing: 0.18em;
+		color: @text-dim;
 	}
 
 	h3 {
-		font: 700 1.02rem/1.3 @sans;
-		letter-spacing: -0.01em;
-		margin-bottom: 6px;
+		font: 600 1.05rem/1.3 @display;
+		letter-spacing: -0.015em;
+		margin-bottom: 8px;
 		color: @text;
 	}
 
 	p {
-		font: 400 0.88rem/1.55 @sans;
+		font: 400 0.92rem/1.55 @sans;
 		color: @text-muted;
 	}
 }
 
+.bp-features { counter-reset: feat; }
+
+// How — full-width numbered rows, hairline rules between
 .bp-how {
-	margin-top: 64px;
+	margin-top: 0;
 
 	h2 {
-		font: 700 1.65rem/1.3 @sans;
-		letter-spacing: -0.02em;
-		margin-bottom: 28px;
+		font: 600 1.9rem/1.15 @display;
+		letter-spacing: -0.025em;
+		margin-bottom: 0;
 		color: @text;
 	}
 }
 
 .bp-steps {
-	display: grid;
-	grid-template-columns: repeat(3, 1fr);
-	gap: 18px;
-	counter-reset: step;
+	list-style: none;
+	padding: 0;
+	margin: 8px 0 0;
+	border-top: 1px solid @rule;
 
 	li {
-		display: flex;
-		gap: 16px;
-		.surface();
-		padding: 22px 22px;
-		align-items: flex-start;
+		display: grid;
+		grid-template-columns: 90px 1fr 2fr;
+		gap: 28px;
+		align-items: baseline;
+		padding: 28px 8px;
+		border-bottom: 1px solid @rule;
+		background: transparent;
+		border-radius: 0;
+		box-shadow: 0 0 0 transparent;
+		transition: background-color @dur-2 @ease;
+
+		&:hover { background: rgba(255,255,255,0.015); }
 
 		.bp-step-num {
-			font: 700 1.4rem/1 @mono;
-			background: linear-gradient(135deg, @brand 0%, @brand-2 100%);
-			-webkit-background-clip: text;
-			background-clip: text;
-			-webkit-text-fill-color: transparent;
-			color: transparent;
+			font: 400 2.6rem/1 @serif;
+			font-style: italic;
+			background: none;
+			-webkit-background-clip: initial;
+			background-clip: initial;
+			-webkit-text-fill-color: initial;
+			color: @brand-2;
 		}
 		h4 {
-			font: 700 1rem/1.3 @sans;
+			font: 600 1.05rem/1.3 @display;
+			letter-spacing: -0.015em;
 			color: @text;
-			margin-bottom: 4px;
+			margin-bottom: 0;
 		}
 		p {
-			font: 400 0.88rem/1.55 @sans;
+			font: 400 0.95rem/1.55 @sans;
 			color: @text-muted;
+			max-width: 520px;
 		}
 	}
 }
 
 // ── Footer ────────────────────────────────────────────────────
 .bp-footer {
-	margin-top: 70px;
-	padding-top: 24px;
-	border-top: 1px solid @border;
-	font-size: 0.85rem;
+	margin-top: 80px;
+	padding-top: 22px;
+	border-top: 1px solid @rule;
+	font: 500 0.72rem/1 @mono;
+	text-transform: uppercase;
+	letter-spacing: 0.2em;
 	color: @text-dim;
-	text-align: center;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+
+	&::after {
+		content: 'MMXXVI';
+		color: @text-dim;
+	}
 }
 
 .bp-invite-fallback {
@@ -380,36 +542,55 @@ form.error input.error { animation: bp-shake 0.4s @ease; }
 // ── One-column variant (invite page) ──────────────────────────
 body.one-column {
 	#external {
-		max-width: 520px;
+		max-width: 540px;
 	}
 	.bp-nav { justify-content: center; }
 	.bp-hero {
 		grid-template-columns: 1fr;
 		text-align: center;
 		gap: 28px;
+		border-bottom: 0;
 	}
-	.bp-hero-copy { margin: 0 auto; }
+	.bp-hero-copy {
+		margin: 0 auto;
+		&::after { display: none; }
+	}
+	.bp-hero-specs { justify-content: center; }
 	#supplementalContent { display: none; }
 }
 
 // ── Responsive ────────────────────────────────────────────────
 @media (max-width: 1024px) {
-	.bp-features { grid-template-columns: repeat(2, 1fr); }
-	.bp-steps    { grid-template-columns: 1fr; }
+	.bp-features {
+		grid-template-columns: repeat(2, 1fr);
+		.bp-feature {
+			&:nth-child(2) { border-right: 0; }
+			&:nth-child(-n+2) { border-bottom: 1px solid @rule; }
+		}
+	}
+	.bp-steps li { grid-template-columns: 70px 1fr; }
+	.bp-steps li p { grid-column: 1 / -1; padding-left: 98px; max-width: none; }
 }
 
 @media (max-width: 880px) {
 	.bp-hero {
 		grid-template-columns: 1fr;
-		gap: 36px;
-		padding: 24px 0 40px;
+		gap: 48px;
+		padding: 16px 0 56px;
 	}
-	.bp-hero-title { font-size: clamp(2rem, 8vw, 2.6rem); }
+	.bp-hero-title { font-size: clamp(2.2rem, 9vw, 3rem); }
 }
 
 @media (max-width: 560px) {
-	#external { padding: 16px 16px 56px; }
-	.bp-nav { padding-bottom: 24px; }
-	.bp-features { grid-template-columns: 1fr; }
+	#external { padding: 16px 20px 56px; }
+	.bp-nav { padding-bottom: 14px; margin-bottom: 32px; }
+	.bp-features {
+		grid-template-columns: 1fr;
+		.bp-feature {
+			border-right: 0;
+			border-bottom: 1px solid @rule;
+			&:last-child { border-bottom: 0; }
+		}
+	}
 	.bp-field-row { grid-template-columns: 1fr; }
 }

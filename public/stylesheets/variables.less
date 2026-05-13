@@ -1,53 +1,55 @@
-// ── Color tokens ────────────────────────────────────────────────
-// Surface (deep slate gradient background)
-@bg-0:           #0b1020;
-@bg-1:           #131a33;
-@bg-2:           #1b2447;
+// ── Color tokens — warm paper / ink editorial ──────────────────
+// Surface (single warm-paper tone, no dark mode flip needed)
+@bg-0:           #ece8de;   // warm newsprint cream
+@bg-1:           #e5e0d3;
+@bg-2:           #d8d1c0;
 
-// Foreground
-@text:           #e8ecf7;
-@text-muted:     #a5acc7;
-@text-dim:       #6f7799;
-@darktext:       #1a2042;
-@link:           #e8ecf7;
-@hover:          #ffffff;
+// Foreground (deep ink, not pure black)
+@text:           #15192a;
+@text-muted:     #4a5169;
+@text-dim:       #7d839a;
+@darktext:       #15192a;
+@link:           #15192a;
+@hover:          #000000;
 
-// Brand accents
-@brand:          #7c5cff;    // electric violet, primary
-@brand-2:        #4cc9ff;    // cyan, secondary
-@accent:         #ff7ab6;    // pink, for highlights
-@success:        #2ee6a8;
-@warn:           #ffb347;
-@error:          #ff5577;
+// Brand accents — nudged darker/richer to read on cream
+@brand:          #5b3df0;    // electric violet (deeper)
+@brand-2:        #117a9c;    // deep cyan/teal (darkened so it pops on paper)
+@accent:         #e1457c;    // rose pink
+@success:        #128a63;
+@warn:           #b67100;
+@error:          #d23357;
 
-// Legacy aliases — kept so existing rules continue to compile
+// Legacy aliases
 @primaryColor:   @brand;
 @accentColor:    @brand-2;
 @errorColor:     @error;
-@selection:      fade(@brand, 35%);
+@selection:      fade(@brand, 28%);
 
-// Surface treatments
-@surface:        rgba(255, 255, 255, 0.04);
-@surface-hi:     rgba(255, 255, 255, 0.08);
-@surface-hov:    rgba(255, 255, 255, 0.12);
-@border:         rgba(255, 255, 255, 0.10);
-@border-hi:      rgba(255, 255, 255, 0.18);
+// Surface treatments (ink-tinted, not white-on-dark)
+@surface:        rgba(21, 25, 42, 0.025);
+@surface-hi:     rgba(21, 25, 42, 0.05);
+@surface-hov:    rgba(21, 25, 42, 0.08);
+@border:         rgba(21, 25, 42, 0.10);
+@border-hi:      rgba(21, 25, 42, 0.22);
+@rule:           rgba(21, 25, 42, 0.10);   // hairline dividers
 
 // ── Type ────────────────────────────────────────────────────────
-@sans:   'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-@title:  'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-@mono:   'JetBrains Mono', 'SF Mono', ui-monospace, Menlo, monospace;
-@serif:  Georgia, Cambria, 'Times New Roman', Times, serif;
+@sans:    'Bricolage Grotesque', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+@display: 'Bricolage Grotesque', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+@title:   'Bricolage Grotesque', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+@serif:   'Instrument Serif', Georgia, Cambria, 'Times New Roman', Times, serif;
+@mono:    'JetBrains Mono', 'SF Mono', ui-monospace, Menlo, monospace;
 
 // ── Radii / shadows / motion ────────────────────────────────────
-@radius-sm:   8px;
-@radius:      14px;
-@radius-lg:   22px;
-@radius-xl:   28px;
+@radius-sm:   3px;
+@radius:      5px;
+@radius-lg:   6px;
+@radius-xl:   8px;
 
-@shadow-1:    0 1px 2px rgba(0,0,0,0.25), 0 2px 8px rgba(0,0,0,0.20);
-@shadow-2:    0 8px 24px rgba(0,0,0,0.35), 0 2px 6px rgba(0,0,0,0.25);
-@shadow-glow: 0 0 0 1px fade(@brand, 35%), 0 8px 32px fade(@brand, 35%);
+@shadow-1:    0 1px 0 rgba(21, 25, 42, 0.08);
+@shadow-2:    0 1px 0 rgba(21, 25, 42, 0.10), 0 8px 20px -16px rgba(21, 25, 42, 0.20);
+@shadow-glow: 0 0 0 1px fade(@brand, 35%);
 
 @ease:        cubic-bezier(0.22, 0.61, 0.36, 1);
 @dur-1:       140ms;

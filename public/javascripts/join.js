@@ -141,7 +141,7 @@ var page = new BP.Page({
 
 	reset: function(data) {
 		this.voting = true;
-		this.$lastVote.removeClass('lastVote');
+		this.$('.lastVote').removeClass('lastVote');
 		if(data.ticket){ this.$ticketInfo.html(': <a href="'+data.ticket.url+'" target="_blank">'+data.ticket.key+'</a>'); }
 		this.$status.hide().filter('.newRound').show();
 		this.$estimateTable.removeClass('roundEnd').addClass('newRound');
@@ -149,16 +149,22 @@ var page = new BP.Page({
 
 	endRound: function(data) {
 		this.voting = false;
-		var text = 'Voting is closed.';
+		// Clear the voter's selected card so the grid clearly reads as "closed"
+		this.$('.lastVote').removeClass('lastVote');
 
-		if (data.outcome) {
-			text += ' Outcome: ' + data.outcome;
-			if (data.nearestCard) {
-				text += ' Nearest Card: ' + data.nearestCard;
-			}
+		var html;
+		if (data && data.roundData && data.roundData.spread > 3) {
+			html = 'Let\'s discuss <span class="bp-voter-rec-subtext">spread is wide</span>';
+		} else if (data && data.nearestCard) {
+			html = 'Should be <span class="bp-voter-rec-arrow">→</span> <span class="bp-voter-rec-value">' + data.nearestCard + '</span>';
+		} else {
+			html = 'Voting is closed';
 		}
 
-		this.$status.hide().filter('.roundEnd').text(text).show();
+		this.$status.hide();
+		var $closed = this.$status.filter('.roundEnd');
+		$closed.find('.bp-status-text').html(html);
+		$closed.show();
 		this.$estimateTable.removeClass('newRound').addClass('roundEnd');
 	},
 
