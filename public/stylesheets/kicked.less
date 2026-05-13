@@ -1,15 +1,22 @@
 /**
- * Kicked voter page styles
+ * Kicked page
  */
 #kick {
-	margin: 50px;
-	background: rgba(0,0,0,0.5);
-	border: 1px solid black;
-	.border-radius(10px);
-	padding: 10px;
+	max-width: 480px;
+	margin: 120px auto;
+	padding: 32px;
+	.surface-elevated();
+	border-radius: @radius-lg;
+	text-align: center;
+	font-size: 1rem;
 
 	p {
 		margin: 0;
-		text-align: center;
+		color: @text-muted;
+	}
+	p + p { margin-top: 12px; }
+	a {
+		color: @brand-2;
+		font-weight: 600;
 	}
 }

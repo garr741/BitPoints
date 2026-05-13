@@ -1,82 +1,79 @@
 extends external
 
 block mainContent
-  section#actions
-    div.join
-      h2: span Join a Room
-      form#join(action="/join")
-        input#room-id.halfwidth(name='room-id',type='text',placeholder='Room ID*',data-required='true')
-        input#name.halfwidth(name='name',type='text',placeholder='Your Name*',data-required='true')
-        input#email(name='email',type='text',placeholder='Gravatar Email (optional)')
-        input(type='submit', value='Join Room')#join-room
-    div#stats
-      | #{voterString} estimating in #{roomString}
-    div.create
-      h2: span Create a Room
-      form#create(action="/create")
-        input#title.halfwidth(name='title',type='text',placeholder='Room Title*',data-required='true')
-        input#join-room.halfwidth(type='submit',value='Create Room')
-        .roomOptions
-          label(for='notifications')
-            input#notifications(name='notifications',type='checkbox',value='yes')
-            span Desktop Notifications
+	section.bp-hero
+		.bp-hero-copy
+			.bp-eyebrow
+				span.bp-dot
+				| Live · #{voterString} estimating in #{roomString}
+			h1.bp-hero-title Estimate stories together — <em>instantly</em>.
+			p.bp-hero-lead Planning poker for distributed scrum teams. No accounts. No installs. Share a link, pick a card, ship faster.
+
+		.bp-action-card
+			.bp-tabs(role="tablist")
+				button.bp-tab.is-active(type="button", data-target="create", role="tab", aria-selected="true") Start a Room
+				button.bp-tab(type="button", data-target="join", role="tab", aria-selected="false") Join a Room
+
+			.bp-tab-panel.is-active(data-panel="create")
+				form#create(action="/create")
+					label.bp-field
+						span.bp-field-label Room title
+						input#title(name='title', type='text', placeholder='Sprint 42 Planning', data-required='true', autocomplete='off')
+					.roomOptions
+						label.bp-checkbox(for='notifications')
+							input#notifications(name='notifications', type='checkbox', value='yes')
+							span.bp-checkbox-box
+							span.bp-checkbox-label Desktop notifications when votes land
+					input#create-submit.bp-btn.bp-btn-primary(type='submit', value='Create Room →')
+
+			.bp-tab-panel(data-panel="join")
+				form#join(action="/join")
+					label.bp-field
+						span.bp-field-label Room ID
+						input#room-id(name='room-id', type='text', placeholder='e.g. 42591', data-required='true', autocomplete='off')
+					.bp-field-row
+						label.bp-field
+							span.bp-field-label Your name
+							input#name(name='name', type='text', placeholder='Avery', data-required='true', autocomplete='name')
+						label.bp-field
+							span.bp-field-label Gravatar email
+							input#email(name='email', type='email', placeholder='optional', autocomplete='email')
+					input#join-room.bp-btn.bp-btn-primary(type='submit', value='Join Room →')
 
 block supplementalContent
-  section#splash
-    .hero
-      h2 Scrum Poker, Simplified
-      p.lead Ditch the physical decks. Estimate stories from anywhere, in real-time, with your whole team &mdash; no accounts, no installs, just a link.
+	section.bp-features
+		.bp-feature
+			.bp-feature-icon: i.fa.fa-bolt
+			h3 Real-time consensus
+			p Live averages, min/max highlights, large-spread warnings — the moment the last vote lands.
+		.bp-feature
+			.bp-feature-icon: i.fa.fa-th-large
+			h3 Decks for every team
+			p Standard, Fibonacci, T-Shirt, Letters. Switch mid-session and everyone updates instantly.
+		.bp-feature
+			.bp-feature-icon: i.fa.fa-paint-brush
+			h3 Cards with character
+			p 25+ patterns, custom color picker, persistent preferences — yes, even the goat is still here.
+		.bp-feature
+			.bp-feature-icon: i.fa.fa-eye-slash
+			h3 Observer mode
+			p Stakeholders watch without skewing the average. PMs, designers — welcome aboard.
 
-    .feature-grid
-      .feature-card
-        .feature-icon: i.fa.fa-globe
-        h3 Distributed Teams
-        p Remote scrum teams join from any device with a room code. No sign-up required.
-
-      .feature-card
-        .feature-icon: i.fa.fa-bar-chart
-        h3 Live Results
-        p Averages calculated instantly. High/low estimates highlighted. Large spreads flagged for discussion.
-
-      .feature-card
-        .feature-icon: i.fa.fa-th
-        h3 Multiple Decks
-        p Standard, Fibonacci, T-Shirt sizes, or Letters. Switch mid-session. Updates everyone instantly.
-
-      .feature-card
-        .feature-icon: i.fa.fa-paint-brush
-        h3 25+ Card Styles
-        p Custom patterns, custom colors. Your preferences persist across sessions.
-
-      .feature-card
-        .feature-icon: i.fa.fa-eye-slash
-        h3 Observer Mode
-        p Mark voters as observers. Their estimates show but don't affect the average.
-
-      .feature-card
-        .feature-icon: i.fa.fa-bell-o
-        h3 Desktop Alerts
-        p Get notified when every vote is in. Never miss a round closing.
-
-    .how-it-works
-      h2 How It Works
-      .steps
-        .step
-          .step-badge 1
-          .step-body
-            h4 Create a Room
-            p Name your session, share the short invite link. That's it.
-        .step
-          .step-badge 2
-          .step-body
-            h4 Pick Your Style
-            p Choose a card pattern and color. Stored locally for next time.
-        .step
-          .step-badge 3
-          .step-body
-            h4 Estimate &amp; Reveal
-            p Host opens a round &rarr; everyone votes &rarr; host closes &rarr; average revealed.
-
-    .cta-banner
-      p Ready to estimate faster?
-      a.button-cta(href="#actions") Create a Room
+	section.bp-how
+		h2 Three steps. About thirty seconds.
+		ol.bp-steps
+			li
+				span.bp-step-num 01
+				div
+					h4 Spin up a room
+					p Pick a title. We mint a short link you can paste anywhere.
+			li
+				span.bp-step-num 02
+				div
+					h4 Teammates join
+					p Names, optional Gravatar, and they're in. Mobile-friendly.
+			li
+				span.bp-step-num 03
+				div
+					h4 Reveal & ship
+					p Open a round, everyone votes, host closes — the average drops with a flourish.

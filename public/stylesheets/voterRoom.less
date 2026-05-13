@@ -1,136 +1,277 @@
 /**
- * Voter room styles
+ * Voter (estimate) room
  */
-#voterRoomInfo {
-	display: block;
-	padding: 10px 20px;
-	background: rgba(0,0,0,0.5);
-	font-size: 14px;
-	font-weight: bold;
 
-	#voterList .avatars {
-		display: inline-block;
-		vertical-align: middle;
+// ── Header ───────────────────────────────────────────────────
+.bp-voter-header {
+	position: relative;
+	z-index: 5;
+	display: grid;
+	grid-template-columns: auto 1fr auto;
+	align-items: center;
+	gap: 24px;
+	padding: 16px 28px;
+	background: rgba(11, 16, 32, 0.55);
+	backdrop-filter: blur(14px);
+	-webkit-backdrop-filter: blur(14px);
+	border-bottom: 1px solid @border;
+
+	.bp-room-info {
+		display: inline-flex;
+		align-items: center;
+		gap: 10px;
+		justify-self: center;
+
+		.bp-room-info-label {
+			font-size: 0.72rem;
+			font-weight: 600;
+			text-transform: uppercase;
+			letter-spacing: 0.12em;
+			color: @text-dim;
+		}
+		.bp-room-info-id {
+			font: 700 0.95rem/1 @mono;
+			color: @brand-2;
+			padding: 5px 10px;
+			border-radius: 8px;
+			background: fade(@brand-2, 12%);
+			border: 1px solid fade(@brand-2, 28%);
+		}
 	}
 
-	.voterImageSmall {
-		float: left;
-		height: 30px;
-		width: 30px;
-		margin: 0 0 0 5px;
+	.bp-voter-list {
+		display: inline-flex;
+		align-items: center;
+		gap: 10px;
+
+		.bp-voter-list-label {
+			font-size: 0.72rem;
+			font-weight: 600;
+			text-transform: uppercase;
+			letter-spacing: 0.12em;
+			color: @text-dim;
+		}
+		.avatars {
+			display: inline-flex;
+			align-items: center;
+		}
 	}
 }
 
-#voterInfo {
-	position: relative;
-	margin: 10px auto;
-	max-width: 500px;
+.voterImageSmall {
+	width: 28px;
+	height: 28px;
+	border-radius: 50%;
+	border: 2px solid @bg-1;
+	margin-left: -8px;
+	box-shadow: 0 2px 6px rgba(0,0,0,0.4);
+	background: @bg-2;
+	display: inline-block;
+	&:first-child { margin-left: 0; }
+}
 
-	.status {
-		display: none;
-		height: 20px;
-		padding: 10px;
-		margin: 10px 0;
-		border-radius: 6px;
-		line-height: 20px;
-		background: rgba(0,0,0,0.5);
+// ── Main ─────────────────────────────────────────────────────
+.bp-voter-main {
+	position: relative;
+	z-index: 1;
+	max-width: 720px;
+	margin: 28px auto 80px;
+	padding: 0 20px;
+}
+
+.bp-voter-card {
+	.surface-elevated();
+	padding: 22px 24px;
+	display: grid;
+	gap: 16px;
+}
+
+.bp-voter-identity {
+	display: flex;
+	align-items: center;
+	gap: 14px;
+
+	.voterImage {
+		width: 56px;
+		height: 56px;
+		border-radius: 50%;
+		border: 2px solid @border-hi;
+		background: @bg-2;
+		padding: 0;
+		margin: 0;
+	}
+
+	.voterName {
+		display: block;
+		font: 700 1.05rem/1.2 @sans;
 		color: @text;
-		font-size: 14px;
-		font-weight: bold;
-
-		&.roundEnd {
-			display: block;
-		}
-
-		&.newRound {
-			background: @accentColor;
-			color: white;
-		}
-	}
-
-	.voterName,.voterImage {
-		margin-left: 0;
-	}
-
-	#cardStyle {
-		position: absolute;
-		top: 40px;
-		left: 170px;
-		h4 {
-			height: 32px;
-			text-align: center;
-		}
-		#cardPreview {
-			.cardStyle(.45);
-			position: relative;
-			top: auto; left: auto;
-			.box-sizing();
-		}
+		margin: 0;
+		padding: 0;
+		border: none;
+		background: none;
+		width: auto;
+		height: auto;
+		text-align: left;
+		letter-spacing: -0.01em;
 	}
 }
 
-table#estimateOptions {
+.bp-card-style-btn {
+	.button-ghost();
+	height: 32px;
+	padding: 0 12px;
+	font-size: 0.82rem;
+	margin-top: 6px;
+	color: @text-muted;
+	.fa { color: @brand-2; }
+}
+
+// ── Status pill ──────────────────────────────────────────────
+.bp-status {
+	display: none;
+	align-items: center;
+	gap: 10px;
+	padding: 12px 16px;
+	border-radius: @radius;
+	font: 500 0.95rem/1.3 @sans;
+	border: 1px solid @border;
+	background: @surface;
+
+	&.roundEnd { display: flex; }
+
+	.bp-status-text {
+		display: inline-flex;
+		flex-wrap: wrap;
+		gap: 4px;
+	}
+
+	#ticketInfo {
+		font-weight: 600;
+		a { color: inherit; text-decoration: underline; }
+	}
+}
+
+.bp-status-open {
+	background: linear-gradient(135deg, fade(@success, 18%), fade(@brand-2, 12%));
+	border-color: fade(@success, 40%);
+	color: #fff;
+
+	.bp-status-dot {
+		width: 10px;
+		height: 10px;
+		border-radius: 50%;
+		background: @success;
+		box-shadow: 0 0 0 4px fade(@success, 25%);
+		animation: bp-pulse 1.6s @ease infinite;
+	}
+}
+
+.bp-status-closed {
+	color: @text-muted;
+	.fa { color: @text-dim; }
+}
+
+// ── Deck (estimate cards grid) ───────────────────────────────
+.bp-deck-wrap {
+	margin-top: 24px;
+}
+
+table#estimateOptions.bp-deck {
 	width: 100%;
-	border-spacing: 10px;
-	position: relative;
+	border-spacing: 12px;
+	border-collapse: separate;
+
+	tr { display: contents; }
+	tbody { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+
 	td {
-		width: 33%;
-		font: normal 2.5em/2.5em @sans;
-		text-align: center;
-		color: @darktext;
-		border-radius: 3px;
-		.fa {
-			.iconDark();
+		width: auto;
+		aspect-ratio: 3 / 4;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		font: 700 2.4rem/1 @sans;
+		letter-spacing: -0.02em;
+		color: @text;
+		border-radius: @radius;
+		border: 1px solid @border;
+		background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));
+		cursor: pointer;
+		user-select: none;
+		transition: transform @dur-2 @ease, background-color @dur-2 @ease, border-color @dur-2 @ease, box-shadow @dur-2 @ease;
+
+		.fa { color: @text; }
+		&.blank { background: none !important; border-color: transparent; cursor: default; }
+	}
+
+	// Open round
+	&.newRound td {
+		cursor: pointer;
+		background: linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.03));
+		color: @text;
+
+		&:hover {
+			transform: translateY(-3px);
+			border-color: fade(@brand, 70%);
+			background: linear-gradient(135deg, fade(@brand, 18%), fade(@brand-2, 12%));
+			box-shadow: 0 12px 28px fade(@brand, 25%);
+		}
+
+		&.lastVote {
+			background: linear-gradient(135deg, @brand 0%, @brand-2 100%);
+			border-color: transparent;
+			color: #fff;
+			box-shadow: 0 12px 30px fade(@brand, 45%), 0 0 0 4px fade(@brand, 28%);
+			transform: translateY(-2px);
+			.fa { color: #fff; }
 		}
 	}
 
-	&.roundEnd {
-		td,
-		td:hover,
-		td.lastVote,
-		td.blank {
-			cursor: not-allowed;
-			background: darken(@link, 20%);
-		}
-	}
+	// Closed round
+	&.roundEnd td {
+		cursor: not-allowed;
+		opacity: 0.55;
+		background: rgba(255,255,255,0.04);
+		color: @text-dim;
+		.fa { color: @text-dim; }
 
-	&.newRound {
-		td {
-			cursor: pointer;
-			background: @link;
-			&:hover {
-				background: @hover;
-			}
-			&.lastVote {
-				background: darken(@link,20%);
-			}
-			&.blank {
-				background: none !important;
-			}
+		&.lastVote {
+			opacity: 1;
+			color: #fff;
+			background: linear-gradient(135deg, @brand 0%, @brand-2 100%);
+			border-color: transparent;
 		}
 	}
 }
 
+// ── Card style modal ─────────────────────────────────────────
 #cardStylePop-modal-container {
 	label {
 		display: block;
-		width: 150px;
-		color: @darktext;
+		width: 100%;
+		font-size: 0.78rem;
+		font-weight: 600;
+		text-transform: uppercase;
+		letter-spacing: 0.08em;
+		color: @text-dim;
 
 		select, input {
-			margin-top: 5px;
+			margin-top: 8px;
+			width: 100%;
+			height: 40px;
+			padding: 0 12px;
+			background: rgba(0,0,0,0.25);
+			border: 1px solid @border;
+			border-radius: @radius-sm;
+			color: @text;
+			font: 400 0.95rem/1 @sans;
+			-webkit-appearance: none;
 		}
+		input[type=color] { padding: 4px; cursor: pointer; }
 	}
-	label + label {
-		margin-top: 10px;
-	}
-	select#pattern {
-		width: 150px;
-		text-transform: capitalize;
-	}
-	input#color {
-		width: 150px;
-	}
+	label + label { margin-top: 14px; }
+	select#pattern { text-transform: capitalize; }
+
 	.close {
 		width: 20px;
 		height: 20px;
@@ -140,4 +281,21 @@ table#estimateOptions {
 		font-size: 1.4em;
 		cursor: pointer;
 	}
+}
+
+// ── Responsive ───────────────────────────────────────────────
+@media (max-width: 720px) {
+	.bp-voter-header {
+		grid-template-columns: auto 1fr;
+		.bp-voter-list { display: none; }
+	}
+	.bp-voter-main { padding: 0 16px; margin: 18px auto 56px; }
+	table#estimateOptions.bp-deck {
+		tbody { grid-template-columns: repeat(3, 1fr); gap: 10px; }
+		td { font-size: 2rem; }
+	}
+}
+
+@media (max-width: 440px) {
+	table#estimateOptions.bp-deck tbody { grid-template-columns: repeat(3, 1fr); }
 }

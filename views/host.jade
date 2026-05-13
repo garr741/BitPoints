@@ -1,15 +1,22 @@
 extends layout
 
 block content
-	#room
-		h1 Welcome to #{room.title} (#{room.roomId})
-
-		ul#settings
+	header.bp-room-header
+		a.bp-logo(href="/")
+			span.bp-logo-mark BP
+			span BitPoints
+		.bp-room-meta
+			.bp-room-title
+				span.bp-room-label Room
+				h1 #{room.title}
+				span.bp-room-id ##{room.roomId}
+		ul#settings.bp-settings
 			li
-				i.setting.fa.fa-cog.fa-2x
+				button.setting.bp-icon-btn(type="button", aria-label="Room settings")
+					i.fa.fa-cog
 				.drop
 					.dropItem
-						span.title Deck Type:
+						span.title Deck type
 						.control
 							.option
 								label(for="standard")
@@ -26,31 +33,37 @@ block content
 							.option
 								label(for="tshirt")
 									input(type="radio", value="tshirt", name="deckType", id="tshirt")
-									span T-Shirt Sizes
+									span T-Shirt
 					.dropItem
-						span.title Round To Card:
+						span.title Round average
 						.control
-							.option
-								label(for="roundNearest")
-									input(type="checkbox", name="roundNearest" id="roundNearest")
+							label.bp-switch(for="roundNearest")
+								input(type="checkbox", name="roundNearest", id="roundNearest")
+								span.bp-switch-track
+									span.bp-switch-thumb
+								span.bp-switch-label Snap to nearest card
 					.dropItem
-						span.title Invite URL:
+						span.title Invite link
 						.control
-							span
+							.bp-invite
 								span#inviteUrl #{inviteId}
-								i.fa.fa-share-square-o#showLink(data-link="#{inviteId}")
+								button#showLink.bp-icon-btn-sm(type="button", data-link=inviteId, aria-label="Show invite link")
+									i.fa.fa-share-square-o
 
-		button#toggleRound Begin Estimating
+	main#room.bp-room
+		section.bp-round-bar
+			button#toggleRound.bp-btn-round Begin Estimating
+			#ticket.bp-ticket
+			.bp-round-results
+				#average The average estimate is&nbsp;
+					span.val
+				#nearestCard The nearest card is&nbsp;
+					span.val
+				#largeSpread.bp-spread-warning
+					i.fa.fa-exclamation-triangle
+					|  Looks like there's some uncertainty about this estimate…
 
-		#average The average estimate is&nbsp;
-			span.val
-		#nearestCard The nearest card is&nbsp;
-			span.val
-		#largeSpread Looks like there's some uncertainty about this estimate...
-
-		#ticket
-
-		ul#users
+		ul#users.bp-voters
 
 	script.
 		BP.room = !{JSON.stringify(room)};

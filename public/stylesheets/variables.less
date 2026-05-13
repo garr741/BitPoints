@@ -1,11 +1,55 @@
-@text: #e3e3e3;
-@darktext: #555;
-@link: #fff;
-@hover: darken(@link,15%);
-@primaryColor: #2581FF;
-@accentColor: #E8800C;
-@errorColor: #FF4136;
-@selection: desaturate(darken(@primaryColor,5%),5%);
-@sans: "Helvetica Neue", Helvetica, Arial, sans-serif;
-@serif: Georgia, Cambria, "Times New Roman", Times, serif;
-@title: "Alegreya Sans SC", sans-serif;
+// ── Color tokens ────────────────────────────────────────────────
+// Surface (deep slate gradient background)
+@bg-0:           #0b1020;
+@bg-1:           #131a33;
+@bg-2:           #1b2447;
+
+// Foreground
+@text:           #e8ecf7;
+@text-muted:     #a5acc7;
+@text-dim:       #6f7799;
+@darktext:       #1a2042;
+@link:           #e8ecf7;
+@hover:          #ffffff;
+
+// Brand accents
+@brand:          #7c5cff;    // electric violet, primary
+@brand-2:        #4cc9ff;    // cyan, secondary
+@accent:         #ff7ab6;    // pink, for highlights
+@success:        #2ee6a8;
+@warn:           #ffb347;
+@error:          #ff5577;
+
+// Legacy aliases — kept so existing rules continue to compile
+@primaryColor:   @brand;
+@accentColor:    @brand-2;
+@errorColor:     @error;
+@selection:      fade(@brand, 35%);
+
+// Surface treatments
+@surface:        rgba(255, 255, 255, 0.04);
+@surface-hi:     rgba(255, 255, 255, 0.08);
+@surface-hov:    rgba(255, 255, 255, 0.12);
+@border:         rgba(255, 255, 255, 0.10);
+@border-hi:      rgba(255, 255, 255, 0.18);
+
+// ── Type ────────────────────────────────────────────────────────
+@sans:   'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+@title:  'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+@mono:   'JetBrains Mono', 'SF Mono', ui-monospace, Menlo, monospace;
+@serif:  Georgia, Cambria, 'Times New Roman', Times, serif;
+
+// ── Radii / shadows / motion ────────────────────────────────────
+@radius-sm:   8px;
+@radius:      14px;
+@radius-lg:   22px;
+@radius-xl:   28px;
+
+@shadow-1:    0 1px 2px rgba(0,0,0,0.25), 0 2px 8px rgba(0,0,0,0.20);
+@shadow-2:    0 8px 24px rgba(0,0,0,0.35), 0 2px 6px rgba(0,0,0,0.25);
+@shadow-glow: 0 0 0 1px fade(@brand, 35%), 0 8px 32px fade(@brand, 35%);
+
+@ease:        cubic-bezier(0.22, 0.61, 0.36, 1);
+@dur-1:       140ms;
+@dur-2:       240ms;
+@dur-3:       380ms;

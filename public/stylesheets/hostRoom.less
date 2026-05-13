@@ -1,191 +1,462 @@
 /**
- * Host room styles
+ * Host room
  */
-body { perspective: 1000; }
 
-#room {
-	margin: 30px;
+body { perspective: 1200px; }
+
+// ── Top header bar ───────────────────────────────────────────
+.bp-room-header {
+	position: relative;
+	z-index: 5;
+	display: grid;
+	grid-template-columns: auto 1fr auto;
+	align-items: center;
+	gap: 24px;
+	padding: 20px 36px;
+	background: rgba(11, 16, 32, 0.55);
+	backdrop-filter: blur(14px);
+	-webkit-backdrop-filter: blur(14px);
+	border-bottom: 1px solid @border;
 }
 
-#toggleRound {
-	.button(@accentColor);
-	float: left;
-	.voting & {
-		.button(@primaryColor);
+.bp-room-meta {
+	display: flex;
+	justify-content: center;
+}
+
+.bp-room-title {
+	display: flex;
+	align-items: baseline;
+	gap: 14px;
+	max-width: 100%;
+	overflow: hidden;
+
+	.bp-room-label {
+		font-size: 0.72rem;
+		font-weight: 600;
+		text-transform: uppercase;
+		letter-spacing: 0.12em;
+		color: @text-dim;
+	}
+	h1 {
+		font: 700 1.2rem/1.2 @sans;
+		letter-spacing: -0.01em;
+		color: @text;
+		max-width: 60ch;
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+	}
+	.bp-room-id {
+		font: 600 0.85rem/1 @mono;
+		color: @brand-2;
+		padding: 4px 8px;
+		border-radius: 6px;
+		background: fade(@brand-2, 12%);
+		border: 1px solid fade(@brand-2, 28%);
 	}
 }
 
-#settings {
+.bp-settings {
+	li { position: relative; }
+}
+
+.bp-icon-btn, .bp-icon-btn-sm {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	background: @surface;
+	border: 1px solid @border;
+	color: @text;
+	cursor: pointer;
+	border-radius: @radius-sm;
+	transition: background-color @dur-2 @ease, border-color @dur-2 @ease, color @dur-2 @ease;
+
+	&:hover { background: @surface-hov; border-color: @border-hi; }
+	.fa { color: inherit; }
+}
+.bp-icon-btn    { width: 42px; height: 42px; font-size: 1rem; }
+.bp-icon-btn-sm { width: 32px; height: 32px; font-size: 0.85rem; padding: 0; }
+
+// Settings drop panel
+.bp-settings .drop {
+	display: none;
 	position: absolute;
-	top: 30px;
-	right: 30px;
+	top: 52px;
+	right: 0;
+	z-index: 50;
+	min-width: 320px;
+	padding: 18px;
+	background: linear-gradient(180deg, #1c2447 0%, #161e3c 100%);
+	border: 1px solid @border-hi;
+	border-radius: @radius;
+	box-shadow: @shadow-2;
+	color: @text;
 
-	li {
-		position: relative;
-		.fa {
-			cursor: pointer;
-		}
-		.drop {
-			display: none;
-			position: absolute;
-			top: 42px;
-			right: -12px;
-			z-index: 10;
-			width: 300px;
-			padding: 12px;
-			background: white;
-			.border-radius(12px);
-			color: @darktext;
+	&::before {
+		content: '';
+		position: absolute;
+		top: -7px;
+		right: 16px;
+		width: 13px;
+		height: 13px;
+		background: #1c2447;
+		border-top: 1px solid @border-hi;
+		border-left: 1px solid @border-hi;
+		transform: rotate(45deg);
+	}
+	&.active {
+		display: block;
+		animation: bp-fade-in @dur-2 @ease;
+	}
 
-			&:before {
-				content: '';
-				position: absolute;
-				top: -6px;
-				right: 20px;
-				display: block;
-				height: 12px;
-				width: 12px;
-				.rotate(45deg);
-				background: white;
-			}
+	.dropItem + .dropItem {
+		margin-top: 16px;
+		padding-top: 16px;
+		border-top: 1px solid @border;
+	}
 
-			&.active {
-				display: block;
-			}
+	.title {
+		display: block;
+		font-size: 0.72rem;
+		font-weight: 600;
+		text-transform: uppercase;
+		letter-spacing: 0.1em;
+		color: @text-dim;
+		margin-bottom: 8px;
+	}
 
-			.dropItem + .dropItem {
-				margin-top: 10px;
-			}
+	.control {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 6px;
 
-			.title {
-				font-weight: bold;
-				width: 130px;
-				display: inline-block;
-				vertical-align: top;
-				line-height: 2em;
-			}
-			.control {
-				display: inline-block;
-				vertical-align: top;
-			}
-			.fa {
-				padding-left: 6px;
+		.option {
+			label {
+				display: inline-flex;
+				align-items: center;
 				cursor: pointer;
-				.iconDark();
+				padding: 7px 12px;
+				background: @surface;
+				border: 1px solid @border;
+				border-radius: 999px;
+				font-size: 0.85rem;
+				font-weight: 500;
+				color: @text-muted;
+				transition: background-color @dur-2 @ease, border-color @dur-2 @ease, color @dur-2 @ease;
+
+				input { position: absolute; opacity: 0; pointer-events: none; }
+				span { line-height: 1; }
+			}
+			label:hover { background: @surface-hov; color: @text; }
+			input:checked + span,
+			label:has(input:checked) {
+				color: #fff;
+			}
+			label:has(input:checked) {
+				background: linear-gradient(135deg, @brand, lighten(@brand, 6%));
+				border-color: transparent;
+				box-shadow: 0 6px 16px fade(@brand, 35%);
 			}
 		}
 	}
+
+	.fa { color: @text-muted; cursor: pointer; padding-left: 6px; }
 }
 
-#roomName {
-	display: inline-block;
-	margin-left: 8px;
+// Switch
+.bp-switch {
+	display: inline-flex;
+	align-items: center;
+	gap: 10px;
+	cursor: pointer;
+	user-select: none;
+
+	input { position: absolute; opacity: 0; pointer-events: none; }
+
+	.bp-switch-track {
+		position: relative;
+		width: 38px;
+		height: 22px;
+		background: rgba(0,0,0,0.35);
+		border: 1px solid @border;
+		border-radius: 999px;
+		transition: background-color @dur-2 @ease, border-color @dur-2 @ease;
+	}
+	.bp-switch-thumb {
+		position: absolute;
+		top: 2px;
+		left: 2px;
+		width: 16px;
+		height: 16px;
+		background: @text-muted;
+		border-radius: 50%;
+		transition: left @dur-2 @ease, background-color @dur-2 @ease;
+	}
+	input:checked ~ .bp-switch-track {
+		background: linear-gradient(135deg, @brand, @brand-2);
+		border-color: transparent;
+	}
+	input:checked ~ .bp-switch-track .bp-switch-thumb {
+		left: 18px;
+		background: #fff;
+	}
+	.bp-switch-label {
+		font-size: 0.88rem;
+		color: @text;
+	}
+}
+
+// Invite chip
+.bp-invite {
+	display: inline-flex;
+	align-items: center;
+	gap: 8px;
+	padding: 4px 4px 4px 12px;
+	background: rgba(0,0,0,0.3);
+	border: 1px solid @border;
+	border-radius: 999px;
+
+	#inviteUrl {
+		font: 600 0.85rem/1 @mono;
+		color: @brand-2;
+	}
+}
+
+// ── Room body ────────────────────────────────────────────────
+.bp-room {
+	position: relative;
+	z-index: 1;
+	max-width: 1480px;
+	margin: 0 auto;
+	padding: 28px 36px 80px;
+}
+
+.bp-round-bar {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 18px 22px;
+	padding: 18px 22px;
+	.surface-elevated();
+	margin-bottom: 28px;
+}
+
+.bp-btn-round {
+	.button(@brand);
+	height: 48px;
+	padding: 0 22px;
+	font-size: 0.98rem;
+
+	.voting & {
+		.button(@error);
+	}
+}
+
+.bp-ticket {
+	color: @text-muted;
+	font-size: 0.95rem;
+	min-height: 1.4em;
+
+	.key {
+		color: @brand-2;
+		font-family: @mono;
+		font-weight: 700;
+	}
+	.title {
+		color: @text;
+		margin-left: 6px;
+	}
+}
+
+.bp-round-results {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 12px 22px;
+	margin-left: auto;
+	align-items: center;
 }
 
 #average,
-#nearestCard,
-#largeSpread {
+#nearestCard {
 	display: none;
-	float: left;
-	margin-left: 1.875em;
-	font-size: 1.2em;
-	line-height: 1.875em;
+	color: @text-muted;
+	font-size: 0.95rem;
+	line-height: 1.4;
 
 	.val {
 		display: inline-block;
-		margin: -3px 0;
-		padding: 0 10px;
-		border: 1px solid rgba(255, 255, 255, 0.3);
-		font-weight: bold;
-		background: rgba(0, 0, 0, 0.25);
-		border-radius: 5px;
+		margin-left: 6px;
+		padding: 6px 12px;
+		font: 700 0.95rem/1 @mono;
+		color: #fff;
+		background: linear-gradient(135deg, @brand 0%, @brand-2 100%);
+		border-radius: 8px;
+		box-shadow: 0 6px 18px fade(@brand, 35%);
 	}
 }
 
-#ticket {
-	float: left;
-	margin-left: 1.875em;
-	font-size: 1.2em;
-	line-height: 1.875em;
-	.key {
-		font-weight: bold;
-	}
-	.title {
-	}
+#largeSpread {
+	display: none;
+	align-items: center;
+	gap: 8px;
+	padding: 8px 14px;
+	border-radius: 999px;
+	background: fade(@warn, 14%);
+	border: 1px solid fade(@warn, 35%);
+	color: @warn;
+	font-size: 0.85rem;
+	font-weight: 500;
 }
 
-.voterImage {
-	display: block;
-	padding: 25px 25px 0;
-	margin-left: 24px;
-	border: solid rgba(255,255,255,0.25);
-	border-width: 1px 1px 0;
-	.border-radius(10px 10px 0 0);
-	background: rgba(0,0,0,0.25)
-}
-.voterName {
-	display: block;
-	height: 40px;
-	width: 150px;
-	margin-left: 24px;
-	border: solid rgba(255,255,255,0.25);
-	border-width: 0 1px 1px;
-	.border-radius(0 0 10px 10px);
-	line-height: 40px;
-	text-align: center;
-	background: rgba(0,0,0,0.25);
-}
+// ── Voter grid ───────────────────────────────────────────────
+.bp-voters {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+	gap: 22px;
+	padding: 0;
 
-ul#users {
-	clear: both;
-	width: 100%;
 	li {
-		float: left;
 		position: relative;
-		width: 200px;
-		height: 425px;
-		margin: 20px;
-		.card {
-			.cardStyle();
-		}
-		.kickVoter, .ಠ_ಠ {
-			display: none;
-			position: absolute;
-			right: 3px;
-			width: 20px;
-			height: 40px;
-			line-height: 38px;
-			text-align: center;
-			color: white;
-			border: solid rgba(255,255,255,0.5);
-			border-width: 1px 1px 1px 0;
-			cursor: pointer;
-		}
-		.ಠ_ಠ {
-			top: 34px;
-			.border-radius-tr(5px);
-			background: #ff9500;
-			&:hover {
-				background: darken(#ff9500, 2);
-			}
-		}
-		.kickVoter {
-			top: 76px;
-			.border-radius-br(5px);
-			background: rgb(211, 39, 39);
-			&:hover {
-				background: darken(rgb(211, 39, 39), 2);
-			}
-		}
+		.surface();
+		padding: 22px 18px 24px;
+		min-height: 380px;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: 12px;
+		transition: transform @dur-2 @ease, border-color @dur-2 @ease;
 
 		&:hover {
-			.kickVoter, .ಠ_ಠ {
-				display: block;
-			}
+			border-color: @border-hi;
+			transform: translateY(-2px);
+
+			.kickVoter, .ಠ_ಠ { opacity: 1; transform: translateX(0); }
 		}
 
 		&[data-observer="true"] {
-			opacity: .6;
+			opacity: 0.55;
+			.voterName::after {
+				content: 'OBSERVER';
+				display: block;
+				font: 600 0.65rem/1 @sans;
+				letter-spacing: 0.15em;
+				color: @brand-2;
+				margin-top: 4px;
+			}
+		}
+
+		// Avatar
+		.voterImage {
+			display: block;
+			width: 64px;
+			height: 64px;
+			padding: 0;
+			margin: 0;
+			border: 2px solid @border-hi;
+			border-radius: 50%;
+			background: rgba(0,0,0,0.25);
+			box-shadow: 0 6px 18px rgba(0,0,0,0.3);
+		}
+
+		.voterName {
+			display: block;
+			width: 100%;
+			height: auto;
+			margin: 0;
+			padding: 0;
+			border: none;
+			background: none;
+			text-align: center;
+			font: 600 0.95rem/1.3 @sans;
+			color: @text;
+			letter-spacing: -0.01em;
+			word-break: break-word;
+		}
+
+		// Card slot — playing card lives below the name
+		.card {
+			.cardStyle(0.85);
+			left: 50%;
+			margin-left: -76px; // (180 * 0.85) / 2 = 76.5
+			&.visible { top: 130px; }
+		}
+
+		// Action buttons (kick / observer)
+		.kickVoter, .ಠ_ಠ {
+			position: absolute;
+			top: 14px;
+			width: 32px;
+			height: 32px;
+			line-height: 32px;
+			text-align: center;
+			color: #fff;
+			border: none;
+			border-radius: 50%;
+			cursor: pointer;
+			opacity: 0;
+			transform: translateX(4px);
+			transition: opacity @dur-2 @ease, transform @dur-2 @ease, background-color @dur-2 @ease;
+			font-size: 0.85rem;
+			box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+		}
+		.ಠ_ಠ {
+			right: 52px;
+			background: linear-gradient(135deg, @warn, darken(@warn, 8%));
+			&:hover { filter: brightness(1.1); }
+		}
+		.kickVoter {
+			right: 14px;
+			background: linear-gradient(135deg, @error, darken(@error, 8%));
+			font-size: 1.2rem;
+			line-height: 30px;
+			&:hover { filter: brightness(1.1); }
 		}
 	}
+}
+
+// Voting-active visual cue on header
+html.voting .bp-btn-round {
+	animation: bp-glow 2.4s ease-in-out infinite;
+}
+@keyframes bp-glow {
+	0%, 100% { box-shadow: 0 1px 0 rgba(255,255,255,0.18) inset, 0 6px 18px fade(@error, 30%); }
+	50%      { box-shadow: 0 1px 0 rgba(255,255,255,0.28) inset, 0 10px 32px fade(@error, 55%); }
+}
+
+// Empty state for voter grid
+.bp-voters:empty {
+	min-height: 200px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border: 2px dashed @border;
+	border-radius: @radius-lg;
+	color: @text-dim;
+	background: transparent;
+	padding: 60px 20px;
+
+	&::before {
+		content: 'Waiting for teammates to join — share your invite link';
+		font-size: 0.95rem;
+		color: @text-dim;
+	}
+}
+
+// ── Responsive ───────────────────────────────────────────────
+@media (max-width: 720px) {
+	.bp-room-header {
+		grid-template-columns: 1fr auto;
+		padding: 14px 18px;
+		gap: 12px;
+		.bp-room-meta { display: none; }
+	}
+	.bp-room { padding: 18px; }
+	.bp-round-bar {
+		flex-direction: column;
+		align-items: stretch;
+		.bp-btn-round { width: 100%; }
+		.bp-round-results { margin-left: 0; }
+	}
+	.bp-voters { grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); }
 }

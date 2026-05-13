@@ -1,23 +1,40 @@
 extends layout
 
 block content
-	#voterRoomInfo Room:
-		#roomName #{room.roomId}
-		#voterList Players:
+	header#voterRoomInfo.bp-voter-header
+		a.bp-logo(href="/")
+			span.bp-logo-mark BP
+			span BitPoints
+		.bp-room-info
+			span.bp-room-info-label Room
+			span#roomName.bp-room-info-id
+		#voterList.bp-voter-list
+			span.bp-voter-list-label Players
 			.avatars
-	#voterInfo
-		.status.newRound
-			| Voting is open - choose a card
-			span#ticketInfo
-		.status.roundEnd Voting is closed
-		img.voterImage#avatar(src='#{user.avatar}')
-		h3.voterName #{user.name}
-		#cardStyle
-			h4 Card Style
-			div#cardPreview
-				div.cardBack.argyle(style='background-color:#{user.cardColor}')
 
-		table#estimateOptions.roundEnd
+	main#voterInfo.bp-voter-main
+		section.bp-voter-card
+			.bp-voter-identity
+				img.voterImage#avatar(src='#{user.avatar}')
+				div
+					h3.voterName #{user.name}
+					button#cardStyle.bp-card-style-btn(type="button")
+						i.fa.fa-paint-brush
+						|  Card style
+						div#cardPreview(style='display:none')
+							div.cardBack.argyle(style='background-color:#{user.cardColor}')
+
+			.status.newRound.bp-status.bp-status-open
+				span.bp-status-dot
+				span.bp-status-text
+					| Voting is open — choose a card
+					span#ticketInfo
+			.status.roundEnd.bp-status.bp-status-closed
+				i.fa.fa-lock
+				span.bp-status-text Voting is closed
+
+		section.bp-deck-wrap
+			table#estimateOptions.roundEnd.bp-deck
 
 	script.
 		BP.room = !{JSON.stringify(room)};

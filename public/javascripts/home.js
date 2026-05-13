@@ -23,7 +23,8 @@ var page = new BP.Page({
 		'submit #join': 'joinRoom',
 		'submit #create': 'createRoom',
 		'click #notifications': 'allowNotifications',
-		'focus #title': 'showRoomOptions'
+		'focus #title': 'showRoomOptions',
+		'click .bp-tab': 'switchTab'
 	},
 
 	DOM: {
@@ -34,7 +35,9 @@ var page = new BP.Page({
 		title: '#title',
 		create: '#create',
 		roomOptions: '.roomOptions',
-		notifications: '#notifications'
+		notifications: '#notifications',
+		tabs: '.bp-tab',
+		panels: '.bp-tab-panel'
 	},
 
 	initialize: function() {
@@ -49,12 +52,28 @@ var page = new BP.Page({
 			}
 		}
 		if(!BP.Notification.supported) {
-			this.$notifications.parent('label').hide();
+			this.$notifications.closest('label').hide();
 		} else {
 			if(BP.localStorage.get('useNotifications')) {
 				this.$notifications.trigger('click');
 			}
 		}
+
+		// If a room id is prefilled (e.g. from invite), auto-show the Join tab
+		if(this.$roomId.val() && this.$roomId.attr('type') !== 'hidden') {
+			this.activateTab('join');
+		}
+	},
+
+	switchTab: function(e, $el) {
+		this.activateTab($el.data('target'));
+	},
+
+	activateTab: function(target) {
+		this.$tabs.removeClass('is-active').attr('aria-selected', 'false');
+		this.$tabs.filter('[data-target="' + target + '"]').addClass('is-active').attr('aria-selected', 'true');
+		this.$panels.removeClass('is-active');
+		this.$panels.filter('[data-panel="' + target + '"]').addClass('is-active');
 	},
 
 	joinRoom: function(e, $el) {

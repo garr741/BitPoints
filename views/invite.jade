@@ -1,12 +1,23 @@
 extends external
 
 block mainContent
-	section#actions
-		p You've been invited to play planning poker in the room: "#{room.title}"
-		div.join
-			form(id="join", action="/join")
-				input#room-id(name='room-id',type='hidden',value='#{room.roomId}')
-				input#name(name='name',type='text',placeholder='Name',data-required='true')
-				input#email(name='email',type='text',placeholder='Gravatar Email')
-				input(type='submit', value='Join Room')#join-room
-		p or, go to <a href="/">bitpoints.io</a>
+	section.bp-hero
+		.bp-hero-copy
+			.bp-eyebrow
+				span.bp-dot
+				| You're invited
+			h1.bp-hero-title Join <em>#{room.title}</em>
+			p.bp-hero-lead Hop in to estimate with your team. We just need a couple details.
+
+		.bp-action-card
+			.bp-tab-panel.is-active(data-panel="join")
+				form#join(action="/join")
+					input#room-id(name='room-id', type='hidden', value='#{room.roomId}')
+					label.bp-field
+						span.bp-field-label Your name
+						input#name(name='name', type='text', placeholder='Avery', data-required='true', autocomplete='name')
+					label.bp-field
+						span.bp-field-label Gravatar email
+						input#email(name='email', type='email', placeholder='optional', autocomplete='email')
+					input#join-room.bp-btn.bp-btn-primary(type='submit', value='Join Room →')
+			p.bp-invite-fallback or, head to <a href="/">bitpoints.io</a>

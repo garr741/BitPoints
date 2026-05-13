@@ -1,16 +1,26 @@
 /**
- * Error page styles
+ * Error page
  */
 #error {
-	padding-top: 20px;
-	overflow: hidden;
-	.errorCard {
-		.cardStyle(1.5);
-		position: static;
-		margin: 0 auto;
-	}
+	max-width: 520px;
+	margin: 60px auto;
+	padding: 40px 32px;
+	.surface-elevated();
+	border-radius: @radius-lg;
+	text-align: center;
+
 	p {
-		margin: 20px 0;
-		text-align: center;
+		margin: 14px 0;
+		color: @text-muted;
+		strong { color: @text; font-weight: 600; }
+	}
+	a { color: @brand-2; font-weight: 600; }
+
+	.errorCard {
+		.cardStyle(1);
+		position: static;
+		margin: 0 auto 20px;
+		width: 180px;
+		height: 250px;
 	}
 }

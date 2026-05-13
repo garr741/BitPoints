@@ -2,20 +2,16 @@ extends layout
 
 block content
 	#external
-		#mainContent
-			header
-				h1 BitPoints
+		nav.bp-nav
+			a.bp-logo(href="/")
+				span.bp-logo-mark BP
+				span BitPoints
+			.bp-nav-meta
+				a.bp-nav-link(href="https://github.com/twisterghost/BitPoints", target="_blank") GitHub
+		main#mainContent
 			block mainContent
-		#supplementalContent
+		section#supplementalContent
 			block supplementalContent
-		footer
-			| Proudly made in DC
-			a(href="http://proudlymadeindc.com/", target="_blank").dcBadge
-			|  by
-			a(href="https://github.com/twisterghost", target="_blank") Michael
-			| ,
-			a(href="https://github.com/jackwanders", target="_blank") Jack</a>
-			| , &amp;
-			a(href="http://nickswider.com/", target="_blank") Nick</a>
-			a(href="https://member.angieslist.com/member/reviews/edit?serviceProviderId=9999997&cid=RAR.E012.P013.M000.G000.V000.C000.RAR.Y000.20170321", target="_blank") Test </a>
+		footer.bp-footer
+			span Made with care for distributed teams.
 	script(src='/javascripts/home.js')

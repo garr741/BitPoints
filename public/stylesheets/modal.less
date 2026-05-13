@@ -1,69 +1,97 @@
 /**
- * Modal styles
+ * Modal
  */
+
 .bp-modal-cover {
 	display: none;
-	position: absolute;
-	top: 0;
-	left: 0;
+	position: fixed;
+	inset: 0;
 	z-index: 3000;
-	width: 100%;
-	height: 100%;
-	background: rgba(0,0,0,0.5);
+	background: rgba(5, 8, 20, 0.65);
+	backdrop-filter: blur(6px);
+	-webkit-backdrop-filter: blur(6px);
+	opacity: 0;
+	transition: opacity @dur-2 @ease;
 
 	&.visible {
 		display: block;
+		opacity: 1;
 	}
 }
+
 .bp-modal-container {
 	display: none;
-	position: absolute;
-	top: 300px;
+	position: fixed;
+	top: 50%;
 	left: 50%;
 	z-index: 3001;
-	.box-sizing();
-	width: 300px;
-	padding: 30px;
-	margin-left: -150px;
-	background: white;
-	.border-radius(10px);
-	.box-shadow(0 0 10px 10px rgba(0,0,0,0.5));
-	color: @darktext;
-	font-size: 1.5em;
-	line-height: 1em;
+	transform: translate(-50%, -50%) scale(0.96);
+	opacity: 0;
+	transition: opacity @dur-2 @ease, transform @dur-2 @ease;
+
+	box-sizing: border-box;
+	width: 340px;
+	padding: 28px;
+	background: linear-gradient(180deg, #1c2447 0%, #161e3c 100%);
+	border: 1px solid @border-hi;
+	border-radius: @radius-lg;
+	box-shadow: @shadow-2;
+	color: @text;
+	font: 400 1rem/1.5 @sans;
 
 	&.visible {
 		display: block;
+		opacity: 1;
+		transform: translate(-50%, -50%) scale(1);
 	}
 
 	.bp-modal-close {
 		position: absolute;
-		top: 10px;
-		right: 10px;
-		width: 20px;
-		height: 20px;
-		font-size: 20px;
-		line-height: 20px;
+		top: 12px;
+		right: 12px;
+		width: 32px;
+		height: 32px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		font-size: 22px;
+		line-height: 1;
+		color: @text-muted;
+		background: @surface;
+		border: 1px solid @border;
+		border-radius: 50%;
 		cursor: pointer;
+		transition: background-color @dur-2 @ease, color @dur-2 @ease;
+
+		&:hover {
+			background: @surface-hov;
+			color: @text;
+		}
 	}
 
 	&.bp-modal-large {
-		padding: 50px;
-		.border-radius(20px);
-		width: 700px;
-		margin-left: -350px;
-		font-size: 3em;
-		line-height: 1em;
+		width: min(680px, calc(100vw - 40px));
+		padding: 56px 40px;
+		font-family: @mono;
+		font-size: 2.4rem;
+		font-weight: 700;
+		line-height: 1.3;
 		text-align: center;
-		font-family: 'Courier New';
+		letter-spacing: -0.01em;
+		word-break: break-all;
+
+		strong {
+			background: linear-gradient(135deg, @brand 0%, @brand-2 100%);
+			-webkit-background-clip: text;
+			background-clip: text;
+			-webkit-text-fill-color: transparent;
+			color: transparent;
+		}
 	}
 
 	&.bp-modal-small {
-		padding: 15px;
-		.border-radius(5px);
-		width: 250px;
-		margin-left: -125px;
-		font-size: 1em;
-		line-height: 1em;
+		width: 280px;
+		padding: 22px;
+		font-size: 0.95rem;
 	}
 }

@@ -1,6 +1,6 @@
 /*
- * @title: BitPoints Base Styles
- * @authors : Nick Swider, Jack Anderson
+ * BitPoints — Base Styles
+ * Modern, dark-mode redesign
  */
 
 @import "lib";
@@ -13,140 +13,89 @@
 @import "voterRoom";
 @import "hostRoom";
 @import "error";
-@import url(http://fonts.googleapis.com/css?family=Alegreya+Sans+SC:100,300,400);
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap');
 
-/**
- * Base document styles
- */
+// ── Base ──────────────────────────────────────────────────────
+*, *::before, *::after { box-sizing: border-box; }
+
 html {
-	padding-bottom: 40px;
-	background: @primaryColor;
-	transition: background-color 1.2s ease;
+	min-height: 100%;
+	background:
+		radial-gradient(1200px 800px at 80% -10%, fade(@brand, 22%) 0%, transparent 60%),
+		radial-gradient(900px 700px at -10% 110%, fade(@brand-2, 18%) 0%, transparent 55%),
+		linear-gradient(180deg, @bg-0 0%, @bg-1 60%, @bg-0 100%);
+	background-attachment: fixed;
+	color: @text;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	transition: filter 1s @ease;
+
 	&.voting {
-		background-color: @accentColor;
-	}
-
-	body {
-		font: 400 16px/1.8em @sans;
-		color: @text;
-
-		a {
-			color: @link;
-			font-family: @title;
-			font-style: italic;
-			text-decoration: none;
-			&:hover, &:focus, &:active {
-				color: @hover;
-			}
-		}
-
-		.fa {
-			.iconLight();
-		}
-
-		::selection { background: @selection; }
-		::-moz-selection { background: @selection; }
-	}
-}
-
-/**
- * Media Queries
- */
-@media(max-width:1100px) {
-	#external {
-		margin: 50px 50px 0;
-	}
-}
-
-@media(max-width:960px) {
-	#external {
-		#supplementalContent {
-			margin-left: 450px;
-
-			ul {
-				font-size: 80%;
-			}
+		// Subtle "live round" tint via overlay-color
+		body::before {
+			opacity: 1;
 		}
 	}
 }
 
+body {
+	font: 400 16px/1.6 @sans;
+	color: @text;
+	min-height: 100vh;
+	position: relative;
+	overflow-x: hidden;
 
-@media(max-width: 800px) {
-	#external {
-		margin: 0px;
-		#mainContent {
-			position: static;
-			width: 100%;
-			margin-bottom: 40px;
-
-			header {
-				position: fixed;
-				height: 60px;
-				width: 100%;
-				z-index: 100;
-				background-color: desaturate(darken(@primaryColor,10%),10%);
-				.box-shadow(0 3px 3px rgba(0,0,0,0.4));
-				h1 {
-					height: 40px;
-					margin: 10px 0;
-					background-position: center center;
-				}
-			}
-
-			#actions {
-				margin: 0 10px;
-				padding-top: 80px;
-				.join, .create {
-					width: 100%;
-					margin-top: 20px;
-				}
-				.create input.halfwidth {
-					width: 100%;
-					margin-left: 0;
-					margin-right: 0;
-				}
-				.create .halfwidth + .halfwidth {
-					margin-left: 0 !important;
-				}
-			}
-		}
-
-		#supplementalContent {
-			margin-left: 0;
-			padding: 10px;
-
-			ul {
-				display: none;
-			}
-		}
+	&::before {
+		content: '';
+		position: fixed;
+		inset: 0;
+		pointer-events: none;
+		background: radial-gradient(1000px 600px at 50% 110%, fade(@success, 16%) 0%, transparent 60%);
+		opacity: 0;
+		transition: opacity 0.8s @ease;
+		z-index: 0;
 	}
 
-	#error {
-		padding-top: 80px;
+	a {
+		color: @brand-2;
+		text-decoration: none;
+		transition: color @dur-2 @ease;
+		&:hover, &:focus, &:active { color: lighten(@brand-2, 8%); }
 	}
 
-	#voterRoomInfo {
-		padding: 5px 10px;
+	.fa { color: inherit; }
 
-		.voterImageSmall {
-			width: 20px;
-			height: 20px;
-			margin: 0 0 0 5px;
-		}
-	}
+	::selection      { background: @selection; color: #fff; }
+	::-moz-selection { background: @selection; color: #fff; }
+}
 
-	table#estimateOptions {
-		td {
-			font-size: 2em;
-			line-height: 1.5em;
-		}
-	}
+// Subtle scrollbar
+::-webkit-scrollbar         { width: 10px; height: 10px; }
+::-webkit-scrollbar-track   { background: transparent; }
+::-webkit-scrollbar-thumb   { background: rgba(255,255,255,0.10); border-radius: 8px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.18); }
 
-	body.one-column {
-		#external {
-			#mainContent {
-				width: 100%;
-			}
-		}
+// ── Brand logo helper (reused on host) ─────────────────────────
+.bp-logo {
+	display: inline-flex;
+	align-items: center;
+	gap: 10px;
+	font: 800 1.15rem/1 @sans;
+	letter-spacing: -0.01em;
+	color: @text;
+
+	.bp-logo-mark {
+		width: 32px;
+		height: 32px;
+		border-radius: 9px;
+		background: linear-gradient(135deg, @brand 0%, @brand-2 100%);
+		box-shadow: 0 6px 18px fade(@brand, 45%);
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		font-family: @mono;
+		font-weight: 700;
+		font-size: 0.85rem;
+		color: #fff;
 	}
 }
