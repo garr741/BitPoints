@@ -235,7 +235,6 @@ var page = new BP.Page({
 
 	initialize: function() {
 		socket.emit('createRoom', {roomId: roomId, title: title});
-		this.useNotifications = BP.localStorage.get('useNotifications');
 		this.scrambles = {};
 
 		$(document).on('click.bp-deck', this.handleDocumentClick.bind(this));
@@ -382,13 +381,6 @@ var page = new BP.Page({
 		var numVotes = getNumVotes();
 
 		this.updateProgress();
-
-		if(this.useNotifications && numVotes === nonObservers) {
-			BP.Notification.send({
-				title: 'BitPoints - ' + BP.room.title,
-				body: 'All votes are in!'
-			});
-		}
 
 		// Auto-reveal when everyone's voted
 		if(autoRevealEnabled() && numVotes > 0 && numVotes === nonObservers) {

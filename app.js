@@ -107,6 +107,8 @@ app.get('/create', routes.create);
 app.get(/^\/host\/([0-9]+)\/([-%a-zA-Z0-9]*)/, routes.host);
 app.get('/join/:id', routes.join);
 app.get('/kick', routes.kick);
+app.get('/trial', routes.trial);
+app.get('/beach', routes.beach);
 app.get(/^\/([0-9a-z]{1,5})$/, routes.invite);
 
 // Listen on the port.

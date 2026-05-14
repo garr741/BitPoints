@@ -62,9 +62,9 @@
 // ── Hero ──────────────────────────────────────────────────────
 .bp-hero {
 	display: grid;
-	grid-template-columns: 1.25fr 1fr;
-	gap: 80px;
-	align-items: start;
+	grid-template-columns: 1fr 1fr;
+	gap: 64px;
+	align-items: center;
 	padding: 16px 0 80px;
 	border-bottom: 1px solid @rule;
 }
@@ -157,27 +157,35 @@
 	}
 }
 
-// ── Action panel (tabs + forms) ───────────────────────────────
+// ── Action panel (tabs + forms) — primary focal element ──────
 .bp-action-card {
-	background: rgba(255,255,255,0.025);
-	border: 1px solid @border;
+	background: rgba(255, 255, 255, 0.55);
+	border: 1.5px solid @text;
 	border-radius: @radius;
 	padding: 0;
 	position: relative;
-	box-shadow: none;
+	box-shadow: 8px 8px 0 0 fade(@text, 10%);
+	transition: box-shadow @dur-2 @ease, transform @dur-2 @ease;
 
-	// kill the previous glow halo
 	&::before { content: none; }
 
-	// hairline corner ticks for "technical" feel
+	// Stronger brand corner tick
 	&::after {
 		content: '';
 		position: absolute;
-		top: -1px; left: -1px;
-		width: 10px; height: 10px;
-		border-top: 1px solid @brand-2;
-		border-left: 1px solid @brand-2;
+		top: -8px; left: -8px;
+		width: 22px; height: 22px;
+		border-top: 2px solid @brand-2;
+		border-left: 2px solid @brand-2;
 		pointer-events: none;
+	}
+
+	&:hover {
+		box-shadow: 10px 10px 0 0 fade(@text, 12%);
+		transform: translate(-1px, -1px);
+	}
+	&:focus-within {
+		box-shadow: 8px 8px 0 0 fade(@brand, 24%);
 	}
 }
 
@@ -185,18 +193,22 @@
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
-	padding: 16px 20px;
-	border-bottom: 1px solid @rule;
-	font: 500 0.72rem/1 @mono;
+	padding: 18px 24px;
+	border-bottom: 1.5px solid @text;
+	font: 600 0.78rem/1 @mono;
 	text-transform: uppercase;
-	letter-spacing: 0.2em;
-	color: @text-dim;
+	letter-spacing: 0.22em;
+	color: @text;
+	background: @text;
+
+	span { color: @bg-0; }
+	span:last-child { color: fade(@bg-0, 70%); }
 }
 
 .bp-tabs {
 	display: flex;
-	gap: 26px;
-	padding: 6px 20px 0;
+	gap: 36px;
+	padding: 12px 24px 0;
 	background: transparent;
 	border: 0;
 	border-bottom: 1px solid @rule;
@@ -204,13 +216,13 @@
 }
 
 .bp-tab {
-	height: 46px;
+	height: 56px;
 	padding: 0 2px;
 	border: 0;
 	background: transparent;
 	color: @text-dim;
-	font: 600 0.86rem/1 @sans;
-	letter-spacing: 0.02em;
+	font: 600 1.02rem/1 @display;
+	letter-spacing: -0.01em;
 	border-radius: 0;
 	cursor: pointer;
 	position: relative;
@@ -220,11 +232,11 @@
 		content: '';
 		position: absolute;
 		left: 0; right: 0; bottom: -1px;
-		height: 1px;
-		background: @text;
+		height: 2px;
+		background: @brand-2;
 		transform: scaleX(0);
 		transform-origin: left;
-		transition: transform @dur-2 @ease, background-color @dur-2 @ease;
+		transition: transform @dur-2 @ease;
 	}
 
 	&:hover { color: @text-muted; }
@@ -234,15 +246,14 @@
 		box-shadow: none;
 		&::after {
 			transform: scaleX(1);
-			background: @brand-2;
-			height: 2px;
+			height: 3px;
 		}
 	}
 }
 
 .bp-tab-panel {
 	display: none;
-	padding: 26px 20px 22px;
+	padding: 32px 28px 28px;
 
 	&.is-active {
 		display: block;
@@ -257,20 +268,23 @@
 
 .bp-field {
 	display: block;
-	margin-bottom: 22px;
+	margin-bottom: 26px;
 
 	.bp-field-label {
 		display: block;
-		font: 500 0.7rem/1 @mono;
+		font: 600 0.74rem/1 @mono;
 		text-transform: uppercase;
-		letter-spacing: 0.18em;
-		color: @text-dim;
-		margin-bottom: 10px;
+		letter-spacing: 0.2em;
+		color: @text;
+		margin-bottom: 12px;
 	}
 
 	input[type=text],
 	input[type=email] {
 		.input();
+		height: 52px;
+		font-size: 1.15rem;
+		font-weight: 500;
 	}
 }
 
@@ -284,11 +298,11 @@
 .bp-btn {
 	.button();
 	width: 100%;
-	height: 52px;
-	font-size: 0.95rem;
-	letter-spacing: 0.04em;
+	height: 64px;
+	font: 700 1.02rem/1 @sans;
+	letter-spacing: 0.06em;
 	text-transform: uppercase;
-	margin-top: 12px;
+	margin-top: 18px;
 	border-radius: @radius-sm;
 }
 
@@ -302,59 +316,6 @@ form.error input.error { animation: bp-shake 0.4s @ease; }
 	0%, 100% { transform: translateX(0); }
 	25%      { transform: translateX(-6px); }
 	75%      { transform: translateX(6px); }
-}
-
-// Custom checkbox — square, flat, sharp
-.roomOptions {
-	margin: 4px 0 18px;
-}
-
-.bp-checkbox {
-	display: inline-flex;
-	align-items: center;
-	gap: 12px;
-	cursor: pointer;
-	user-select: none;
-
-	input {
-		position: absolute;
-		opacity: 0;
-		pointer-events: none;
-	}
-
-	.bp-checkbox-box {
-		width: 16px;
-		height: 16px;
-		border-radius: 2px;
-		border: 1px solid @border-hi;
-		background: transparent;
-		display: inline-flex;
-		align-items: center;
-		justify-content: center;
-		transition: border-color @dur-2 @ease, background-color @dur-2 @ease;
-		position: relative;
-
-		&::after {
-			content: '';
-			width: 8px;
-			height: 8px;
-			border-radius: 0;
-			background: @brand-2;
-			transform: scale(0);
-			transition: transform @dur-2 @ease;
-		}
-	}
-
-	input:checked + .bp-checkbox-box {
-		border-color: @brand-2;
-		background: transparent;
-		&::after { transform: scale(1); }
-	}
-
-	.bp-checkbox-label {
-		font-size: 0.9rem;
-		color: @text-muted;
-	}
 }
 
 // ── Supplemental: features + how-it-works ─────────────────────
@@ -412,7 +373,7 @@ form.error input.error { animation: bp-shake 0.4s @ease; }
 	&:hover {
 		transform: none;
 		border-color: @rule;
-		background: rgba(255,255,255,0.02);
+		background: @surface;
 	}
 
 	.bp-feature-icon {
@@ -487,7 +448,7 @@ form.error input.error { animation: bp-shake 0.4s @ease; }
 		box-shadow: 0 0 0 transparent;
 		transition: background-color @dur-2 @ease;
 
-		&:hover { background: rgba(255,255,255,0.015); }
+		&:hover { background: @surface; }
 
 		.bp-step-num {
 			font: 400 2.6rem/1 @serif;

@@ -22,8 +22,6 @@ var page = new BP.Page({
 	domEvents: {
 		'submit #join': 'joinRoom',
 		'submit #create': 'createRoom',
-		'click #notifications': 'allowNotifications',
-		'focus #title': 'showRoomOptions',
 		'click .bp-tab': 'switchTab'
 	},
 
@@ -34,8 +32,6 @@ var page = new BP.Page({
 		join: '#join',
 		title: '#title',
 		create: '#create',
-		roomOptions: '.roomOptions',
-		notifications: '#notifications',
 		tabs: '.bp-tab',
 		panels: '.bp-tab-panel'
 	},
@@ -49,13 +45,6 @@ var page = new BP.Page({
 			// If room ID is hidden, just join the room
 			if(this.$roomId.attr('type') === 'hidden') {
 				this.$join.trigger('submit');
-			}
-		}
-		if(!BP.Notification.supported) {
-			this.$notifications.closest('label').hide();
-		} else {
-			if(BP.localStorage.get('useNotifications')) {
-				this.$notifications.trigger('click');
 			}
 		}
 
@@ -92,21 +81,6 @@ var page = new BP.Page({
 			document.location = '/create/?title=' + this.$title.val();
 		}
 		e.preventDefault();
-	},
-
-	showRoomOptions: function() {
-		this.$roomOptions.addClass('visible');
-	},
-
-	allowNotifications: function(e, $el) {
-		var hasPermission = BP.Notification.hasPermission(),
-			wantsNotifications = $el.is(':checked');
-
-		BP.localStorage.set('useNotifications',wantsNotifications);
-
-		if(wantsNotifications && !hasPermission) {
-			BP.Notification.requestPermission();
-		}
 	}
 });
 

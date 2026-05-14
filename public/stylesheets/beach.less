@@ -1,0 +1,1030 @@
+/**
+ * /beach — L'Île de l'Estimation
+ * Shipwrecked + Napoleonic + subtle ninja-turtle + baseball
+ */
+
+// ── Palette ─────────────────────────────────────────────────
+@beach-sand:        #f3e7c8;
+@beach-sand-deep:   #d9c898;
+@beach-driftwood:   #8b6a47;
+@beach-driftwood-d: #503b25;
+@beach-ocean:       #2c7a85;
+@beach-ocean-deep:  #1e4a52;
+@beach-sky-top:     #b9d1d8;
+@beach-sky-mid:     #e2d7b5;
+@beach-imperial:    #15294d;
+@beach-gold:        #c69648;
+@beach-gold-warm:   #b78536;
+@beach-red:         #b53227;   // imperial red / baseball red
+@beach-turtle:      #4d9a4a;
+@beach-turtle-r:    #c63b3b;
+@beach-turtle-b:    #2f6dc4;
+@beach-turtle-o:    #e87930;
+@beach-turtle-p:    #6f4d99;
+@beach-parchment:   #f5ead0;
+@beach-parchment-d: #e8d9ad;
+@beach-ink:         #2a1f15;
+@beach-ink-soft:    #4d3a26;
+
+@beach-display: 'Cinzel', 'Trajan Pro', 'Times New Roman', serif;
+@beach-body:    'EB Garamond', Georgia, 'Times New Roman', serif;
+@beach-hand:    'Caveat', 'Marker Felt', cursive;
+@beach-type:    'Special Elite', 'Courier Prime', monospace;
+@beach-lcd:     'VT323', monospace;
+
+// ── Body override for /beach ─────────────────────────────────
+body.beach-body {
+	background-color: @beach-sand;
+	color: @beach-ink;
+	font-family: @beach-body;
+}
+
+// ── BACKGROUND LAYERS (fixed, full-viewport) ────────────────
+.beach-bg {
+	position: fixed;
+	inset: 0;
+	z-index: 0;
+	overflow: hidden;
+	pointer-events: none;
+}
+
+.beach-bg-sky {
+	position: absolute;
+	inset: 0;
+	background:
+		linear-gradient(180deg,
+			@beach-sky-top 0%,
+			lighten(@beach-sky-top, 4%) 22%,
+			@beach-sky-mid 50%,
+			@beach-sand 72%,
+			@beach-sand-deep 100%);
+}
+
+.beach-bg-horizon {
+	position: absolute;
+	left: 0; right: 0;
+	top: 48%;
+	height: 80px;
+
+	svg { width: 100%; height: 100%; }
+}
+
+.beach-bg-island {
+	position: absolute;
+	left: 18%;
+	top: 44%;
+	width: 240px;
+	height: 80px;
+	opacity: 0.92;
+
+	svg { width: 100%; height: 100%; }
+}
+
+.beach-bg-napoleon {
+	position: absolute;
+	right: 8%;
+	top: 46%;
+	width: 70px;
+	height: 90px;
+	animation: beach-napoleon-sway 9s ease-in-out infinite;
+	transform-origin: 50% 100%;
+
+	svg { width: 100%; height: 100%; }
+}
+
+@keyframes beach-napoleon-sway {
+	0%, 100% { transform: rotate(-0.4deg); }
+	50%      { transform: rotate(0.4deg); }
+}
+
+.beach-clouds {
+	position: absolute;
+	inset: 0 0 auto 0;
+	height: 40%;
+}
+
+.beach-cloud {
+	position: absolute;
+	opacity: 0.85;
+	will-change: transform;
+
+	svg { display: block; height: 100%; }
+
+	&-1 { top: 8%;  width: 240px; height: 60px; animation: beach-cloud-drift 64s linear infinite; }
+	&-2 { top: 18%; width: 200px; height: 50px; animation: beach-cloud-drift 92s linear infinite; animation-delay: -22s; opacity: 0.72; }
+	&-3 { top: 4%;  width: 260px; height: 60px; animation: beach-cloud-drift 78s linear infinite; animation-delay: -40s; opacity: 0.78; }
+}
+
+@keyframes beach-cloud-drift {
+	from { transform: translateX(-30vw); }
+	to   { transform: translateX(120vw); }
+}
+
+.beach-seagull {
+	position: absolute;
+	top: 12%;
+	left: -8%;
+	width: 40px;
+	height: 20px;
+	opacity: 0.65;
+	animation: beach-seagull-fly 38s linear infinite;
+	animation-delay: -8s;
+
+	svg { width: 100%; height: 100%; }
+}
+
+@keyframes beach-seagull-fly {
+	0%, 6%   { transform: translateX(-20vw) translateY(0); opacity: 0; }
+	10%      { opacity: 0.6; }
+	50%      { transform: translateX(60vw) translateY(-10px); opacity: 0.6; }
+	90%      { opacity: 0; }
+	100%     { transform: translateX(140vw) translateY(0); opacity: 0; }
+}
+
+.beach-bottle {
+	position: absolute;
+	bottom: 12%;
+	right: 0;
+	width: 40px;
+	height: 70px;
+	opacity: 0.92;
+	animation: beach-bottle-drift 110s linear infinite, beach-bottle-bob 3.4s ease-in-out infinite;
+
+	svg { width: 100%; height: 100%; }
+}
+
+@keyframes beach-bottle-drift {
+	from { transform: translateX(0); }
+	to   { transform: translateX(-110vw); }
+}
+
+@keyframes beach-bottle-bob {
+	0%, 100% { margin-top: 0; transform: rotate(-6deg); }
+	50%      { margin-top: -8px; transform: rotate(6deg); }
+}
+
+.beach-map-overlay {
+	position: absolute;
+	inset: 0;
+	opacity: 0.85;
+
+	svg { width: 100%; height: 100%; }
+}
+
+.beach-bg-sand {
+	position: absolute;
+	bottom: 0;
+	left: 0; right: 0;
+	height: 30%;
+	background:
+		radial-gradient(rgba(43, 35, 24, 0.16) 0.8px, transparent 1.4px) 0 0 / 6px 6px,
+		radial-gradient(rgba(43, 35, 24, 0.10) 0.6px, transparent 1.2px) 3px 3px / 8px 8px,
+		linear-gradient(180deg, transparent 0%, rgba(217, 200, 152, 0.45) 60%, rgba(217, 200, 152, 0.78) 100%);
+	mix-blend-mode: multiply;
+}
+
+// ── MAIN CONTENT ────────────────────────────────────────────
+.beach {
+	position: relative;
+	z-index: 1;
+	max-width: 1240px;
+	margin: 0 auto;
+	padding: 36px 32px 0;
+	font-family: @beach-body;
+	color: @beach-ink;
+}
+
+// ── HERO ────────────────────────────────────────────────────
+.beach-hero {
+	position: relative;
+	padding: 56px 0 80px;
+	display: grid;
+	grid-template-columns: 1fr;
+	gap: 28px;
+	justify-items: center;
+	text-align: center;
+}
+
+.beach-logbox {
+	display: inline-block;
+	padding: 12px 22px;
+	background: rgba(245, 234, 208, 0.78);
+	border: 1.5px dashed @beach-ink-soft;
+	transform: rotate(-1.2deg);
+	max-width: 480px;
+	box-shadow: 6px 6px 0 0 rgba(43, 35, 24, 0.10);
+	font-family: @beach-hand;
+	color: @beach-ink;
+
+	.beach-log-date {
+		font: 700 1.05rem/1 @beach-type;
+		letter-spacing: 0.22em;
+		text-transform: uppercase;
+		color: @beach-imperial;
+		margin-bottom: 6px;
+	}
+	.beach-log-quote {
+		font: 400 1.6rem/1.2 @beach-hand;
+		color: @beach-ink;
+	}
+	.beach-log-sig {
+		margin-top: 6px;
+		font: 400 1.1rem/1 @beach-hand;
+		color: @beach-red;
+	}
+}
+
+.beach-hero-title {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 0;
+}
+
+.beach-hero-fr {
+	font: italic 400 1.2rem/1 'Instrument Serif', Georgia, serif;
+	color: @beach-imperial;
+	letter-spacing: 0.04em;
+	margin-bottom: 6px;
+}
+
+.beach-hero-en {
+	margin: 0;
+	font: 700 ~"clamp(3.6rem, 8.5vw, 6.4rem)"/0.95 @beach-display;
+	color: @beach-imperial;
+	letter-spacing: 0.04em;
+	text-shadow: 3px 3px 0 rgba(198, 150, 72, 0.45);
+}
+
+.beach-hero-tag {
+	margin-top: 8px;
+	font: italic 400 1.15rem/1.4 @beach-body;
+	color: @beach-ink-soft;
+	max-width: 520px;
+}
+
+.beach-shipwreck {
+	width: ~"min(420px, 80%)";
+	margin-top: 12px;
+	animation: beach-shipwreck-rock 6s ease-in-out infinite;
+	transform-origin: 50% 100%;
+}
+
+@keyframes beach-shipwreck-rock {
+	0%, 100% { transform: rotate(-1.2deg) translateY(0); }
+	50%      { transform: rotate(0.8deg) translateY(-3px); }
+}
+
+.beach-hero-cta {
+	margin-top: 8px;
+}
+
+.beach-cta-btn {
+	display: inline-flex;
+	align-items: center;
+	gap: 14px;
+	background: @beach-imperial;
+	color: @beach-parchment;
+	border: 3px solid @beach-imperial;
+	padding: 16px 30px;
+	font: 700 0.95rem/1 @beach-display;
+	letter-spacing: 0.24em;
+	text-transform: uppercase;
+	text-decoration: none;
+	box-shadow: 6px 6px 0 0 @beach-gold;
+	transition: transform 80ms ease, box-shadow 80ms ease;
+
+	&:hover {
+		transform: translate(-2px, -2px);
+		box-shadow: 8px 8px 0 0 @beach-gold;
+		color: @beach-parchment;
+	}
+	&:active {
+		transform: translate(3px, 3px);
+		box-shadow: 2px 2px 0 0 @beach-gold;
+	}
+	.beach-cta-arrow {
+		font-family: @beach-display;
+		font-size: 1.3rem;
+		color: @beach-gold;
+	}
+}
+
+// ── DECREE (Create Room scroll) ─────────────────────────────
+.beach-decree {
+	margin: 60px 0 56px;
+	display: flex;
+	justify-content: center;
+}
+
+.beach-scroll {
+	position: relative;
+	background: @beach-parchment;
+	background-image:
+		radial-gradient(rgba(120, 90, 50, 0.08) 0.8px, transparent 1.4px);
+	background-size: 12px 12px;
+	width: ~"min(720px, 100%)";
+	padding: 56px 56px 36px;
+	border: 1.5px solid rgba(80, 59, 37, 0.28);
+	box-shadow:
+		0 0 0 6px @beach-parchment-d,
+		0 0 0 7.5px rgba(80, 59, 37, 0.35),
+		16px 16px 0 0 rgba(43, 35, 24, 0.16);
+	transform: rotate(-0.4deg);
+
+	// Frayed top edge feel — uneven decorative shadow line
+	&::before {
+		content: '';
+		position: absolute;
+		top: 0; left: 0; right: 0;
+		height: 4px;
+		background: repeating-linear-gradient(90deg,
+			rgba(80, 59, 37, 0.25) 0 8px,
+			transparent 8px 14px);
+	}
+	&::after {
+		content: '';
+		position: absolute;
+		bottom: 0; left: 0; right: 0;
+		height: 4px;
+		background: repeating-linear-gradient(90deg,
+			rgba(80, 59, 37, 0.20) 0 6px,
+			transparent 6px 12px);
+	}
+}
+
+.beach-scroll-seal {
+	position: absolute;
+	top: -28px;
+	right: 36px;
+	width: 80px;
+	height: 80px;
+	border-radius: 50%;
+	background:
+		radial-gradient(circle at 35% 35%, lighten(@beach-red, 12%) 0%, @beach-red 50%, darken(@beach-red, 14%) 100%);
+	border: 2px solid darken(@beach-red, 18%);
+	box-shadow:
+		inset 0 -4px 8px rgba(0,0,0,0.30),
+		3px 4px 0 rgba(43, 35, 24, 0.22);
+	transform: rotate(-12deg);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.beach-seal-inner {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+
+	.beach-seal-letter {
+		font: 700 1.6rem/1 @beach-display;
+		color: @beach-gold;
+		text-shadow: 1px 1px 0 rgba(0,0,0,0.4);
+		letter-spacing: 0;
+	}
+	.beach-seal-bee {
+		width: 22px;
+		height: 22px;
+		margin-top: -2px;
+	}
+}
+
+.beach-scroll-eyebrow {
+	font: 400 0.78rem/1 @beach-type;
+	letter-spacing: 0.32em;
+	text-transform: uppercase;
+	color: @beach-ink-soft;
+	margin-bottom: 6px;
+}
+
+.beach-scroll-title {
+	margin: 0 0 12px;
+	font: 700 2.6rem/1.05 @beach-display;
+	color: @beach-imperial;
+	letter-spacing: 0.04em;
+}
+
+.beach-scroll-lead {
+	font: italic 400 1.1rem/1.5 @beach-body;
+	color: @beach-ink-soft;
+	margin: 0 0 28px;
+	max-width: 44ch;
+}
+
+.beach-form {
+	display: flex;
+	flex-direction: column;
+	gap: 22px;
+}
+
+.beach-field {
+	display: flex;
+	flex-direction: column;
+	gap: 6px;
+}
+
+.beach-field-label {
+	font: 400 0.78rem/1 @beach-type;
+	letter-spacing: 0.22em;
+	text-transform: uppercase;
+	color: @beach-ink-soft;
+}
+
+.beach-input {
+	width: 100%;
+	height: 54px;
+	border: 0;
+	border-bottom: 2px solid @beach-ink;
+	background: transparent;
+	font: 500 1.25rem/1 @beach-body;
+	color: @beach-ink;
+	padding: 0 4px;
+	border-radius: 0;
+	-webkit-appearance: none;
+
+	&::placeholder { color: rgba(43, 35, 24, 0.34); font-style: italic; }
+	&:focus { outline: none; border-bottom-color: @beach-red; }
+
+	&.is-room {
+		font-family: @beach-lcd;
+		font-size: 2.2rem;
+		text-align: center;
+		letter-spacing: 0.3em;
+		color: @beach-imperial;
+	}
+}
+
+// Wax seal button — looks like wax pressed into the page
+.beach-wax-btn {
+	display: inline-flex;
+	align-items: center;
+	gap: 14px;
+	background: @beach-red;
+	color: @beach-parchment;
+	border: 3px solid darken(@beach-red, 18%);
+	padding: 16px 24px;
+	cursor: pointer;
+	font: 700 0.95rem/1 @beach-display;
+	letter-spacing: 0.18em;
+	text-transform: uppercase;
+	box-shadow:
+		inset 0 -3px 0 rgba(0,0,0,0.18),
+		5px 5px 0 0 rgba(43, 35, 24, 0.30);
+	transition: transform 100ms ease, box-shadow 100ms ease;
+	align-self: flex-start;
+	margin-top: 8px;
+	position: relative;
+
+	&:hover {
+		transform: translate(-2px, -2px) rotate(-1deg);
+		box-shadow:
+			inset 0 -3px 0 rgba(0,0,0,0.18),
+			7px 7px 0 0 rgba(43, 35, 24, 0.30);
+	}
+	&:active {
+		transform: translate(2px, 2px) rotate(1deg);
+		box-shadow:
+			inset 0 -3px 0 rgba(0,0,0,0.30),
+			2px 2px 0 0 rgba(43, 35, 24, 0.30);
+	}
+
+	.beach-wax-stamp {
+		display: inline-block;
+		width: 22px;
+		height: 22px;
+		border-radius: 50%;
+		background:
+			radial-gradient(circle at 35% 35%, @beach-gold-warm 0%, @beach-gold 60%, darken(@beach-gold, 20%) 100%);
+		box-shadow: inset 0 -2px 4px rgba(0,0,0,0.25);
+	}
+}
+
+.beach-scroll-foot {
+	display: flex;
+	align-items: baseline;
+	gap: 14px;
+	margin-top: 36px;
+	padding-top: 18px;
+	border-top: 1.5px dashed rgba(80, 59, 37, 0.30);
+	font: 400 0.82rem/1 @beach-type;
+	letter-spacing: 0.18em;
+	text-transform: uppercase;
+	color: @beach-ink-soft;
+
+	.beach-scroll-sig {
+		font: 700 1.35rem/1 @beach-hand;
+		color: @beach-red;
+		text-transform: none;
+		letter-spacing: 0;
+		transform: rotate(-2deg);
+		flex: 1;
+	}
+}
+
+// ── ROSTER plank ────────────────────────────────────────────
+.beach-roster {
+	margin: 0 0 80px;
+	display: flex;
+	justify-content: center;
+}
+
+.beach-plank {
+	position: relative;
+	width: ~"min(960px, 100%)";
+	background:
+		linear-gradient(180deg, lighten(@beach-driftwood, 10%) 0%, @beach-driftwood 50%, darken(@beach-driftwood, 6%) 100%);
+	background-image:
+		// wood-grain striations
+		repeating-linear-gradient(90deg,
+			rgba(80, 59, 37, 0.22) 0 1.5px,
+			transparent 1.5px 12px,
+			rgba(80, 59, 37, 0.10) 12px 13px,
+			transparent 13px 30px),
+		linear-gradient(180deg, lighten(@beach-driftwood, 10%) 0%, @beach-driftwood 50%, darken(@beach-driftwood, 6%) 100%);
+	color: @beach-parchment;
+	padding: 30px 38px 34px;
+	border: 3px solid @beach-driftwood-d;
+	border-radius: 4px;
+	transform: rotate(0.6deg);
+	box-shadow:
+		// nail heads
+		8px 12px 0 0 rgba(43, 35, 24, 0.22);
+
+	// Two nail-head circles (decoration)
+	&::before, &::after {
+		content: '';
+		position: absolute;
+		top: 14px;
+		width: 10px; height: 10px;
+		border-radius: 50%;
+		background: radial-gradient(circle at 35% 35%, #aaa 0%, #4a4035 70%, #1a140d 100%);
+		box-shadow: inset 0 -1px 1px rgba(0,0,0,0.6);
+	}
+	&::before { left: 16px; }
+	&::after  { right: 16px; }
+}
+
+.beach-plank-eyebrow {
+	display: inline-flex;
+	align-items: center;
+	gap: 10px;
+	font: 400 0.78rem/1 @beach-type;
+	letter-spacing: 0.28em;
+	text-transform: uppercase;
+	color: @beach-parchment;
+	margin-bottom: 8px;
+
+	.beach-anchor-icon {
+		font-family: @beach-display;
+		font-size: 1.2rem;
+		color: @beach-gold;
+	}
+}
+
+.beach-plank-title {
+	margin: 0 0 22px;
+	font: italic 400 2rem/1.1 'Instrument Serif', Georgia, serif;
+	color: @beach-parchment;
+}
+
+.beach-form-join {
+	gap: 18px;
+
+	.beach-field-label { color: rgba(245, 234, 208, 0.78); }
+	.beach-input {
+		color: @beach-parchment;
+		border-bottom-color: rgba(245, 234, 208, 0.40);
+		&::placeholder { color: rgba(245, 234, 208, 0.4); }
+		&:focus { border-bottom-color: @beach-gold; }
+		&.is-room { color: @beach-gold; }
+	}
+}
+
+.beach-plank-row {
+	display: grid;
+	grid-template-columns: 1fr 1fr 1.4fr;
+	gap: 22px;
+}
+
+.beach-board-btn {
+	display: inline-flex;
+	align-items: center;
+	gap: 10px;
+	background: @beach-gold;
+	color: @beach-ink;
+	border: 2px solid @beach-driftwood-d;
+	padding: 14px 22px;
+	cursor: pointer;
+	font: 700 0.92rem/1 @beach-display;
+	letter-spacing: 0.18em;
+	text-transform: uppercase;
+	box-shadow: 5px 5px 0 0 @beach-driftwood-d;
+	transition: transform 80ms ease, box-shadow 80ms ease;
+	align-self: flex-start;
+	margin-top: 6px;
+
+	&:hover {
+		transform: translate(-2px, -2px);
+		box-shadow: 7px 7px 0 0 @beach-driftwood-d;
+	}
+	&:active {
+		transform: translate(3px, 3px);
+		box-shadow: 2px 2px 0 0 @beach-driftwood-d;
+	}
+
+	.beach-board-arrow { font-family: @beach-display; font-size: 1.2rem; }
+}
+
+// ── WASHED ASHORE (features) ────────────────────────────────
+.beach-washed {
+	margin: 0 0 80px;
+	text-align: center;
+}
+
+.beach-section-eyebrow {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	gap: 14px;
+	font: 700 0.78rem/1 @beach-display;
+	letter-spacing: 0.32em;
+	text-transform: uppercase;
+	color: @beach-imperial;
+	margin-bottom: 10px;
+
+	.beach-section-dot {
+		width: 7px;
+		height: 7px;
+		border-radius: 50%;
+		background: @beach-gold;
+		box-shadow: 0 0 0 2px rgba(198, 150, 72, 0.18);
+	}
+}
+
+.beach-section-title {
+	margin: 0 0 36px;
+	font: 700 2.4rem/1 @beach-display;
+	color: @beach-imperial;
+	letter-spacing: 0.04em;
+}
+
+.beach-washed-grid {
+	display: grid;
+	grid-template-columns: repeat(4, 1fr);
+	gap: 20px;
+	text-align: left;
+}
+
+.beach-find {
+	position: relative;
+	background: rgba(245, 234, 208, 0.86);
+	border: 1.5px solid rgba(80, 59, 37, 0.35);
+	padding: 26px 22px 22px;
+	box-shadow: 6px 6px 0 0 rgba(43, 35, 24, 0.10);
+	transition: transform 200ms ease;
+
+	&:nth-child(1) { transform: rotate(-0.8deg); }
+	&:nth-child(2) { transform: rotate(0.4deg); }
+	&:nth-child(3) { transform: rotate(-0.3deg); }
+	&:nth-child(4) { transform: rotate(0.7deg); }
+
+	&:hover { transform: translateY(-4px) rotate(0); }
+}
+
+.beach-find-tag {
+	font: 400 0.85rem/1 @beach-display;
+	letter-spacing: 0.18em;
+	color: @beach-red;
+	margin-bottom: 14px;
+}
+
+.beach-find-art {
+	display: flex;
+	justify-content: center;
+	margin-bottom: 14px;
+
+	svg { width: 80px; height: 90px; }
+}
+
+.beach-find-name {
+	margin: 0 0 8px;
+	font: italic 400 1.4rem/1.2 'Instrument Serif', Georgia, serif;
+	color: @beach-imperial;
+}
+
+.beach-find-desc {
+	font: 400 0.95rem/1.5 @beach-body;
+	color: @beach-ink-soft;
+	margin: 0;
+}
+
+// ── TODAY'S LINEUP (scoreboard) ─────────────────────────────
+.beach-lineup {
+	margin: 0 0 80px;
+}
+
+.beach-scoreboard {
+	position: relative;
+	background: @beach-imperial;
+	color: @beach-parchment;
+	border: 4px solid @beach-driftwood-d;
+	border-radius: 6px;
+	padding: 38px 32px 28px;
+	box-shadow:
+		inset 0 0 0 2px @beach-gold,
+		12px 12px 0 0 rgba(43, 35, 24, 0.16);
+	transform: rotate(-0.3deg);
+}
+
+.beach-scoreboard-lights {
+	position: absolute;
+	top: -12px;
+	left: 22px;
+	right: 22px;
+	display: flex;
+	justify-content: space-between;
+}
+
+.beach-scoreboard-bulb {
+	width: 14px;
+	height: 14px;
+	border-radius: 50%;
+	background: @beach-gold;
+	border: 2px solid @beach-driftwood-d;
+	box-shadow: 0 0 6px 1px rgba(198, 150, 72, 0.6);
+	animation: beach-bulb-blink 1.6s ease-in-out infinite;
+	&:nth-child(odd)  { animation-delay: 0s; }
+	&:nth-child(even) { animation-delay: 0.6s; background: @beach-red; box-shadow: 0 0 6px 1px rgba(181, 50, 39, 0.6); }
+	&:nth-child(3n)   { animation-delay: 1.1s; }
+}
+
+@keyframes beach-bulb-blink {
+	0%, 100% { opacity: 1; }
+	50%      { opacity: 0.45; }
+}
+
+.beach-scoreboard-head {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 18px;
+	font: 700 1rem/1 @beach-display;
+	letter-spacing: 0.28em;
+	color: @beach-gold;
+	margin-bottom: 6px;
+
+	.beach-scoreboard-vs {
+		font: italic 400 1.1rem/1 'Instrument Serif', serif;
+		color: rgba(245, 234, 208, 0.6);
+		text-transform: lowercase;
+		letter-spacing: 0.04em;
+	}
+}
+
+.beach-scoreboard-title {
+	text-align: center;
+	border-bottom: 1.5px dashed rgba(198, 150, 72, 0.5);
+	padding-bottom: 16px;
+	margin-bottom: 24px;
+
+	.beach-scoreboard-tag {
+		display: inline-block;
+		font: 400 0.78rem/1 @beach-type;
+		letter-spacing: 0.32em;
+		text-transform: uppercase;
+		color: rgba(245, 234, 208, 0.65);
+		margin-bottom: 4px;
+	}
+
+	h2 {
+		margin: 0;
+		font: 700 2.2rem/1 @beach-display;
+		color: @beach-parchment;
+		letter-spacing: 0.04em;
+	}
+}
+
+.beach-innings {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	gap: 22px;
+}
+
+.beach-inning {
+	position: relative;
+	background: rgba(0,0,0,0.18);
+	border: 1.5px solid rgba(198, 150, 72, 0.45);
+	padding: 26px 22px 22px;
+
+	&:nth-child(2) { transform: translateY(-6px); }
+}
+
+.beach-inning-num {
+	position: absolute;
+	top: -22px;
+	left: 18px;
+	width: 44px;
+	height: 44px;
+	border-radius: 50%;
+	background: @beach-parchment;
+	color: @beach-imperial;
+	border: 3px solid @beach-driftwood-d;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	font: 700 1.5rem/1 @beach-display;
+	box-shadow: 4px 4px 0 0 @beach-driftwood-d;
+}
+
+.beach-inning-label {
+	font: 400 0.82rem/1 @beach-type;
+	letter-spacing: 0.28em;
+	color: @beach-gold;
+	margin: 14px 0 8px;
+	text-transform: uppercase;
+}
+
+.beach-inning-body {
+	h3 {
+		margin: 0 0 6px;
+		font: italic 400 1.5rem/1.1 'Instrument Serif', Georgia, serif;
+		color: @beach-parchment;
+	}
+	p {
+		font: 400 0.95rem/1.5 @beach-body;
+		color: rgba(245, 234, 208, 0.78);
+		margin: 0;
+	}
+}
+
+.beach-scoreboard-foot {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-top: 26px;
+	padding-top: 16px;
+	border-top: 1.5px dashed rgba(198, 150, 72, 0.40);
+	font: 400 0.92rem/1 @beach-lcd;
+	letter-spacing: 0.06em;
+	color: @beach-gold;
+
+	.beach-scoreboard-cell {
+		display: inline-flex;
+		align-items: center;
+		gap: 8px;
+	}
+	.beach-scoreboard-led {
+		width: 10px; height: 10px;
+		border-radius: 50%;
+		background: #2ee6a8;
+		box-shadow: 0 0 6px 1px rgba(46, 230, 168, 0.6);
+		animation: beach-bulb-blink 1.4s infinite;
+
+		&.is-amber { background: @beach-gold; box-shadow: 0 0 6px 1px rgba(198, 150, 72, 0.6); }
+	}
+	.beach-scoreboard-attendance {
+		font: italic 400 1rem/1 'Instrument Serif', serif;
+		color: rgba(245, 234, 208, 0.78);
+	}
+}
+
+// ── EMPEROR'S LOG (footer) ──────────────────────────────────
+.beach-log {
+	position: relative;
+	background: @beach-parchment;
+	background-image: radial-gradient(rgba(120, 90, 50, 0.07) 0.7px, transparent 1.3px);
+	background-size: 12px 12px;
+	border: 1.5px solid rgba(80, 59, 37, 0.35);
+	padding: 56px 56px 36px;
+	margin: 0 0 28px;
+	box-shadow: 12px 12px 0 0 rgba(43, 35, 24, 0.14);
+	transform: rotate(0.5deg);
+}
+
+.beach-log-tape {
+	position: absolute;
+	top: -14px;
+	left: 24%;
+	width: 120px;
+	height: 26px;
+	background: rgba(198, 150, 72, 0.55);
+	transform: rotate(-4deg);
+	border: 1px dashed rgba(80, 59, 37, 0.18);
+
+	&.is-right {
+		left: auto;
+		right: 14%;
+		transform: rotate(6deg);
+		background: rgba(181, 50, 39, 0.40);
+	}
+}
+
+.beach-log-title {
+	margin: 0 0 14px;
+	font: 700 1.6rem/1 @beach-display;
+	color: @beach-imperial;
+	letter-spacing: 0.04em;
+}
+
+.beach-log-body {
+	font: italic 400 1.15rem/1.6 @beach-body;
+	color: @beach-ink;
+	margin: 0 0 28px;
+	max-width: 70ch;
+}
+
+.beach-log-row {
+	display: flex;
+	justify-content: space-between;
+	align-items: flex-end;
+	gap: 28px;
+	flex-wrap: wrap;
+}
+
+.beach-log-signature {
+	.beach-log-sig-name {
+		font: 400 2.4rem/1 @beach-hand;
+		color: @beach-red;
+		transform: rotate(-3deg);
+		display: inline-block;
+	}
+	.beach-log-sig-title {
+		display: block;
+		margin-top: 4px;
+		font: 400 0.85rem/1 @beach-type;
+		letter-spacing: 0.18em;
+		text-transform: uppercase;
+		color: @beach-ink-soft;
+	}
+}
+
+.beach-log-stamp {
+	transform: rotate(8deg);
+
+	.beach-log-stamp-frame {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: 2px;
+		border: 2.5px solid @beach-imperial;
+		padding: 8px 14px;
+		font-family: @beach-display;
+		color: @beach-imperial;
+
+		span:first-child {
+			font: 700 1.3rem/1 @beach-display;
+			letter-spacing: 0.06em;
+		}
+		span:last-child {
+			font: 400 0.68rem/1 @beach-type;
+			letter-spacing: 0.22em;
+		}
+	}
+}
+
+.beach-log-ps {
+	margin-top: 28px;
+	padding-top: 16px;
+	border-top: 1.5px dashed rgba(80, 59, 37, 0.30);
+	display: inline-flex;
+	align-items: center;
+	gap: 8px;
+	font: italic 400 1.05rem/1 @beach-body;
+	color: @beach-ink-soft;
+
+	.beach-log-ps-label {
+		font: 700 0.78rem/1 @beach-type;
+		letter-spacing: 0.22em;
+		text-transform: uppercase;
+		color: @beach-red;
+	}
+
+	.beach-log-ps-turtle {
+		display: inline-block;
+		width: 30px;
+		height: 22px;
+		vertical-align: middle;
+		transform: rotate(-6deg);
+
+		svg { width: 100%; height: 100%; }
+	}
+}
+
+// ── Responsive ───────────────────────────────────────────────
+@media (max-width: 1024px) {
+	.beach-washed-grid { grid-template-columns: repeat(2, 1fr); }
+	.beach-plank-row { grid-template-columns: 1fr; }
+	.beach-innings { grid-template-columns: 1fr; gap: 36px; }
+	.beach-inning:nth-child(2) { transform: none; }
+}
+
+@media (max-width: 720px) {
+	.beach { padding: 20px 18px 0; }
+	.beach-hero { padding: 32px 0 56px; }
+	.beach-scroll { padding: 40px 28px 28px; }
+	.beach-scroll-seal { width: 64px; height: 64px; top: -22px; right: 16px; }
+	.beach-washed-grid { grid-template-columns: 1fr; }
+	.beach-log { padding: 36px 24px 22px; }
+}

@@ -1,0 +1,290 @@
+extends layout
+
+block content
+	// ── BACKGROUND LAYERS (fixed, full-viewport) ─────────────────
+	.beach-bg(aria-hidden="true")
+		.beach-bg-sky
+		.beach-bg-horizon
+			svg(viewBox="0 0 1600 80", preserveAspectRatio="none")
+				path(d="M0,40 Q200,55 400,42 T800,40 T1200,38 T1600,42 L1600,80 L0,80 Z", fill="rgba(30, 74, 82, 0.18)")
+				path(d="M0,52 Q160,62 320,50 T640,50 T960,46 T1280,50 T1600,48 L1600,80 L0,80 Z", fill="rgba(30, 74, 82, 0.28)")
+		.beach-bg-island
+			svg(viewBox="0 0 240 80")
+				path(d="M10,80 Q40,30 80,38 Q120,18 160,40 Q200,28 230,80 Z", fill="rgba(43, 35, 24, 0.55)")
+				// Palm tree silhouettes
+				path(d="M100,50 L99,30 M99,30 Q90,22 82,28 M99,30 Q108,22 116,28 M99,30 Q92,18 88,16 M99,30 Q106,18 110,16", stroke="rgba(43,35,24,0.55)", stroke-width="1.2", fill="none", stroke-linecap="round")
+				path(d="M150,52 L151,34 M151,34 Q142,28 134,32 M151,34 Q160,26 168,30 M151,34 Q146,22 142,20", stroke="rgba(43,35,24,0.55)", stroke-width="1.2", fill="none", stroke-linecap="round")
+		.beach-bg-napoleon(title="L'Empereur, contemplating the horizon")
+			svg(viewBox="0 0 60 80")
+				// Rocky outcrop
+				path(d="M0,80 Q14,68 24,72 Q36,60 50,68 Q58,72 60,80 Z", fill="rgba(43, 35, 24, 0.75)")
+				// Napoleon silhouette (bicorne hat + coat figure)
+				g(fill="rgba(21, 41, 77, 0.92)")
+					// Bicorne hat (wide pointy ends)
+					path(d="M26,50 Q22,44 24,42 Q30,38 36,42 Q38,44 34,50 Z")
+					// Head
+					circle(cx="30", cy="52", r="2.5")
+					// Body / coat
+					path(d="M27,54 L27,68 Q27,70 28,70 L32,70 Q33,70 33,68 L33,54 Z")
+					// Hand-in-coat suggestion
+					path(d="M29,58 L31,62 L29,64 Z", fill="rgba(245, 234, 208, 0.85)")
+		.beach-clouds
+			.beach-cloud.beach-cloud-1
+				svg(viewBox="0 0 200 60")
+					path(d="M30,40 Q15,40 15,30 Q15,18 30,20 Q35,8 55,12 Q72,2 90,12 Q108,4 124,16 Q142,10 156,22 Q175,20 175,34 Q175,46 158,46 L40,46 Q26,46 30,40 Z", fill="rgba(255,255,255,0.85)")
+			.beach-cloud.beach-cloud-2
+				svg(viewBox="0 0 180 50")
+					path(d="M20,32 Q8,32 8,22 Q8,14 22,16 Q28,6 42,10 Q56,2 72,12 Q88,6 100,16 Q116,12 128,22 Q140,20 140,30 Q140,40 124,40 L30,40 Q18,40 20,32 Z", fill="rgba(255,255,255,0.72)")
+			.beach-cloud.beach-cloud-3
+				svg(viewBox="0 0 220 60")
+					path(d="M30,38 Q14,38 14,26 Q14,16 30,18 Q40,4 60,10 Q80,0 100,12 Q120,6 140,18 Q160,12 180,22 Q200,18 200,32 Q200,46 184,46 L42,46 Q26,46 30,38 Z", fill="rgba(255,255,255,0.78)")
+		.beach-seagull
+			svg(viewBox="0 0 40 20")
+				path(d="M2,12 Q8,4 16,12 Q20,8 24,12 Q32,4 38,12", stroke="rgba(43,35,24,0.55)", stroke-width="1.6", fill="none", stroke-linecap="round")
+		.beach-bottle
+			svg(viewBox="0 0 40 70")
+				path(d="M14,12 L26,12 L26,18 Q26,20 28,22 L28,60 Q28,66 22,66 L18,66 Q12,66 12,60 L12,22 Q14,20 14,18 Z", fill="rgba(120, 152, 145, 0.70)", stroke="rgba(43,35,24,0.55)", stroke-width="1")
+				rect(x="14", y="6", width="12", height="6", fill="rgba(43,35,24,0.65)", rx="1")
+				// Rolled paper inside
+				rect(x="16", y="34", width="8", height="22", fill="rgba(245,234,208,0.9)")
+		.beach-map-overlay
+			svg(viewBox="0 0 800 600", preserveAspectRatio="xMidYMid slice")
+				// faint hand-drawn coast lines
+				path(d="M120,180 Q200,140 280,200 T420,200 Q500,160 580,220 Q660,180 700,260", stroke="rgba(43,35,24,0.06)", stroke-width="1.3", fill="none", stroke-dasharray="4 6")
+				path(d="M100,320 Q220,280 340,340 T500,320 Q620,300 700,360", stroke="rgba(43,35,24,0.05)", stroke-width="1.2", fill="none", stroke-dasharray="6 10")
+				path(d="M180,440 Q280,400 380,460 T560,440", stroke="rgba(43,35,24,0.05)", stroke-width="1", fill="none", stroke-dasharray="3 8")
+				// faint compass rose center
+				g(transform="translate(620,140)", opacity="0.10")
+					circle(cx="0", cy="0", r="38", fill="none", stroke="rgba(43,35,24,1)", stroke-width="1.2")
+					path(d="M0,-38 L0,38 M-38,0 L38,0 M-27,-27 L27,27 M-27,27 L27,-27", stroke="rgba(43,35,24,1)", stroke-width="0.8")
+					path(d="M0,-38 L6,-4 L0,0 L-6,-4 Z", fill="rgba(43,35,24,1)")
+		.beach-bg-sand
+
+	main.beach
+		// ── HERO ───────────────────────────────────────────────
+		header.beach-hero
+			.beach-logbox
+				.beach-log-date Day 412 of exile
+				.beach-log-quote “The mind grows restless on these shores…”
+				.beach-log-sig — N.B., l'Empereur (ret.)
+			.beach-hero-title
+				.beach-hero-fr L'Île de l'Estimation
+				h1.beach-hero-en BitPoints
+				.beach-hero-tag Castaway Planning Poker. Marooned &amp; Imperial since MMXV.
+			.beach-shipwreck(aria-hidden="true")
+				svg(viewBox="0 0 320 140")
+					// Hull (tilted)
+					g(transform="rotate(-8 160 80)")
+						path(d="M40,86 Q40,116 80,118 L240,118 Q278,116 282,86 Z", fill="#6e4f2e", stroke="#3a280f", stroke-width="2")
+						// Plank lines on hull
+						path(d="M52,96 L270,96 M58,106 L264,106", stroke="#3a280f", stroke-width="1", opacity="0.7")
+						// Cracks
+						path(d="M122,86 L128,118 M194,86 L188,118", stroke="#3a280f", stroke-width="1.2", opacity="0.5", stroke-dasharray="3 2")
+						// Broken mast
+						path(d="M150,86 L130,30 L138,28 L158,86 Z", fill="#3a280f")
+						// Tattered sail
+						path(d="M134,36 Q170,40 200,72 Q172,70 140,80 Z", fill="#f5ead0", stroke="#3a280f", stroke-width="1.2")
+						path(d="M140,52 L196,72 M142,62 L194,72", stroke="#3a280f", stroke-width="0.6", opacity="0.5")
+						// Anchor on sand
+						g(transform="translate(20,124) scale(0.5)")
+							path(d="M0,0 L0,18 M-10,8 Q0,28 10,8", stroke="#3a280f", stroke-width="3", fill="none", stroke-linecap="round")
+							circle(cx="0", cy="-3", r="3", fill="none", stroke="#3a280f", stroke-width="2")
+			.beach-hero-cta
+				a.beach-cta-btn(href="#decree")
+					span Join the Emperor
+					span.beach-cta-arrow ⚓
+
+		// ── DECREE (Create Room) ───────────────────────────────
+		section#decree.beach-decree
+			.beach-scroll
+				.beach-scroll-seal
+					.beach-seal-inner
+						span.beach-seal-letter N
+						svg.beach-seal-bee(viewBox="0 0 24 24", aria-hidden="true")
+							ellipse(cx="12", cy="14", rx="5", ry="6", fill="#c69648")
+							path(d="M12,9 Q8,4 6,6 Q8,8 10,9 Z M12,9 Q16,4 18,6 Q16,8 14,9 Z", fill="rgba(245,234,208,0.9)")
+							path(d="M9,13 L15,13 M8,16 L16,16", stroke="#15294d", stroke-width="1.2")
+				.beach-scroll-eyebrow PROCLAMATION OFFICIELLE · ART. I
+				h2.beach-scroll-title Imperial Decree
+				p.beach-scroll-lead By order of His Majesty l'Empereur, what story shall we estimate this afternoon? Hot sun. Plenty of time.
+				form#create.beach-form(action="/create")
+					label.beach-field
+						span.beach-field-label TITLE OF THIS RECKONING
+						input#title.beach-input(name="title", type="text", placeholder="User auth, redux of la défense, the API rewrite…", data-required="true", autocomplete="off")
+					button.beach-wax-btn(type="submit")
+						span.beach-wax-stamp
+						span.beach-wax-text Vive l'Empereur · Issue Decree
+				.beach-scroll-foot
+					span Signed
+					span.beach-scroll-sig N. Bonaparte
+					span MMXXVI
+
+		// ── ROSTER (Join Room) — driftwood plank ───────────────
+		section.beach-roster
+			.beach-plank
+				.beach-plank-eyebrow
+					span.beach-anchor-icon ⚓
+					span HANDS ON DECK
+				h3.beach-plank-title Climbing aboard a vessel?
+				form#join.beach-form.beach-form-join(action="/join")
+					.beach-plank-row
+						label.beach-field
+							span.beach-field-label ROOM №
+							input#room-id.beach-input.is-room(name="room-id", type="text", placeholder="00000", data-required="true", autocomplete="off")
+						label.beach-field
+							span.beach-field-label YOUR NAME
+							input#name.beach-input(name="name", type="text", placeholder="Bonaparte, J.", data-required="true", autocomplete="name")
+						label.beach-field
+							span.beach-field-label GRAVATAR (opt.)
+							input#email.beach-input(name="email", type="email", placeholder="you@island.fr", autocomplete="email")
+					button.beach-board-btn(type="submit")
+						span Report for Duty
+						span.beach-board-arrow →
+
+		// ── WASHED ASHORE (features) ───────────────────────────
+		section.beach-washed
+			.beach-section-eyebrow
+				span.beach-section-dot
+				span WHAT WASHED ASHORE
+				span.beach-section-dot
+			h2.beach-section-title Today's Inventory
+			.beach-washed-grid
+				.beach-find
+					.beach-find-tag № I
+					.beach-find-art
+						// Pocket watch SVG
+						svg(viewBox="0 0 80 90")
+							circle(cx="40", cy="50", r="28", fill="#c69648", stroke="#3a280f", stroke-width="2.5")
+							circle(cx="40", cy="50", r="22", fill="#f5ead0", stroke="#3a280f", stroke-width="1.2")
+							// crack
+							path(d="M28,38 L42,52 L36,58 L52,66", stroke="#3a280f", stroke-width="1.3", fill="none")
+							// hands
+							path(d="M40,50 L40,36 M40,50 L52,54", stroke="#3a280f", stroke-width="2", stroke-linecap="round")
+							circle(cx="40", cy="50", r="2", fill="#3a280f")
+							// stem & ring
+							path(d="M40,22 L40,16 M36,12 L44,12 Q44,8 40,8 Q36,8 36,12 Z", stroke="#3a280f", stroke-width="2", fill="none")
+							// roman numerals (dots)
+							circle(cx="40", cy="32", r="1.2", fill="#3a280f")
+							circle(cx="58", cy="50", r="1.2", fill="#3a280f")
+							circle(cx="40", cy="68", r="1.2", fill="#3a280f")
+							circle(cx="22", cy="50", r="1.2", fill="#3a280f")
+					h3.beach-find-name Real-time consensus
+					p.beach-find-desc It still ticks. Mostly. Live averages, min/max flags, the moment the last vote lands.
+				.beach-find
+					.beach-find-tag № II
+					.beach-find-art
+						// Four bandanas — turtle nod
+						svg(viewBox="0 0 80 90")
+							g(transform="translate(8,16)")
+								// red
+								path(d="M0,4 L18,0 L18,12 L0,16 Z", fill="#c63b3b", stroke="#3a280f", stroke-width="1.2")
+								// blue
+								path(d="M16,16 L34,12 L34,24 L16,28 Z", fill="#2f6dc4", stroke="#3a280f", stroke-width="1.2")
+								// orange
+								path(d="M32,28 L50,24 L50,36 L32,40 Z", fill="#e87930", stroke="#3a280f", stroke-width="1.2")
+								// purple
+								path(d="M48,40 L66,36 L66,48 L48,52 Z", fill="#6f4d99", stroke="#3a280f", stroke-width="1.2")
+								// eye-holes (turtle mask references — two cut-outs per band)
+								circle(cx="6", cy="9", r="1.2", fill="#3a280f")
+								circle(cx="12", cy="8", r="1.2", fill="#3a280f")
+					h3.beach-find-name Four bandanas, four decks
+					p.beach-find-desc Red, blue, orange, purple. They must have meant something. Standard, Fibonacci, T-Shirt, Letters — pick your colors.
+				.beach-find
+					.beach-find-tag № III
+					.beach-find-art
+						// Brass spyglass
+						svg(viewBox="0 0 80 90")
+							g(transform="translate(8,30) rotate(-18)")
+								rect(x="0", y="14", width="22", height="12", fill="#c69648", stroke="#3a280f", stroke-width="1.5", rx="1")
+								rect(x="20", y="12", width="22", height="16", fill="#d4a85a", stroke="#3a280f", stroke-width="1.5", rx="1")
+								rect(x="40", y="9", width="22", height="22", fill="#c69648", stroke="#3a280f", stroke-width="1.5", rx="1")
+								// lens shine
+								circle(cx="51", cy="20", r="6", fill="#f5ead0", opacity="0.6")
+								circle(cx="51", cy="20", r="3", fill="#f5ead0")
+					h3.beach-find-name Brass spyglass
+					p.beach-find-desc For watching without being seen. Observer mode — stakeholders watch the proceedings without skewing the average.
+				.beach-find
+					.beach-find-tag № IV
+					.beach-find-art
+						// Baseball with NB carved
+						svg(viewBox="0 0 80 90")
+							g(transform="translate(40,50)")
+								circle(cx="0", cy="0", r="26", fill="#f5ead0", stroke="#3a280f", stroke-width="2")
+								path(d="M-22,-10 Q0,-22 22,-10", stroke="#b53227", stroke-width="1.6", fill="none")
+								path(d="M-22,10 Q0,22 22,10", stroke="#b53227", stroke-width="1.6", fill="none")
+								// stitches
+								path(d="M-20,-12 l1,3 M-15,-15 l1,3 M-10,-18 l1,3 M-5,-20 l1,3 M0,-21 l1,3 M5,-20 l1,3 M10,-18 l1,3 M15,-15 l1,3 M20,-12 l1,3", stroke="#b53227", stroke-width="1.2")
+								path(d="M-20,12 l1,-3 M-15,15 l1,-3 M-10,18 l1,-3 M-5,20 l1,-3 M0,21 l1,-3 M5,20 l1,-3 M10,18 l1,-3 M15,15 l1,-3 M20,12 l1,-3", stroke="#b53227", stroke-width="1.2")
+								// carved initials
+								text(x="0", y="3", text-anchor="middle", fill="#3a280f", font-family="Cinzel, serif", font-size="9", font-weight="700") N.B.
+					h3.beach-find-name Battered baseball
+					p.beach-find-desc Initials carved: N.B. (Belongs to me now.) No accounts, no installs — a short link is all the league requires.
+
+		// ── TODAY'S LINEUP (How it works as scoreboard) ────────
+		section.beach-lineup
+			.beach-scoreboard
+				.beach-scoreboard-lights
+					- for (var l = 0; l < 18; l++)
+						span.beach-scoreboard-bulb
+				.beach-scoreboard-head
+					span.beach-scoreboard-home HOME
+					span.beach-scoreboard-vs VS.
+					span.beach-scoreboard-away VISITORS
+				.beach-scoreboard-title
+					span.beach-scoreboard-tag TODAY'S LINEUP
+					h2 Three Innings. Thirty Seconds.
+				.beach-innings
+					.beach-inning
+						.beach-inning-num 1
+						.beach-inning-label PITCH
+						.beach-inning-body
+							h3 Mint a link
+							p Pick a title. We mint a short link you can paste anywhere.
+					.beach-inning
+						.beach-inning-num 2
+						.beach-inning-label AT BAT
+						.beach-inning-body
+							h3 Take your swings
+							p Your party joins. Names, optional Gravatar, mobile-friendly.
+					.beach-inning
+						.beach-inning-num 3
+						.beach-inning-label HOME RUN
+						.beach-inning-body
+							h3 Settle the bill
+							p Reveal — the average drops with a flourish. Ship the story.
+				.beach-scoreboard-foot
+					span.beach-scoreboard-cell
+						span.beach-scoreboard-led
+						span LIVE
+					span.beach-scoreboard-attendance #{voterString} present
+					span.beach-scoreboard-cell
+						span.beach-scoreboard-led.is-amber
+						span 7th inning
+
+		// ── EMPEROR'S LOG (footer) ────────────────────────────
+		footer.beach-log
+			.beach-log-tape
+			.beach-log-tape.is-right
+			h3.beach-log-title From the Emperor's log
+			p.beach-log-body Day 412 of exile. The mind grows restless on these shores. With nothing but a battered baseball, four mysterious bandanas, and an inexplicable urge to estimate user stories, I have founded a small league. The pelicans are uninterested. The crabs more so.
+			.beach-log-row
+				.beach-log-signature
+					.beach-log-sig-name N. Bonaparte
+					.beach-log-sig-title l'Empereur (ret.) · l'Île d'Exile
+				.beach-log-stamp
+					.beach-log-stamp-frame
+						span MMXXVI
+						span SOUS LE SOLEIL
+			.beach-log-ps
+				span.beach-log-ps-label P.S.
+				span the turtles say
+				span.beach-log-ps-turtle
+					svg(viewBox="0 0 30 22")
+						// little turtle head with bandana
+						ellipse(cx="15", cy="12", rx="9", ry="7", fill="#4d9a4a", stroke="#3a280f", stroke-width="1.2")
+						rect(x="6", y="9", width="18", height="3", fill="#c63b3b")
+						circle(cx="12", cy="11", r="1", fill="#3a280f")
+						circle(cx="18", cy="11", r="1", fill="#3a280f")
+				span hello
+
+	script(src="/javascripts/beach.js")

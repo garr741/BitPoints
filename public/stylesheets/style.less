@@ -8,6 +8,8 @@
 @import "reset";
 @import "mixins";
 @import "external";
+@import "trial";
+@import "beach";
 @import "kicked";
 @import "modal";
 @import "voterRoom";
@@ -21,8 +23,8 @@ html {
 	min-height: 100%;
 	background-color: @bg-0;
 	background-image:
-		linear-gradient(to right, fade(#15192a, 2%) 1px, transparent 1px),
-		linear-gradient(to bottom, fade(#15192a, 2%) 1px, transparent 1px),
+		linear-gradient(to right, fade(@text, 2%) 1px, transparent 1px),
+		linear-gradient(to bottom, fade(@text, 2%) 1px, transparent 1px),
 		radial-gradient(900px 700px at 85% -10%, fade(@brand, 10%) 0%, transparent 60%),
 		radial-gradient(800px 600px at -10% 110%, fade(@accent, 8%) 0%, transparent 55%),
 		linear-gradient(180deg, @bg-0 0%, @bg-1 70%, @bg-0 100%);
@@ -66,15 +68,15 @@ body {
 
 	.fa { color: inherit; }
 
-	::selection      { background: @selection; color: #fff; }
-	::-moz-selection { background: @selection; color: #fff; }
+	::selection      { background: @selection; color: @bg-0; }
+	::-moz-selection { background: @selection; color: @bg-0; }
 }
 
-// Subtle scrollbar
+// Subtle scrollbar — ink-tinted to read on the paper background
 ::-webkit-scrollbar         { width: 10px; height: 10px; }
 ::-webkit-scrollbar-track   { background: transparent; }
-::-webkit-scrollbar-thumb   { background: rgba(255,255,255,0.08); border-radius: 0; }
-::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.16); }
+::-webkit-scrollbar-thumb   { background: fade(@text, 14%); border-radius: 0; }
+::-webkit-scrollbar-thumb:hover { background: fade(@text, 26%); }
 
 // ── Brand wordmark (reused on host) ─────────────────────────────
 .bp-logo {

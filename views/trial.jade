@@ -1,0 +1,181 @@
+extends layout
+
+block content
+	.trial
+		// ── HERO MOTEL SIGN ────────────────────────────────────
+		header.trial-hero
+			.trial-stars-top
+				span.trial-star-burst ✦
+			.trial-sign
+				.trial-bulb-strip.is-top
+					- for (var i = 0; i < 14; i++)
+						span.trial-bulb(style=`--bulb-delay:${(i * 0.18).toFixed(2)}s`)
+				.trial-sign-inner
+					.trial-sign-eyebrow EST. 2026 · HWY 42
+					h1.trial-sign-name
+						span.trial-sign-bit Bit
+						span.trial-sign-amp ·
+						span.trial-sign-points Points
+					.trial-sign-sub
+						span.trial-sign-sub-text MOTOR LODGE
+						span.trial-sign-sub-dot ✶
+						span.trial-sign-sub-text2 planning poker
+				.trial-bulb-strip.is-bottom
+					- for (var i = 0; i < 14; i++)
+						span.trial-bulb(style=`--bulb-delay:${(i * 0.21 + 0.1).toFixed(2)}s`)
+				.trial-sign-arrow
+					span.trial-arrow-text OFFICE
+					span.trial-arrow-shape →
+			.trial-vacancy-plate
+				span.trial-vacancy-led
+				span.trial-vacancy-text VACANCY
+				span.trial-vacancy-sub now serving #{voterString}, #{roomString}
+
+		// ── OFFICE / CHECK-IN ─────────────────────────────────
+		section.trial-office
+			.trial-check-in
+				.trial-card-tape
+				.trial-card-corners
+				.trial-card-head
+					span.trial-card-stamp ✱ OPEN ✱
+					span.trial-card-no NO. 0042
+				h2.trial-card-title Front Desk
+				p.trial-card-lead Please ring the bell for service. Continental breakfast served free with every estimate.
+				form#create.trial-form(action="/create")
+					label.trial-field
+						span.trial-field-label.is-blink GUEST NAME / WHAT ARE WE ESTIMATING
+						input#title.trial-input(name='title', type='text', placeholder='Sprint 42 Planning', data-required='true', autocomplete='off')
+					button.trial-bell-btn(type='submit')
+						span.trial-bell-icon ⌁
+						span.trial-bell-text Ding Bell · Check In
+						span.trial-bell-sub New room
+				.trial-card-foot
+					span.trial-card-rate RATE: $0 / NIGHT
+					span.trial-card-dots ·····
+					span.trial-card-tip NO TIP REQUIRED
+			.trial-key-card
+				.trial-key-eyebrow ALREADY HAVE A KEY?
+				h3.trial-key-title Room Re-entry
+				form#join.trial-form.trial-form-key(action='/join')
+					label.trial-field
+						span.trial-field-label ROOM #
+						input#room-id.trial-input.is-key(name='room-id', type='text', placeholder='00000', data-required='true', autocomplete='off')
+					label.trial-field
+						span.trial-field-label YOUR NAME
+						input#name.trial-input(name='name', type='text', placeholder='Avery', data-required='true', autocomplete='name')
+					label.trial-field
+						span.trial-field-label EMAIL (gravatar, optional)
+						input#email.trial-input(name='email', type='email', placeholder='you@example.com', autocomplete='email')
+					button.trial-key-btn(type='submit')
+						span Unlock Room
+						span.trial-key-arrow →
+
+		// ── CONTINENTAL BREAKFAST ────────────────────────────
+		section.trial-breakfast
+			.trial-breakfast-head
+				.trial-breakfast-clock
+					span.trial-clock-dot
+					span 7:00 AM · 9:30 AM · always
+				h2.trial-breakfast-title Today's Continental Breakfast
+				.trial-breakfast-meta
+					span.trial-led-sm
+					span SERVED HOT
+			ol.trial-buffet
+				li.trial-dish
+					.trial-heatlamp
+					.trial-dish-tag #01
+					.trial-led-row
+						span.trial-led
+						span HOT
+					h3.trial-dish-name Real-time consensus
+					p.trial-dish-desc Live averages, large-spread warnings, the moment the last vote lands. Hot and fresh from the kitchen.
+					.trial-dish-foot
+						span.trial-dish-temp 165°F
+						span.trial-dish-keep Keep warm
+				li.trial-dish
+					.trial-heatlamp
+					.trial-dish-tag #02
+					.trial-led-row
+						span.trial-led.is-amber
+						span À LA CARTE
+					h3.trial-dish-name Decks for every team
+					p.trial-dish-desc Standard, Fibonacci, T-Shirt, Letters. Switch mid-session — everyone updates instantly.
+					.trial-dish-foot
+						span.trial-dish-temp 4 menus
+						span.trial-dish-keep House special
+				li.trial-dish
+					.trial-heatlamp
+					.trial-dish-tag #03
+					.trial-led-row
+						span.trial-led.is-cool
+						span SILENT
+					h3.trial-dish-name Observer mode
+					p.trial-dish-desc The silent coffee service. Stakeholders watch the proceedings without skewing the average.
+					.trial-dish-foot
+						span.trial-dish-temp 145°F
+						span.trial-dish-keep Decaf available
+				li.trial-dish
+					.trial-heatlamp
+					.trial-dish-tag #04
+					.trial-led-row
+						span.trial-led.is-coral
+						span SELF SERVE
+					h3.trial-dish-name No accounts, no installs
+					p.trial-dish-desc Help yourself. A short link is all you need. Mobile-friendly. Pets welcome.
+					.trial-dish-foot
+						span.trial-dish-temp Free
+						span.trial-dish-keep 24 / 7
+
+		// ── AMENITIES (how it works) ─────────────────────────
+		section.trial-amenities
+			.trial-phone-eyebrow
+				span.trial-phone-shape ✆
+				span DIAL FROM YOUR ROOM PHONE
+			h2.trial-amenities-title Three rings. About thirty seconds.
+			ol.trial-dial-list
+				li.trial-dial
+					span.trial-dial-num 1
+					.trial-dial-rotary
+					.trial-dial-body
+						h3 Check in
+						p Pick a title. We mint a short link you can paste anywhere.
+				li.trial-dial
+					span.trial-dial-num 2
+					.trial-dial-rotary
+					.trial-dial-body
+						h3 Invite your party
+						p Names, optional Gravatar. Mobile-friendly. Everyone joins in seconds.
+				li.trial-dial
+					span.trial-dial-num 3
+					.trial-dial-rotary
+					.trial-dial-body
+						h3 Settle the bill
+						p Open a round, everyone votes, host reveals — the average drops with a flourish.
+
+		// ── POSTCARD FOOTER ─────────────────────────────────
+		footer.trial-postcard
+			.trial-postcard-stamp
+				.trial-stamp-frame
+					span 1¢
+					span US POSTAGE
+			.trial-postcard-left
+				.trial-postcard-greet Wish you
+				.trial-postcard-greet-2 were here.
+				.trial-postcard-from — The BitPoints staff
+			.trial-postcard-right
+				.trial-postcard-line BitPoints Motor Lodge
+				.trial-postcard-line Highway 42 · BitPoints, USA
+				.trial-postcard-line Open 24 hours · 7 days
+				.trial-postcard-line Vacancy as of #{voterString}
+				.trial-postcard-line Est. MMXXVI · Room 13
+
+		// ── LED MARQUEE ─────────────────────────────────────
+		.trial-marquee
+			.trial-marquee-track(aria-hidden="true")
+				- var msgs = ['WELCOME TO BITPOINTS', 'CONTINENTAL BREAKFAST 7AM–9:30AM', 'STORY POINTS WHILE YOU WAIT', 'PARTY SIZE 8+ PREFERRED', 'NO PETS · ICE MACHINE OPERATIONAL', 'POOL CLOSED FOR REPAIRS · USE LOBBY ROUNDS', 'NOW SERVING ROOM #042', 'AAA APPROVED · EVENTUALLY']
+				- for (var loop = 0; loop < 2; loop++)
+					- for (var m = 0; m < msgs.length; m++)
+						span.trial-marquee-msg #{msgs[m]}
+						span.trial-marquee-sep ✦
+
+	script(src='/javascripts/trial.js')

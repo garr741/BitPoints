@@ -101,6 +101,38 @@ exports.kick = function(req, res) {
 };
 
 /**
+ * GET /trial — experimental motel-themed homepage
+ */
+exports.trial = function(req, res) {
+	var numRooms = req.app.utils.getRoomCount();
+	var numVoters = req.app.utils.getUserCount();
+
+	res.render('trial', {
+		numRooms: numRooms,
+		numVoters: numVoters,
+		roomString: numRooms + (numRooms === 1 ? ' room' : ' rooms'),
+		voterString: numVoters + (numVoters === 1 ? ' guest' : ' guests'),
+		bodyClass: 'trial-body'
+	});
+};
+
+/**
+ * GET /beach — experimental castaway-themed homepage
+ */
+exports.beach = function(req, res) {
+	var numRooms = req.app.utils.getRoomCount();
+	var numVoters = req.app.utils.getUserCount();
+
+	res.render('beach', {
+		numRooms: numRooms,
+		numVoters: numVoters,
+		roomString: numRooms + (numRooms === 1 ? ' vessel' : ' vessels'),
+		voterString: numVoters + (numVoters === 1 ? ' castaway' : ' castaways'),
+		bodyClass: 'beach-body'
+	});
+};
+
+/**
  * GET 404 Page
  */
 exports.notFound = function(req, res) {

@@ -10,7 +10,7 @@
 	font: 600 0.95rem/1 @sans;
 	letter-spacing: 0.01em;
 	background: @color;
-	color: #fff;
+	color: @bg-0;
 	cursor: pointer;
 	border-radius: @radius-sm;
 	box-shadow: none;
@@ -21,6 +21,7 @@
 	&:hover, &:focus {
 		background: lighten(@color, 4%);
 		border-color: lighten(@color, 8%);
+		color: @bg-0;
 		outline: none;
 	}
 	&:active { transform: translateY(1px); }
@@ -51,7 +52,7 @@
 
 // ── Surfaces ────────────────────────────────────────────────────
 .surface() {
-	background: rgba(255,255,255,0.025);
+	background: @surface;
 	border: 1px solid @border;
 	border-radius: @radius;
 	box-shadow: none;
